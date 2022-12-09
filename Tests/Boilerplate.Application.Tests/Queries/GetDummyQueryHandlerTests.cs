@@ -1,5 +1,5 @@
-using Boilerplate.Application.Queries;
-using Boilerplate.Infrastructure;
+using KeyManager.Application.Queries;
+using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Boilerplate.Application.Tests.Queries;
@@ -24,7 +24,7 @@ public class GetDummyQueryHandlerTests
     public async Task Dummy_GetAsync_WithGivenId_ShouldReturnDummyDto()
     {
         //Arrange
-        var mockDummy = new Domain.Entities.Dummy
+        var mockDummy = new KeyManager.Domain.Entities.Dummy
         {
             Id = 1,
             Name = "Test"
@@ -35,7 +35,7 @@ public class GetDummyQueryHandlerTests
             Name = "Test"
         };
         _dataContext.Add(mockDummy);
-        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<Domain.Entities.Dummy>())).Returns(mockDummyDto);
+        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<KeyManager.Domain.Entities.Dummy>())).Returns(mockDummyDto);
 
         //Act
         var result = await _dummyHandler.Handle(new GetDummyQuery(1), default);

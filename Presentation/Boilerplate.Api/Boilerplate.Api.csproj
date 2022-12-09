@@ -19,8 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Libraries\Boilerplate.Infrastructure\Boilerplate.Infrastructure.csproj" />
-        <ProjectReference Include="..\..\Libraries\Boilerplate.Domain\Boilerplate.Domain.csproj" />
-        <ProjectReference Include="..\..\Libraries\Boilerplate.Application\Boilerplate.Application.csproj" />
+        <ProjectReference Include="..\..\Libraries\KeyManager.Infrastructure\KeyManager.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\Libraries\KeyManager.Domain\KeyManager.Domain.csproj" />
+        <ProjectReference Include="..\..\Libraries\KeyManager.Application\KeyManager.Application.csproj" />
     </ItemGroup>
 </Project>

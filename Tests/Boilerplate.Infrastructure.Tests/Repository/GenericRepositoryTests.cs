@@ -1,4 +1,6 @@
-﻿namespace Boilerplate.Infrastructure.Tests.Repository;
+﻿using KeyManager.Infrastructure;
+
+namespace Boilerplate.Infrastructure.Tests.Repository;
 
 public class GenericRepositoryTests : IDisposable
 {

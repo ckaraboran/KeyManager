@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\Boilerplate.Domain\Boilerplate.Domain.csproj" />
-    <ProjectReference Include="..\..\Libraries\Boilerplate.Application\Boilerplate.Application.csproj" />
+    <ProjectReference Include="..\..\Libraries\KeyManager.Domain\KeyManager.Domain.csproj" />
+    <ProjectReference Include="..\..\Libraries\KeyManager.Application\KeyManager.Application.csproj" />
     <ProjectReference Include="..\..\Presentation\Boilerplate.Api\Boilerplate.Api.csproj" />
   </ItemGroup>
 

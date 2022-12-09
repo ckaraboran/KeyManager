@@ -1,6 +1,6 @@
 using System.Text;
-using Boilerplate.Application;
-using Boilerplate.Domain.Models;
+using KeyManager.Application;
+using KeyManager.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Boilerplate.Api;

@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Security.Claims;
-using Boilerplate.Domain.Models;
+using KeyManager.Domain.Models;
 
 namespace Boilerplate.Api.Controllers;
 

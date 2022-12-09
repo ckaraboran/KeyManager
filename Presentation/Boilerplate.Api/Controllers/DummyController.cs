@@ -1,5 +1,5 @@
-using Boilerplate.Application.Commands;
-using Boilerplate.Application.Queries;
+using KeyManager.Application.Commands;
+using KeyManager.Application.Queries;
 using MediatR;
 
 namespace Boilerplate.Api.Controllers;

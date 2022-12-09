@@ -1,5 +1,5 @@
-using Boilerplate.Domain.Interfaces;
-using Boilerplate.Domain.Models;
+using KeyManager.Domain.Interfaces;
+using KeyManager.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Boilerplate.Api.Tests.Controllers;

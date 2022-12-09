@@ -3,8 +3,8 @@
 global using AutoMapper;
 global using Boilerplate.Api.Controllers;
 global using Boilerplate.Api.Middlewares;
-global using Boilerplate.Domain.DTOs;
-global using Boilerplate.Domain.Exceptions;
+global using KeyManager.Domain.DTOs;
+global using KeyManager.Domain.Exceptions;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Logging;

@@ -1,16 +1,16 @@
-using Boilerplate.Application.Commands;
+using KeyManager.Application.Commands;
 
 namespace Boilerplate.Application.Tests.Commands;
 
 public class UpdateDummyCommandHandlerTests
 {
     private readonly UpdateDummyCommandHandler _dummyHandler;
-    private readonly Mock<IGenericRepository<Domain.Entities.Dummy>> _mockDummyRepository;
+    private readonly Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>> _mockDummyRepository;
     private readonly Mock<IMapper> _mockMapper;
 
     public UpdateDummyCommandHandlerTests()
     {
-        _mockDummyRepository = new Mock<IGenericRepository<Domain.Entities.Dummy>>();
+        _mockDummyRepository = new Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>>();
         _mockMapper = new Mock<IMapper>();
         _dummyHandler = new UpdateDummyCommandHandler(_mockDummyRepository.Object, _mockMapper.Object);
     }
@@ -27,14 +27,14 @@ public class UpdateDummyCommandHandlerTests
             Id = 1,
             Name = dummyName
         };
-        var mockDummy = new Domain.Entities.Dummy
+        var mockDummy = new KeyManager.Domain.Entities.Dummy
         {
             Id = 1,
             Name = dummyName
         };
         _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync(mockDummy);
-        _mockDummyRepository.Setup(s => s.UpdateAsync(It.IsAny<Domain.Entities.Dummy>())).ReturnsAsync(mockDummy);
-        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<Domain.Entities.Dummy>())).Returns(mockDummyDto);
+        _mockDummyRepository.Setup(s => s.UpdateAsync(It.IsAny<KeyManager.Domain.Entities.Dummy>())).ReturnsAsync(mockDummy);
+        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<KeyManager.Domain.Entities.Dummy>())).Returns(mockDummyDto);
 
         //Act
         var result = await _dummyHandler.Handle(mockDummyUpdateCommand, default);
@@ -51,7 +51,7 @@ public class UpdateDummyCommandHandlerTests
         //Arrange
         var mockUpdateDummyCommand = new UpdateDummyCommand(1, "Test");
         _mockDummyRepository.Setup(s => s.GetAsync(mockUpdateDummyCommand.Id))
-            .ReturnsAsync((Domain.Entities.Dummy)null);
+            .ReturnsAsync((KeyManager.Domain.Entities.Dummy)null);
 
         //Act
         Task Result()

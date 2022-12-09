@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
-using Boilerplate.Application.Behaviors;
-using Boilerplate.Application.Extensions;
+using KeyManager.Application.Behaviors;
+using KeyManager.Application.Extensions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

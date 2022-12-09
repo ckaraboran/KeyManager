@@ -1,15 +1,15 @@
-using Boilerplate.Application.Commands;
+using KeyManager.Application.Commands;
 
 namespace Boilerplate.Application.Tests.Commands;
 
 public class DeleteDummyCommandHandlerTests
 {
     private readonly DeleteDummyCommandHandler _dummyHandler;
-    private readonly Mock<IGenericRepository<Domain.Entities.Dummy>> _mockDummyRepository;
+    private readonly Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>> _mockDummyRepository;
 
     public DeleteDummyCommandHandlerTests()
     {
-        _mockDummyRepository = new Mock<IGenericRepository<Domain.Entities.Dummy>>();
+        _mockDummyRepository = new Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>>();
         _dummyHandler = new DeleteDummyCommandHandler(_mockDummyRepository.Object);
     }
 
@@ -17,13 +17,13 @@ public class DeleteDummyCommandHandlerTests
     public async Task Dummy_DeleteAsync_WithGivenId_ShouldBeVerified()
     {
         //Arrange
-        var mockDummy = new Domain.Entities.Dummy
+        var mockDummy = new KeyManager.Domain.Entities.Dummy
         {
             Id = 1,
             Name = "Test"
         };
         _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync(mockDummy);
-        _mockDummyRepository.Setup(s => s.SoftDeleteAsync(It.IsAny<Domain.Entities.Dummy>()));
+        _mockDummyRepository.Setup(s => s.SoftDeleteAsync(It.IsAny<KeyManager.Domain.Entities.Dummy>()));
 
         //Act
         await _dummyHandler.Handle(new DeleteDummyCommand(1), default);
@@ -36,7 +36,7 @@ public class DeleteDummyCommandHandlerTests
     public async Task Dummy_DeleteAsync_WithGivenId_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
     {
         //Arrange
-        _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync((Domain.Entities.Dummy)null);
+        _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync((KeyManager.Domain.Entities.Dummy)null);
 
         //Act
         Task Result()

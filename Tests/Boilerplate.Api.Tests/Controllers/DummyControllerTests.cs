@@ -1,7 +1,7 @@
 using System.Threading;
 using Boilerplate.Api.DTOs.Responses.Dummy;
-using Boilerplate.Application.Commands;
-using Boilerplate.Application.Queries;
+using KeyManager.Application.Commands;
+using KeyManager.Application.Queries;
 using MediatR;
 
 namespace Boilerplate.Api.Tests.Controllers;

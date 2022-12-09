@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Boilerplate.Domain.Models;
+using KeyManager.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Boilerplate.Api.Controllers;

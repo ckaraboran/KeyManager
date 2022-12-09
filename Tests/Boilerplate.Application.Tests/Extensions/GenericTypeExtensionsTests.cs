@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using Boilerplate.Application.Extensions;
+using KeyManager.Application.Extensions;
 
 namespace Boilerplate.Application.Tests.Extensions;
 
