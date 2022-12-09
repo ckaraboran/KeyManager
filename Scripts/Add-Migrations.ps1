@@ -3,6 +3,6 @@ while ([string]::IsNullOrWhitespace($MigrationName)) {
 	$MigrationName = Read-Host "Migration name"
 }
 
-dotnet ef migrations add $MigrationName --project ../Libraries/Boilerplate.Data -s ../Presentation/Boilerplate.Api/Boilerplate.Api.csproj
+dotnet ef migrations add $MigrationName --project ../Libraries/KeyManager.Data -s ../Presentation/KeyManager.Api/KeyManager.Api.csproj
 
-dotnet ef database update --project ../Libraries/Boilerplate.Data -s ../Presentation/Boilerplate.Api/Boilerplate.Api.csproj
+dotnet ef database update --project ../Libraries/KeyManager.Data -s ../Presentation/KeyManager.Api/KeyManager.Api.csproj

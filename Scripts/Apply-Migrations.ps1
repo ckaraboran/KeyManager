@@ -1,1 +1,1 @@
-dotnet ef database update --project ../Libraries/Boilerplate.Data -s ../Presentation/Boilerplate.Api/Boilerplate.Api.csproj
+dotnet ef database update --project ../Libraries/KeyManager.Data -s ../Presentation/KeyManager.Api/KeyManager.Api.csproj
