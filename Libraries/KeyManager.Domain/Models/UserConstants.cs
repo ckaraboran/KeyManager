@@ -5,7 +5,7 @@ namespace KeyManager.Domain.Models;
 
 public class UserConstants : IAuthUsersRepository
 {
-    [SuppressMessage("SonarLint", "S2068", Justification = "Ignored intentionally as a boilerplate app")]
+    [SuppressMessage("SonarLint", "S2068", Justification = "Ignored intentionally as a assessment app")]
     private readonly List<UserModel> _userCollection = new()
     {
         new UserModel { Username = "ckaraboran", Password = "ckaraboran", Role = "Admin" }

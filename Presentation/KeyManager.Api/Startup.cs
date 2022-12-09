@@ -114,7 +114,7 @@ public class Startup
         app.UseSwaggerUI(options =>
         {
             options.RoutePrefix = "swagger";
-            options.SwaggerEndpoint("v1/swagger.json", "Boilerplate API v1");
+            options.SwaggerEndpoint("v1/swagger.json", "KeyManager API v1");
         });
     }
 }

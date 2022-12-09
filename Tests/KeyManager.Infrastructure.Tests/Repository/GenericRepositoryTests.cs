@@ -1,6 +1,4 @@
-﻿using KeyManager.Infrastructure;
-
-namespace KeyManager.Infrastructure.Tests.Repository;
+﻿namespace KeyManager.Infrastructure.Tests.Repository;
 
 public class GenericRepositoryTests : IDisposable
 {
