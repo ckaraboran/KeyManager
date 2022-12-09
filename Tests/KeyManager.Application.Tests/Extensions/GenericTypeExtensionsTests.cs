@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using KeyManager.Application.Extensions;
 
-namespace Boilerplate.Application.Tests.Extensions;
+namespace KeyManager.Application.Tests.Extensions;
 
 public class GenericTypeExtensionsTests
 {

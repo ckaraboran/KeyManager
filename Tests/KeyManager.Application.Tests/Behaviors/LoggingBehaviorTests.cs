@@ -5,7 +5,7 @@ using KeyManager.Application.Extensions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Boilerplate.Application.Tests.Behaviors;
+namespace KeyManager.Application.Tests.Behaviors;
 
 public class LoggingBehaviorTests
 {

@@ -4,7 +4,7 @@ using KeyManager.Application.Commands;
 using KeyManager.Application.Queries;
 using MediatR;
 
-namespace Boilerplate.Api.Tests.Controllers;
+namespace KeyManager.Api.Tests.Controllers;
 
 public class DummyControllerTests
 {

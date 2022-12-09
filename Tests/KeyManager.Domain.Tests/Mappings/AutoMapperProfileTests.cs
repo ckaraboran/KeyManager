@@ -1,9 +1,9 @@
-﻿namespace Boilerplate.Api.Tests.Mappings;
+﻿namespace KeyManager.Domain.Tests.Mappings;
 
 public class AutoMapperProfileTests
 {
     [Fact]
-    public Task ApiAutoMapper_ValidateMappings_ShouldBeValid()
+    public Task DomainAutoMapper_ValidateMappings_ShouldBeValid()
     {
         var mapperConfig = new MapperConfiguration(cfg =>
         {

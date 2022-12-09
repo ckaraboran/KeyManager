@@ -2,7 +2,7 @@ using KeyManager.Domain.Interfaces;
 using KeyManager.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace Boilerplate.Api.Tests.Controllers;
+namespace KeyManager.Api.Tests.Controllers;
 
 public class LoginControllerTests
 {

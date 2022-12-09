@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Api.Tests.Security;
+﻿namespace KeyManager.Api.Tests.Security;
 
 public class AuthorizationHandlerTests
 {

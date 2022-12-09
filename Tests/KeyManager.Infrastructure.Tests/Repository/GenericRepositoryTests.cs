@@ -1,6 +1,6 @@
 ﻿using KeyManager.Infrastructure;
 
-namespace Boilerplate.Infrastructure.Tests.Repository;
+namespace KeyManager.Infrastructure.Tests.Repository;
 
 public class GenericRepositoryTests : IDisposable
 {

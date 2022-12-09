@@ -1,6 +1,6 @@
 using KeyManager.Application.Commands;
 
-namespace Boilerplate.Application.Tests.Commands;
+namespace KeyManager.Application.Tests.Commands;
 
 public class CreateDummyCommandHandlerTests
 {

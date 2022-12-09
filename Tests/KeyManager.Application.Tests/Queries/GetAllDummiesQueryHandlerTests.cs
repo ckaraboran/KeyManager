@@ -2,7 +2,7 @@ using KeyManager.Application.Queries;
 using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Boilerplate.Application.Tests.Queries;
+namespace KeyManager.Application.Tests.Queries;
 
 public class GetAllDummiesQueryHandlerTests
 {

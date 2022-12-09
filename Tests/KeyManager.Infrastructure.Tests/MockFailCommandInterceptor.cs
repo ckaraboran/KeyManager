@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Infrastructure.Tests;
+﻿namespace KeyManager.Infrastructure.Tests;
 
 public class MockFailCommandInterceptor : DbCommandInterceptor
 {

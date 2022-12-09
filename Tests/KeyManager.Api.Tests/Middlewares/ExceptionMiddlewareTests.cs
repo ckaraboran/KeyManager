@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Api.Tests.Middlewares;
+﻿namespace KeyManager.Api.Tests.Middlewares;
 
 public class ExceptionMiddlewareTests
 {
