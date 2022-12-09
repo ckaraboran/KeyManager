@@ -1,9 +1,11 @@
 using System.Text;
+using KeyManager.Api.Middlewares;
+using KeyManager.Api.Security.Authorization;
 using KeyManager.Application;
 using KeyManager.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Boilerplate.Api;
+namespace KeyManager.Api;
 
 [ExcludeFromCodeCoverage]
 public class Startup

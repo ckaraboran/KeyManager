@@ -1,4 +1,4 @@
-namespace Boilerplate.Api;
+namespace KeyManager.Api;
 
 [ExcludeFromCodeCoverage]
 public static class Program

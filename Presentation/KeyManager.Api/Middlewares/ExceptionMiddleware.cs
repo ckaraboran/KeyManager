@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Api.Middlewares;
+﻿namespace KeyManager.Api.Middlewares;
 
 public class ExceptionMiddleware
 {

@@ -1,8 +1,10 @@
+using KeyManager.Api.DTOs.Responses.Dummy;
+using KeyManager.Api.Security.Authorization;
 using KeyManager.Application.Commands;
 using KeyManager.Application.Queries;
 using MediatR;
 
-namespace Boilerplate.Api.Controllers;
+namespace KeyManager.Api.Controllers;
 
 [Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/dummy")]

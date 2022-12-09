@@ -1,8 +1,8 @@
 // Global using directives
 
 global using AutoMapper;
-global using Boilerplate.Api.Controllers;
-global using Boilerplate.Api.Middlewares;
+global using KeyManager.Api.Controllers;
+global using KeyManager.Api.Middlewares;
 global using KeyManager.Domain.DTOs;
 global using KeyManager.Domain.Exceptions;
 global using Microsoft.AspNetCore.Http;
@@ -14,8 +14,8 @@ global using System.Collections.Generic;
 global using System.Net;
 global using System.Security.Claims;
 global using System.Threading.Tasks;
-global using Boilerplate.Api.Mappings;
-global using Boilerplate.Api.Security.Authorization;
+global using KeyManager.Api.Mappings;
+global using KeyManager.Api.Security.Authorization;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Authorization;
 global using Xunit;

@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\KeyManager.Domain\KeyManager.Domain.csproj" />
     <ProjectReference Include="..\..\Libraries\KeyManager.Application\KeyManager.Application.csproj" />
-    <ProjectReference Include="..\..\Presentation\Boilerplate.Api\Boilerplate.Api.csproj" />
+    <ProjectReference Include="..\..\Presentation\KeyManager.Api\KeyManager.Api.csproj" />
   </ItemGroup>
 
 </Project>

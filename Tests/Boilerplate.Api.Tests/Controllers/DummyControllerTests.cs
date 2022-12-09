@@ -1,5 +1,5 @@
 using System.Threading;
-using Boilerplate.Api.DTOs.Responses.Dummy;
+using KeyManager.Api.DTOs.Responses.Dummy;
 using KeyManager.Application.Commands;
 using KeyManager.Application.Queries;
 using MediatR;

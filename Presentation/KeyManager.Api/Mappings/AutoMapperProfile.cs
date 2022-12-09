@@ -1,4 +1,6 @@
-﻿namespace Boilerplate.Api.Mappings;
+﻿using KeyManager.Api.DTOs.Responses.Dummy;
+
+namespace KeyManager.Api.Mappings;
 
 public class AutoMapperProfile : Profile
 {

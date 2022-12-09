@@ -5,7 +5,7 @@ using System.Text;
 using KeyManager.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Boilerplate.Api.Controllers;
+namespace KeyManager.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

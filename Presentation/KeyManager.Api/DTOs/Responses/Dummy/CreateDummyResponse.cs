@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Api.DTOs.Responses.Dummy;
+﻿namespace KeyManager.Api.DTOs.Responses.Dummy;
 
 public class CreateDummyResponse
 {

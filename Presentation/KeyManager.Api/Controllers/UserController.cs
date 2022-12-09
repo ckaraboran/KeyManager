@@ -2,7 +2,7 @@ using System.Linq;
 using System.Security.Claims;
 using KeyManager.Domain.Models;
 
-namespace Boilerplate.Api.Controllers;
+namespace KeyManager.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

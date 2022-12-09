@@ -1,4 +1,4 @@
-﻿namespace Boilerplate.Api.Security.Authorization;
+﻿namespace KeyManager.Api.Security.Authorization;
 
 public sealed class AuthorizationHandler : AuthorizationHandler<AuthorizationRequirement>
 {
