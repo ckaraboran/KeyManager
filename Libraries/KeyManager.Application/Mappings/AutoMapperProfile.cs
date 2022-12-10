@@ -16,5 +16,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Door, UpdateDoorCommand>().ReverseMap();
         CreateMap<Role, CreateRoleCommand>().ReverseMap();
         CreateMap<Role, RoleDto>().ReverseMap();
+        CreateMap<Role, UpdateRoleCommand>().ReverseMap();
     }
 }
