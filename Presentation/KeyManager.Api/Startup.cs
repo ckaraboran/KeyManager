@@ -21,10 +21,6 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddApplication();
-        services.AddOptions<AuthenticationConfiguration>(AuthenticationConfiguration.AuthenticationScheme)
-            .Bind(Configuration.GetSection(nameof(AuthenticationConfiguration)))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
         services.AddDbContextPool<DataContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("KeyManagerDb")));
 

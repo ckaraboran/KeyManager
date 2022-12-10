@@ -5,7 +5,6 @@ global using KeyManager.Api.Middlewares;
 global using KeyManager.Api.Security.Authorization;
 global using KeyManager.Infrastructure;
 global using KeyManager.Infrastructure.Repository;
-global using KeyManager.Domain.Configurations;
 global using KeyManager.Domain.DTOs;
 global using KeyManager.Domain.Exceptions;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
