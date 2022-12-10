@@ -3,6 +3,8 @@ namespace KeyManager.Infrastructure.Tests.Repository;
 public class GenericRepositoryIncidentTests : IDisposable
 {
     private readonly DataContext _dataContext;
+    private readonly Door _mockDoor = new() { Id = new Random().Next(), Name = "Door1" };
+    private readonly User _mockUser = new() { Id = new Random().Next(), Name = "Name1", Surname = "Surname1" };
 
     public GenericRepositoryIncidentTests()
     {
@@ -28,9 +30,9 @@ public class GenericRepositoryIncidentTests : IDisposable
         //Arrange
         var mockIncidents = new List<Incident>
         {
-            new() { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now },
-            new() { Id = 2, UserId = 2, DoorId = 2, EventDate = DateTime.Now },
-            new() { Id = 3, UserId = 2, DoorId = 2, EventDate = DateTime.Now }
+            new() { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now },
+            new() { Id = 2, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now },
+            new() { Id = 3, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now }
         };
 
         _dataContext.AddRange(mockIncidents);
@@ -49,7 +51,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -60,8 +62,8 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Assert
         Assert.Equal(mockIncident.Id, incident.Id);
-        Assert.Equal(mockIncident.UserId, incident.UserId);
-        Assert.Equal(mockIncident.DoorId, incident.DoorId);
+        Assert.Equal(_mockUser.Id, incident.UserId);
+        Assert.Equal(_mockDoor.Id, incident.DoorId);
         Assert.Equal(mockIncident.EventDate, incident.EventDate);
     }
 
@@ -69,7 +71,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -80,8 +82,8 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Assert
         Assert.Equal(mockIncident.Id, incidents[0].Id);
-        Assert.Equal(mockIncident.UserId, incidents[0].UserId);
-        Assert.Equal(mockIncident.DoorId, incidents[0].DoorId);
+        Assert.Equal(_mockUser.Id, incidents[0].UserId);
+        Assert.Equal(_mockDoor.Id, incidents[0].DoorId);
         Assert.Equal(mockIncident.EventDate, incidents[0].EventDate);
     }
 
@@ -89,7 +91,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -100,8 +102,8 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Assert
         Assert.Equal(mockIncident.Id, incident.Id);
-        Assert.Equal(mockIncident.UserId, incident.UserId);
-        Assert.Equal(mockIncident.DoorId, incident.DoorId);
+        Assert.Equal(_mockUser.Id, incident.UserId);
+        Assert.Equal(_mockDoor.Id, incident.DoorId);
         Assert.Equal(mockIncident.EventDate, incident.EventDate);
     }
 
@@ -109,7 +111,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -120,8 +122,8 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Assert
         Assert.Equal(mockIncident.Id, incidents[0].Id);
-        Assert.Equal(mockIncident.UserId, incidents[0].UserId);
-        Assert.Equal(mockIncident.DoorId, incidents[0].DoorId);
+        Assert.Equal(_mockUser.Id, incidents[0].UserId);
+        Assert.Equal(_mockDoor.Id, incidents[0].DoorId);
         Assert.Equal(mockIncident.EventDate, incidents[0].EventDate);
     }
 
@@ -129,7 +131,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_AddAsync_WithGivenIncident_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         var repository = new GenericRepository<Incident>(_dataContext);
 
         //Act
@@ -137,8 +139,8 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Assert
         Assert.Equal(mockIncident.Id, incident.Id);
-        Assert.Equal(mockIncident.UserId, incident.UserId);
-        Assert.Equal(mockIncident.DoorId, incident.DoorId);
+        Assert.Equal(_mockUser.Id, incident.UserId);
+        Assert.Equal(_mockDoor.Id, incident.DoorId);
         Assert.Equal(mockIncident.EventDate, incident.EventDate);
     }
 
@@ -146,7 +148,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_DeleteAsync_WithGivenIncident_ShouldDeleteIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -161,10 +163,10 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenIncident_ShouldReturnUpdatedIncident()
+    public async Task GenericRepository_UpdateAsync_WithGivenIncidentUser_ShouldReturnUpdatedIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
         mockIncident.UserId = 2;
@@ -177,6 +179,27 @@ public class GenericRepositoryIncidentTests : IDisposable
         //Assert
         Assert.Equal(mockIncident.Id, incident.Id);
         Assert.Equal(mockIncident.UserId, incident.UserId);
+        Assert.Equal(_mockDoor.Id, incident.DoorId);
+        Assert.Equal(mockIncident.EventDate, incident.EventDate);
+    }
+
+    [Fact]
+    public async Task GenericRepository_UpdateAsync_WithGivenIncidentDoor_ShouldReturnUpdatedIncident()
+    {
+        //Arrange
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        _dataContext.Incidents.Add(mockIncident);
+        await _dataContext.SaveChangesAsync();
+        mockIncident.DoorId = 2;
+
+        var repository = new GenericRepository<Incident>(_dataContext);
+
+        //Act
+        var incident = await repository.UpdateAsync(mockIncident);
+
+        //Assert
+        Assert.Equal(mockIncident.Id, incident.Id);
+        Assert.Equal(_mockUser.Id, incident.UserId);
         Assert.Equal(mockIncident.DoorId, incident.DoorId);
         Assert.Equal(mockIncident.EventDate, incident.EventDate);
     }
@@ -193,7 +216,7 @@ public class GenericRepositoryIncidentTests : IDisposable
         {
             await repository.AddAsync(new Incident
             {
-                Id = 1, UserId = 1, DoorId = 1, EventDate = DateTime.Now
+                Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now
             });
         }
 
