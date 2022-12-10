@@ -20,29 +20,29 @@ public class UpdateRoleCommandHandlerTests
     [Fact]
     public async Task Role_PutAsync_WithGivenUpdateRoleRequest_ShouldReturnCreateRoleDto()
     {
-        var roleName = "Test";
         //Arrange
-        var mockRoleUpdateCommand = new UpdateRoleCommand(1, roleName);
+        var newRole = new Role
+        {
+            Id = 1,
+            Name = "New Role"
+        };
+        var mockRoleUpdateCommand = new UpdateRoleCommand(1, newRole.Name);
 
-        var mockRoleDto = new RoleDto
+        var oldRole = new Role
         {
             Id = 1,
-            Name = roleName
+            Name = "Old role"
         };
-        var mockRole = new Role
-        {
-            Id = 1,
-            Name = roleName
-        };
-        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
-        _mockRoleRepository.Setup(s => s.UpdateAsync(It.IsAny<Role>())).ReturnsAsync(mockRole);
+
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(oldRole);
+        _mockRoleRepository.Setup(s => s.UpdateAsync(It.IsAny<Role>())).ReturnsAsync(newRole);
 
         //Act
         var result = await _roleHandler.Handle(mockRoleUpdateCommand, default);
 
         //Assert
-        Assert.Equal(result.Id, mockRoleDto.Id);
-        Assert.Equal(result.Name, mockRoleDto.Name);
+        Assert.Equal(result.Id, newRole.Id);
+        Assert.Equal(result.Name, newRole.Name);
         _mockRoleRepository.VerifyAll();
     }
 

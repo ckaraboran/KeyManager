@@ -20,29 +20,29 @@ public class UpdateDoorCommandHandlerTests
     [Fact]
     public async Task Door_PutAsync_WithGivenUpdateDoorRequest_ShouldReturnCreateDoorDto()
     {
-        var doorName = "Test";
         //Arrange
-        var mockDoorUpdateCommand = new UpdateDoorCommand(1, doorName);
+        var newDoor = new Door
+        {
+            Id = 1,
+            Name = "New Door"
+        };
+        var mockDoorUpdateCommand = new UpdateDoorCommand(newDoor.Id, newDoor.Name);
 
-        var mockDoorDto = new DoorDto
+        var oldDoor = new Door
         {
             Id = 1,
-            Name = doorName
+            Name = "Old Door"
         };
-        var mockDoor = new Door
-        {
-            Id = 1,
-            Name = doorName
-        };
-        _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockDoor);
-        _mockDoorRepository.Setup(s => s.UpdateAsync(It.IsAny<Door>())).ReturnsAsync(mockDoor);
+
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(oldDoor);
+        _mockDoorRepository.Setup(s => s.UpdateAsync(It.IsAny<Door>())).ReturnsAsync(newDoor);
 
         //Act
         var result = await _doorHandler.Handle(mockDoorUpdateCommand, default);
 
         //Assert
-        Assert.Equal(result.Id, mockDoorDto.Id);
-        Assert.Equal(result.Name, mockDoorDto.Name);
+        Assert.Equal(result.Id, newDoor.Id);
+        Assert.Equal(result.Name, newDoor.Name);
         _mockDoorRepository.VerifyAll();
     }
 

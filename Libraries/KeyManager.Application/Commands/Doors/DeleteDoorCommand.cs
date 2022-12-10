@@ -2,7 +2,7 @@ namespace KeyManager.Application.Commands.Doors;
 
 public class DeleteDoorCommand : IRequest
 {
-    public DeleteDoorCommand(int id)
+    public DeleteDoorCommand(long id)
     {
         Id = id;
     }

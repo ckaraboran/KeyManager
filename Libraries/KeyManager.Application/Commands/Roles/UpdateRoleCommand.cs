@@ -2,7 +2,7 @@ namespace KeyManager.Application.Commands.Roles;
 
 public class UpdateRoleCommand : IRequest<RoleDto>
 {
-    public UpdateRoleCommand(int id, string name)
+    public UpdateRoleCommand(long id, string name)
     {
         Id = id;
         Name = name;

@@ -2,7 +2,7 @@ namespace KeyManager.Application.Commands.Doors;
 
 public class UpdateDoorCommand : IRequest<DoorDto>
 {
-    public UpdateDoorCommand(int id, string name)
+    public UpdateDoorCommand(long id, string name)
     {
         Id = id;
         Name = name;

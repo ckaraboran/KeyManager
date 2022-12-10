@@ -24,24 +24,26 @@ public class CreateUserCommandHandlerTests
     public async Task Given_User_When_CreateUser_Then_ReturnsCreateUserDto()
     {
         //Arrange
-        var mockUserDto = new UserDto
+        var newUser = new User
         {
             Id = 1,
-            Name = "Test"
+            Name = "New Name",
+            Surname = "New Surname",
+            RoleId = 1,
+            EmployeeId = 1001
         };
-        var mockUser = new User
-        {
-            Id = 1,
-            Name = "Test"
-        };
-        _mockUserRepository.Setup(s => s.AddAsync(It.IsAny<User>())).ReturnsAsync(mockUser);
+        _mockUserRepository.Setup(s => s.AddAsync(It.IsAny<User>())).ReturnsAsync(newUser);
 
         //Act
-        var result = await _userHandler.Handle(new CreateUserCommand(1001, "Test", "TestSurname", 1), default);
+        var result =
+            await _userHandler.Handle(
+                new CreateUserCommand(newUser.EmployeeId, newUser.Name, newUser.Surname, newUser.RoleId), default);
 
         //Assert
-        Assert.Equal(result.Id, mockUserDto.Id);
-        Assert.Equal(result.Name, mockUserDto.Name);
+        Assert.Equal(result.Id, newUser.Id);
+        Assert.Equal(result.Name, newUser.Name);
+        Assert.Equal(result.Surname, newUser.Surname);
+        Assert.Equal(result.EmployeeId, newUser.EmployeeId);
 
         _mockUserRepository.VerifyAll();
     }

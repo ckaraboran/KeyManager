@@ -21,11 +21,6 @@ public class CreateDoorCommandHandlerTests
     public async Task Door_Create_WithGivenCreateDoorCommand_ShouldReturnCreateDoorDto()
     {
         //Arrange
-        var mockDoorDto = new DoorDto
-        {
-            Id = 1,
-            Name = "Test"
-        };
         var mockDoor = new Door
         {
             Id = 1,
@@ -34,11 +29,11 @@ public class CreateDoorCommandHandlerTests
         _mockDoorRepository.Setup(s => s.AddAsync(It.IsAny<Door>())).ReturnsAsync(mockDoor);
 
         //Act
-        var result = await _doorHandler.Handle(new CreateDoorCommand("Test"), default);
+        var result = await _doorHandler.Handle(new CreateDoorCommand(mockDoor.Name), default);
 
         //Assert
-        Assert.Equal(result.Id, mockDoorDto.Id);
-        Assert.Equal(result.Name, mockDoorDto.Name);
+        Assert.Equal(result.Id, mockDoor.Id);
+        Assert.Equal(result.Name, mockDoor.Name);
 
         _mockDoorRepository.VerifyAll();
     }

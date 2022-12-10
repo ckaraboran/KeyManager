@@ -2,7 +2,7 @@ namespace KeyManager.Application.Commands.Roles;
 
 public class DeleteRoleCommand : IRequest
 {
-    public DeleteRoleCommand(int id)
+    public DeleteRoleCommand(long id)
     {
         Id = id;
     }

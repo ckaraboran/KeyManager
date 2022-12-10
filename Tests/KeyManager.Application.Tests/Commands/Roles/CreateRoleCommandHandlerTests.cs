@@ -21,11 +21,6 @@ public class CreateRoleCommandHandlerTests
     public async Task Role_Create_WithGivenCreateRoleCommand_ShouldReturnCreateRoleDto()
     {
         //Arrange
-        var mockRoleDto = new RoleDto
-        {
-            Id = 1,
-            Name = "Test"
-        };
         var mockRole = new Role
         {
             Id = 1,
@@ -34,11 +29,11 @@ public class CreateRoleCommandHandlerTests
         _mockRoleRepository.Setup(s => s.AddAsync(It.IsAny<Role>())).ReturnsAsync(mockRole);
 
         //Act
-        var result = await _roleHandler.Handle(new CreateRoleCommand("Test"), default);
+        var result = await _roleHandler.Handle(new CreateRoleCommand(mockRole.Name), default);
 
         //Assert
-        Assert.Equal(result.Id, mockRoleDto.Id);
-        Assert.Equal(result.Name, mockRoleDto.Name);
+        Assert.Equal(result.Id, mockRole.Id);
+        Assert.Equal(result.Name, mockRole.Name);
 
         _mockRoleRepository.VerifyAll();
     }

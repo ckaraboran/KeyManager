@@ -23,23 +23,34 @@ public class UpdateUserCommandHandlerTests
         //Arrange
         var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname", 1);
 
-        var updatedUser = new User
+        var newUser = new User
         {
             EmployeeId = 1001,
             Id = 1,
-            Name = "OldUser",
-            Surname = "OldSurname",
+            Name = "Old User",
+            Surname = "Old Surname",
             RoleId = 1
         };
-        _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(updatedUser);
-        _mockUserRepository.Setup(s => s.UpdateAsync(It.IsAny<User>())).ReturnsAsync(updatedUser);
+
+        var oldUser = new User
+        {
+            EmployeeId = 1001,
+            Id = 1,
+            Name = "Old User",
+            Surname = "Old Surname",
+            RoleId = 1
+        };
+        _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(oldUser);
+        _mockUserRepository.Setup(s => s.UpdateAsync(It.IsAny<User>())).ReturnsAsync(newUser);
 
         //Act
         var result = await _userHandler.Handle(mockUserUpdateCommand, default);
 
         //Assert
-        Assert.Equal(result.Id, updatedUser.Id);
-        Assert.Equal(result.Name, updatedUser.Name);
+        Assert.Equal(result.Id, newUser.Id);
+        Assert.Equal(result.Name, newUser.Name);
+        Assert.Equal(result.Surname, newUser.Surname);
+        Assert.Equal(result.EmployeeId, newUser.EmployeeId);
         _mockUserRepository.VerifyAll();
     }
 

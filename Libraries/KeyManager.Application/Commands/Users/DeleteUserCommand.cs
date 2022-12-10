@@ -2,7 +2,7 @@ namespace KeyManager.Application.Commands.Users;
 
 public class DeleteUserCommand : IRequest
 {
-    public DeleteUserCommand(int id)
+    public DeleteUserCommand(long id)
     {
         Id = id;
     }
