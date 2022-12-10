@@ -2,9 +2,7 @@
 
 namespace KeyManager.Domain.Entities;
 
-public class Dummy : BaseEntity, ISoftDelete
+public class Dummy : BaseEntity
 {
     public string Name { get; set; }
-
-    public bool IsDeleted { get; set; }
 }

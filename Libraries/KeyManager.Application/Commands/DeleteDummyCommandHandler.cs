@@ -17,7 +17,7 @@ public class DeleteDummyCommandHandler : IRequestHandler<DeleteDummyCommand>
 
         if (dummy == null) throw new DummyException($"Dummy is not found while deleting. DummyId: '{request.Id}'");
 
-        await _dummyRepository.SoftDeleteAsync(dummy);
+        await _dummyRepository.DeleteAsync(dummy);
         return Unit.Value;
     }
 }

@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using KeyManager.Domain.Entities;
 
 namespace KeyManager.Domain.Interfaces;
 
@@ -14,8 +13,6 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task<T> GetAsync(Expression<Func<T, bool>> expression);
 
     Task<T> AddAsync(T entity);
-
-    Task SoftDeleteAsync(T entity);
 
     Task DeleteAsync(T entity);
 
