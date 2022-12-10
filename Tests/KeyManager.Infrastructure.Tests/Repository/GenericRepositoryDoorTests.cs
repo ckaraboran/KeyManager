@@ -1,6 +1,6 @@
 namespace KeyManager.Infrastructure.Tests.Repository;
 
-public class GenericRepositoryDoorTests: IDisposable
+public class GenericRepositoryDoorTests : IDisposable
 {
     private readonly DataContext _dataContext;
 
@@ -23,7 +23,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_Entities_When_AddedToDb_Then_ReturnsInQuery()
     {
         //Arrange
         var mockDoors = new List<Door>
@@ -46,7 +46,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnDoor()
+    public async Task Given_Repository_When_GetAsync_Then_ShouldReturnDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -64,7 +64,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnDoor()
+    public async Task Given_Repository_When_GetAsync_WithGivenId_Then_ReturnsDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -82,7 +82,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnDoor()
+    public async Task Given_Repository_When_GetAsync_WithGivenExpression_Then_ReturnsDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -100,7 +100,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnDoor()
+    public async Task Given_Repository_When_FindAsync_WithGivenExpression_Then_ReturnsDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -118,7 +118,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenDoor_ShouldReturnDoor()
+    public async Task Given_Repository_When_AddAsync_WithGivenDoor_Then_ReturnsDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -133,7 +133,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenDoor_ShouldDeleteDoor()
+    public async Task Given_Repository_When_DeleteAsync_WithGivenDoor_Then_DeletesDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -151,7 +151,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenDoor_ShouldReturnUpdatedDoor()
+    public async Task Given_Repository_When_UpdateAsync_WithGivenDoor_Then_ReturnsUpdatedDoor()
     {
         //Arrange
         var mockDoor = new Door { Id = 1, Name = "TestName1" };
@@ -170,7 +170,7 @@ public class GenericRepositoryDoorTests: IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_Repository_When_AddAsync_WithGivenEntity_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();
