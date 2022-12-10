@@ -1,4 +1,5 @@
 ﻿using KeyManager.Infrastructure.Extensions;
+using KeyManager.Infrastructure.Maps;
 
 namespace KeyManager.Infrastructure;
 
@@ -12,10 +13,31 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes()
-                     .Where(x => typeof(ISoftDelete).IsAssignableFrom(x.ClrType)))
-            entityType.AddSoftDeleteQueryFilter();
-
+        modelBuilder.ApplyConfiguration(new EntityMapBase<Dummy>());
         base.OnModelCreating(modelBuilder);
+    }
+
+    public override int SaveChanges(bool acceptAllChangesOnSuccess)
+    {
+        ChangeTracker.SetAuditProperties();
+        return base.SaveChanges(acceptAllChangesOnSuccess);
+    }
+
+    public override int SaveChanges()
+    {
+        ChangeTracker.SetAuditProperties();
+        return base.SaveChanges();
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        ChangeTracker.SetAuditProperties();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+    {
+        ChangeTracker.SetAuditProperties();
+        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }

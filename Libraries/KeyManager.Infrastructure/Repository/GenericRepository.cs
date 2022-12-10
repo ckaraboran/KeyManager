@@ -1,37 +1,37 @@
 ﻿namespace KeyManager.Infrastructure.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, ISoftDelete
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
-    protected DataContext Context;
+    private readonly DataContext _context;
 
     public GenericRepository(DataContext context)
     {
-        Context = context;
+        _context = context;
     }
 
     public async Task<List<T>> GetAllAsync()
     {
-        return await Context.Set<T>().ToListAsync();
+        return await _context.Set<T>().ToListAsync();
     }
 
     public async Task<List<T>> FindAsync(Expression<Func<T, bool>> expression)
     {
-        return await Context.Set<T>().Where(expression).ToListAsync();
+        return await _context.Set<T>().Where(expression).ToListAsync();
     }
 
     public async Task<T> GetAsync(int id)
     {
-        return await Context.Set<T>().FirstOrDefaultAsync(t => t.Id == id);
+        return await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id);
     }
 
     public async Task<T> GetAsync(Expression<Func<T, bool>> expression)
     {
-        return await Context.Set<T>().SingleOrDefaultAsync(expression);
+        return await _context.Set<T>().SingleOrDefaultAsync(expression);
     }
 
     public async Task<T> AddAsync(T entity)
     {
-        await Context.Set<T>().AddAsync(entity);
+        await _context.Set<T>().AddAsync(entity);
         await SaveChangesAsync();
 
         return entity;
@@ -39,7 +39,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 
     public async Task SoftDeleteAsync(T entity)
     {
-        T existingEntity = await Context.Set<T>().FindAsync(entity.Id);
+        T existingEntity = await _context.Set<T>().FindAsync(entity.Id);
 
         if (existingEntity != null)
         {
@@ -51,19 +51,19 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 
     public async Task DeleteAsync(T entity)
     {
-        Context.Set<T>().Remove(entity);
+        _context.Set<T>().Remove(entity);
 
         await SaveChangesAsync();
     }
 
     public async Task<T> UpdateAsync(T entity)
     {
-        T existingEntity = await Context.Set<T>().FindAsync(entity.Id);
+        T existingEntity = await _context.Set<T>().FindAsync(entity.Id);
 
         if (existingEntity != null)
         {
-            Context.Entry(existingEntity).State = EntityState.Modified;
-            Context.Entry(existingEntity).CurrentValues.SetValues(entity);
+            _context.Entry(existingEntity).State = EntityState.Modified;
+            _context.Entry(existingEntity).CurrentValues.SetValues(entity);
 
             await SaveChangesAsync();
         }
@@ -75,11 +75,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     {
         try
         {
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         catch (DbUpdateException)
         {
-            Context.ChangeTracker.Clear();
+            _context.ChangeTracker.Clear();
 
             throw;
         }
