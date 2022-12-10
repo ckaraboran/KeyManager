@@ -1,6 +1,7 @@
 using KeyManager.Application.Commands;
 using KeyManager.Application.Commands.Doors;
 using KeyManager.Application.Commands.Roles;
+using KeyManager.Application.Commands.Users;
 
 namespace KeyManager.Application.Mappings;
 
@@ -17,5 +18,7 @@ public class AutoMapperProfile : Profile
         CreateMap<Role, CreateRoleCommand>().ReverseMap();
         CreateMap<Role, RoleDto>().ReverseMap();
         CreateMap<Role, UpdateRoleCommand>().ReverseMap();
+        CreateMap<User, CreateUserCommand>().ReverseMap();
+        CreateMap<User, UserDto>().ReverseMap();
     }
 }

@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace KeyManager.Application.Commands.Doors;
 
 public class UpdateDoorCommandHandler : IRequestHandler<UpdateDoorCommand, DoorDto>
@@ -15,7 +13,7 @@ public class UpdateDoorCommandHandler : IRequestHandler<UpdateDoorCommand, DoorD
 
     public async Task<DoorDto> Handle(UpdateDoorCommand request, CancellationToken cancellationToken)
     {
-        var existingDoor = await _doorRepository.GetAsync(request.Id);
+        var existingDoor = await _doorRepository.GetByIdAsync(request.Id);
 
         if (existingDoor == null)
             throw new DoorException($"Door already exists. DoorId: '{request.Id}'");

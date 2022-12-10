@@ -58,7 +58,7 @@ public class GenericRepositoryIncidentTests : IDisposable
         var repository = new GenericRepository<Incident>(_dataContext);
 
         //Act
-        var incident = await repository.GetAsync(mockIncident.Id);
+        var incident = await repository.GetByIdAsync(mockIncident.Id);
 
         //Assert
         Assert.Equal(mockIncident.Id, incident.Id);
@@ -156,7 +156,7 @@ public class GenericRepositoryIncidentTests : IDisposable
 
         //Act
         await repository.DeleteAsync(mockIncident);
-        var incident = await repository.GetAsync(mockIncident.Id);
+        var incident = await repository.GetByIdAsync(mockIncident.Id);
 
         //Assert
         Assert.Null(incident);

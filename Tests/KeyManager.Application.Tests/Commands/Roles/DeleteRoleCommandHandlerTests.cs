@@ -23,7 +23,7 @@ public class DeleteRoleCommandHandlerTests
             Id = 1,
             Name = "Test"
         };
-        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
         _mockRoleRepository.Setup(s => s.DeleteAsync(It.IsAny<Role>()));
 
         //Act
@@ -37,7 +37,7 @@ public class DeleteRoleCommandHandlerTests
     public async Task Role_DeleteAsync_WithGivenId_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
     {
         //Arrange
-        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync((Role)null);
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((Role)null);
 
         //Act
         Task Result()

@@ -34,7 +34,7 @@ public class UpdateDoorCommandHandlerTests
             Id = 1,
             Name = doorName
         };
-        _mockDoorRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockDoor);
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockDoor);
         _mockDoorRepository.Setup(s => s.UpdateAsync(It.IsAny<Door>())).ReturnsAsync(mockDoor);
 
         //Act
@@ -52,7 +52,7 @@ public class UpdateDoorCommandHandlerTests
     {
         //Arrange
         var mockUpdateDoorCommand = new UpdateDoorCommand(1, "Test");
-        _mockDoorRepository.Setup(s => s.GetAsync(mockUpdateDoorCommand.Id))
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(mockUpdateDoorCommand.Id))
             .ReturnsAsync((Door)null);
 
         //Act

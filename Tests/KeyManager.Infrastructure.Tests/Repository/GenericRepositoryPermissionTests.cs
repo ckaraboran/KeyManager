@@ -58,7 +58,7 @@ public class GenericRepositoryPermissionTests : IDisposable
         var repository = new GenericRepository<Permission>(_dataContext);
 
         //Act
-        var permission = await repository.GetAsync(mockPermission.Id);
+        var permission = await repository.GetByIdAsync(mockPermission.Id);
 
         //Assert
         Assert.Equal(mockPermission.Id, permission.Id);
@@ -151,7 +151,7 @@ public class GenericRepositoryPermissionTests : IDisposable
 
         //Act
         await repository.DeleteAsync(mockPermission);
-        var permission = await repository.GetAsync(mockPermission.Id);
+        var permission = await repository.GetByIdAsync(mockPermission.Id);
 
         //Assert
         Assert.Null(permission);

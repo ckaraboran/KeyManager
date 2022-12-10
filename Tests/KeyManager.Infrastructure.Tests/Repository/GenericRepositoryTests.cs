@@ -33,7 +33,7 @@ public class GenericRepositoryTests : IDisposable
             new() { Id = 2, Name = "TestName2" },
             new() { Id = 3, Name = "TestName3" }
         };
-        
+
         _dataContext.AddRange(mockDummies);
         await _dataContext.SaveChangesAsync();
 
@@ -57,7 +57,7 @@ public class GenericRepositoryTests : IDisposable
         var repository = new GenericRepository<Dummy>(_dataContext);
 
         //Act
-        var dummy = await repository.GetAsync(mockDummy.Id);
+        var dummy = await repository.GetByIdAsync(mockDummy.Id);
 
         //Assert
         Assert.Equal(mockDummy.Id, dummy.Id);
@@ -75,7 +75,7 @@ public class GenericRepositoryTests : IDisposable
         var repository = new GenericRepository<Dummy>(_dataContext);
 
         //Act
-        var employee = await repository.GetAsync(mockDummy.Id);
+        var employee = await repository.GetByIdAsync(mockDummy.Id);
 
         //Assert
         Assert.Equal(mockDummy.Id, employee.Id);
@@ -145,7 +145,7 @@ public class GenericRepositoryTests : IDisposable
 
         //Act
         await repository.DeleteAsync(mockDummy);
-        var employee = await repository.GetAsync(mockDummy.Id);
+        var employee = await repository.GetByIdAsync(mockDummy.Id);
 
         //Assert
         Assert.Null(employee);

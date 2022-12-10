@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace KeyManager.Application.Commands.Doors;
 
 public class CreateDoorCommandHandler : IRequestHandler<CreateDoorCommand, DoorDto>
@@ -7,9 +5,9 @@ public class CreateDoorCommandHandler : IRequestHandler<CreateDoorCommand, DoorD
     private readonly IGenericRepository<Door> _doorRepository;
     private readonly IMapper _mapper;
 
-    public CreateDoorCommandHandler(IGenericRepository<Door> dummyRepository, IMapper mapper)
+    public CreateDoorCommandHandler(IGenericRepository<Door> doorRepository, IMapper mapper)
     {
-        _doorRepository = dummyRepository ?? throw new ArgumentNullException(nameof(dummyRepository));
+        _doorRepository = doorRepository ?? throw new ArgumentNullException(nameof(doorRepository));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 

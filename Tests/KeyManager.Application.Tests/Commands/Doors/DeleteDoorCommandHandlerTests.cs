@@ -23,7 +23,7 @@ public class DeleteDoorCommandHandlerTests
             Id = 1,
             Name = "Test"
         };
-        _mockDoorRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockDoor);
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockDoor);
         _mockDoorRepository.Setup(s => s.DeleteAsync(It.IsAny<Door>()));
 
         //Act
@@ -37,7 +37,7 @@ public class DeleteDoorCommandHandlerTests
     public async Task Door_DeleteAsync_WithGivenId_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
     {
         //Arrange
-        _mockDoorRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync((Door)null);
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((Door)null);
 
         //Act
         Task Result()

@@ -13,7 +13,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleD
 
     public async Task<RoleDto> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
     {
-        var existingRole = await _roleRepository.GetAsync(request.Id);
+        var existingRole = await _roleRepository.GetByIdAsync(request.Id);
 
         if (existingRole == null)
             throw new RoleException($"Role already exists. RoleId: '{request.Id}'");

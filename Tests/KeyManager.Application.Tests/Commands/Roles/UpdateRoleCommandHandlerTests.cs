@@ -34,7 +34,7 @@ public class UpdateRoleCommandHandlerTests
             Id = 1,
             Name = roleName
         };
-        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
         _mockRoleRepository.Setup(s => s.UpdateAsync(It.IsAny<Role>())).ReturnsAsync(mockRole);
 
         //Act
@@ -52,7 +52,7 @@ public class UpdateRoleCommandHandlerTests
     {
         //Arrange
         var mockUpdateRoleCommand = new UpdateRoleCommand(1, "Test");
-        _mockRoleRepository.Setup(s => s.GetAsync(mockUpdateRoleCommand.Id))
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(mockUpdateRoleCommand.Id))
             .ReturnsAsync((Role)null);
 
         //Act

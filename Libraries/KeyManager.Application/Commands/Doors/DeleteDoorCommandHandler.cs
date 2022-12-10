@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace KeyManager.Application.Commands.Doors;
 
 public class DeleteDoorCommandHandler : IRequestHandler<DeleteDoorCommand>
@@ -13,7 +11,7 @@ public class DeleteDoorCommandHandler : IRequestHandler<DeleteDoorCommand>
 
     public async Task<Unit> Handle(DeleteDoorCommand request, CancellationToken cancellationToken)
     {
-        var door = await _doorRepository.GetAsync(request.Id);
+        var door = await _doorRepository.GetByIdAsync(request.Id);
 
         if (door == null) throw new DoorException($"Door is not found while deleting. DoorId: '{request.Id}'");
 

@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace KeyManager.Application.Commands.Roles;
 
 public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, RoleDto>
@@ -7,9 +5,9 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, RoleD
     private readonly IMapper _mapper;
     private readonly IGenericRepository<Role> _roleRepository;
 
-    public CreateRoleCommandHandler(IGenericRepository<Role> dummyRepository, IMapper mapper)
+    public CreateRoleCommandHandler(IGenericRepository<Role> roleRepository, IMapper mapper)
     {
-        _roleRepository = dummyRepository ?? throw new ArgumentNullException(nameof(dummyRepository));
+        _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
