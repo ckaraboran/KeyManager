@@ -1,4 +1,7 @@
-﻿namespace KeyManager.Infrastructure.Tests.Repository;
+﻿using KeyManager.Domain.Interfaces;
+using Moq.Internals;
+
+namespace KeyManager.Infrastructure.Tests.Repository;
 
 public class GenericRepositoryTests : IDisposable
 {
@@ -27,7 +30,7 @@ public class GenericRepositoryTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAllAsync_ShouldReturnAllDummies()
+    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
     {
         //Arrange
         var mockDummies = new List<Dummy>
@@ -36,8 +39,8 @@ public class GenericRepositoryTests : IDisposable
             new() { Id = 2, Name = "TestName2" },
             new() { Id = 3, Name = "TestName3" }
         };
-
-        _dataContext.Dummies.AddRange(mockDummies);
+        
+        _dataContext.AddRange(mockDummies);
         await _dataContext.SaveChangesAsync();
 
         var repository = new GenericRepository<Dummy>(_dataContext);

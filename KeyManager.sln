@@ -25,6 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{97E6
 	ProjectSection(SolutionItems) = preProject
 		Scripts\Add-Migrations.ps1 = Scripts\Add-Migrations.ps1
 		Scripts\Apply-Migrations.ps1 = Scripts\Apply-Migrations.ps1
+		Scripts\add-migration.sh = Scripts\add-migration.sh
+		Scripts\update-database.sh = Scripts\update-database.sh
+		Scripts\remove-migration.sh = Scripts\remove-migration.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyManager.Infrastructure.Tests", "Tests\KeyManager.Infrastructure.Tests\KeyManager.Infrastructure.Tests.csproj", "{E209E452-FAA9-48F5-90FC-E49EE5989A87}"

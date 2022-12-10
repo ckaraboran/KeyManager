@@ -10,6 +10,11 @@ public class DataContext : DbContext
     }
 
     public DbSet<Dummy> Dummies { get; set; }
+    public DbSet<Door> Doors { get; set; }
+    public DbSet<Event> Events { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

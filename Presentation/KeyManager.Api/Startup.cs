@@ -26,7 +26,7 @@ public class Startup
             .ValidateDataAnnotations()
             .ValidateOnStart();
         services.AddDbContextPool<DataContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("DummyDb")));
+            options.UseSqlite(Configuration.GetConnectionString("KeyManagerDb")));
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
