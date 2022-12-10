@@ -1,31 +1,46 @@
+using System;
+using KeyManager.Application.Mappings;
 using KeyManager.Application.Queries;
+using KeyManager.Domain.Entities;
 using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries;
 
-public class GetAllDummiesQueryHandlerTests
+public class GetAllDummiesQueryHandlerTests : IDisposable
 {
-    private readonly GetAllDummiesQueryHandler _dummyHandler;
     private readonly DataContext _dataContext;
-    private readonly Mock<IMapper> _mockMapper;
+    private readonly GetAllDummiesQueryHandler _dummyHandler;
 
     public GetAllDummiesQueryHandlerTests()
     {
         var dbOptions = new DbContextOptionsBuilder<DataContext>()
-            .UseInMemoryDatabase(nameof(GetDummyQueryHandlerTests))
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
 
         _dataContext = new DataContext(dbOptions);
-        _mockMapper = new Mock<IMapper>();
-        _dummyHandler = new GetAllDummiesQueryHandler(_dataContext, _mockMapper.Object);
+        var myProfile = new AutoMapperProfile();
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+        var mapper = new Mapper(configuration);
+        _dummyHandler = new GetAllDummiesQueryHandler(_dataContext, mapper);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool _)
+    {
+        _dataContext.Database.EnsureDeleted();
     }
 
     [Fact]
     public async Task Dummy_GetAsync_ShouldReturnAllDummiesDto()
     {
         //Arrange
-        var mockDummies = new List<KeyManager.Domain.Entities.Dummy>
+        var mockDummies = new List<Dummy>
         {
             new() { Id = 1, Name = "Test" },
             new() { Id = 2, Name = "Test2" }
@@ -35,13 +50,15 @@ public class GetAllDummiesQueryHandlerTests
             new() { Id = 1, Name = "Test" },
             new() { Id = 2, Name = "Test2" }
         };
-        _dataContext.AddRange(mockDummies);
-        _mockMapper.Setup(m => m.Map<List<DummyDto>>(It.IsAny<List<KeyManager.Domain.Entities.Dummy>>())).Returns(mockDummiesDto);
-
+        await _dataContext.AddRangeAsync(mockDummies);
+        await _dataContext.SaveChangesAsync();
         //Act
         var result = await _dummyHandler.Handle(new GetAllDummiesQuery(), default);
 
         //Assert
-        Assert.Equal(result, mockDummiesDto);
+        Assert.Equal(result[0].Id, mockDummiesDto[0].Id);
+        Assert.Equal(result[0].Name, mockDummiesDto[0].Name);
+        Assert.Equal(result[1].Id, mockDummiesDto[1].Id);
+        Assert.Equal(result[1].Name, mockDummiesDto[1].Name);
     }
 }
