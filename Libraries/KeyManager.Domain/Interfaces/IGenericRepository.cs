@@ -8,7 +8,7 @@ public interface IGenericRepository<T> where T : BaseEntity
 
     Task<List<T>> FindAsync(Expression<Func<T, bool>> expression);
 
-    Task<T> GetAsync(int id);
+    Task<T> GetAsync(long id);
 
     Task<T> GetAsync(Expression<Func<T, bool>> expression);
 

@@ -32,9 +32,9 @@ public class UpdateDummyCommandHandlerTests
             Id = 1,
             Name = dummyName
         };
-        _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync(mockDummy);
-        _mockDummyRepository.Setup(s => s.UpdateAsync(It.IsAny<KeyManager.Domain.Entities.Dummy>())).ReturnsAsync(mockDummy);
-        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<KeyManager.Domain.Entities.Dummy>())).Returns(mockDummyDto);
+        _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockDummy);
+        _mockDummyRepository.Setup(s => s.UpdateAsync(It.IsAny<Domain.Entities.Dummy>())).ReturnsAsync(mockDummy);
+        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<Domain.Entities.Dummy>())).Returns(mockDummyDto);
 
         //Act
         var result = await _dummyHandler.Handle(mockDummyUpdateCommand, default);
