@@ -1,5 +1,4 @@
 using KeyManager.Application.Commands.Doors;
-using KeyManager.Application.Mappings;
 using KeyManager.Domain.Entities;
 
 namespace KeyManager.Application.Tests.Commands.Doors;
