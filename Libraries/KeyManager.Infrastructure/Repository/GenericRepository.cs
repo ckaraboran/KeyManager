@@ -37,17 +37,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public async Task SoftDeleteAsync(T entity)
-    {
-        T existingEntity = await _context.Set<T>().FindAsync(entity.Id);
-
-        if (existingEntity != null)
-        {
-            existingEntity.IsDeleted = true;
-
-            await SaveChangesAsync();
-        }
-    }
 
     public async Task DeleteAsync(T entity)
     {
@@ -58,7 +47,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<T> UpdateAsync(T entity)
     {
-        T existingEntity = await _context.Set<T>().FindAsync(entity.Id);
+        var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
 
         if (existingEntity != null)
         {
