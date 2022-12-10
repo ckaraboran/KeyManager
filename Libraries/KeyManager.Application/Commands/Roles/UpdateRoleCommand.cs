@@ -9,7 +9,7 @@ public class UpdateRoleCommand : IRequest<RoleDto>
     }
 
     [Required(ErrorMessage = "Id is required.")]
-    public int Id { get; }
+    public long Id { get; }
 
     [Required(ErrorMessage = "Name is required.")]
     public string Name { get; }

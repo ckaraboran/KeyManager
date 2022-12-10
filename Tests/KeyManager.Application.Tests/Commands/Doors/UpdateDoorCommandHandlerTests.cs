@@ -63,7 +63,7 @@ public class UpdateDoorCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<DoorException>(Result);
-        Assert.Equal("Door already exists. DoorId: '1'", exception.Message);
+        Assert.Equal("Door is not found. DoorId: '1'", exception.Message);
         _mockDoorRepository.VerifyAll();
     }
 }

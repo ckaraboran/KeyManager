@@ -8,5 +8,5 @@ public class DeleteRoleCommand : IRequest
     }
 
     [Required(ErrorMessage = "Id is required.")]
-    public int Id { get; }
+    public long Id { get; }
 }

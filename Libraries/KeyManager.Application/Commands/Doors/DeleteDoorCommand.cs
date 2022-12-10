@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using MediatR;
-
 namespace KeyManager.Application.Commands.Doors;
 
 public class DeleteDoorCommand : IRequest
@@ -11,5 +8,5 @@ public class DeleteDoorCommand : IRequest
     }
 
     [Required(ErrorMessage = "Id is required.")]
-    public int Id { get; }
+    public long Id { get; }
 }

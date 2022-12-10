@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using MediatR;
-
 namespace KeyManager.Application.Commands.Doors;
 
 public class UpdateDoorCommand : IRequest<DoorDto>
@@ -12,7 +9,7 @@ public class UpdateDoorCommand : IRequest<DoorDto>
     }
 
     [Required(ErrorMessage = "Id is required.")]
-    public int Id { get; }
+    public long Id { get; }
 
     [Required(ErrorMessage = "Name is required.")]
     public string Name { get; }

@@ -21,7 +21,7 @@ public class CreateUserCommandHandlerTests
     }
 
     [Fact]
-    public async Task User_Create_WithGivenCreateUserCommand_ShouldReturnCreateUserDto()
+    public async Task Given_User_When_CreateUser_Then_ReturnsCreateUserDto()
     {
         //Arrange
         var mockUserDto = new UserDto
