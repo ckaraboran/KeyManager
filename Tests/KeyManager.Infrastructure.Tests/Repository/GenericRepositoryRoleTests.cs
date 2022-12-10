@@ -74,11 +74,11 @@ public class GenericRepositoryRoleTests : IDisposable
         var repository = new GenericRepository<Role>(_dataContext);
 
         //Act
-        var role = await repository.GetAllAsync();
+        var roles = await repository.GetAllAsync();
 
         //Assert
-        Assert.Equal(mockRole.Id, role[0].Id);
-        Assert.Equal(mockRole.Name, role[0].Name);
+        Assert.Equal(mockRole.Id, roles[0].Id);
+        Assert.Equal(mockRole.Name, roles[0].Name);
     }
 
     [Fact]

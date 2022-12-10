@@ -56,11 +56,11 @@ public class GenericRepositoryDoorTests: IDisposable
         var repository = new GenericRepository<Door>(_dataContext);
 
         //Act
-        var door = await repository.GetAllAsync();
+        var doors = await repository.GetAllAsync();
 
         //Assert
-        Assert.Equal(mockDoor.Id, door[0].Id);
-        Assert.Equal(mockDoor.Name, door[0].Name);
+        Assert.Equal(mockDoor.Id, doors[0].Id);
+        Assert.Equal(mockDoor.Name, doors[0].Name);
     }
 
     [Fact]
