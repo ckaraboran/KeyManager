@@ -19,6 +19,11 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new EntityMapBase<Dummy>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<Door>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<Event>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<Permission>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<Role>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<User>());
         base.OnModelCreating(modelBuilder);
     }
 

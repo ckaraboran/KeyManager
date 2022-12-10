@@ -6,16 +6,13 @@ namespace KeyManager.Infrastructure.Tests.Repository;
 public class GenericRepositoryTests : IDisposable
 {
     private readonly DataContext _dataContext;
-    private readonly DbConnection _dbConnection;
 
     public GenericRepositoryTests()
     {
         var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-        optionsBuilder.UseInMemoryDatabase("TestDatabase");
+        optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
 
         _dataContext = new DataContext(optionsBuilder.Options);
-        _dbConnection = new SqliteConnection("DataSource=:memory:");
-        _dbConnection.Open();
     }
 
     public void Dispose()
@@ -179,7 +176,9 @@ public class GenericRepositoryTests : IDisposable
     [Fact]
     public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
     {
-        var dbContext = CreateDataContext(_dbConnection, new MockFailCommandInterceptor());
+        await using var dbConnection = new SqliteConnection("DataSource=:memory:");
+        dbConnection.Open();
+        var dbContext = CreateDataContext(dbConnection, new MockFailCommandInterceptor());
 
         var repository = new GenericRepository<Dummy>(dbContext);
 
