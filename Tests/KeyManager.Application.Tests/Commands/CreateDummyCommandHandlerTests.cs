@@ -1,18 +1,21 @@
 using KeyManager.Application.Commands;
+using KeyManager.Application.Mappings;
+using KeyManager.Domain.Entities;
 
 namespace KeyManager.Application.Tests.Commands;
 
 public class CreateDummyCommandHandlerTests
 {
     private readonly CreateDummyCommandHandler _dummyHandler;
-    private readonly Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>> _mockDummyRepository;
-    private readonly Mock<IMapper> _mockMapper;
+    private readonly Mock<IGenericRepository<Dummy>> _mockDummyRepository;
 
     public CreateDummyCommandHandlerTests()
     {
-        _mockDummyRepository = new Mock<IGenericRepository<KeyManager.Domain.Entities.Dummy>>();
-        _mockMapper = new Mock<IMapper>();
-        _dummyHandler = new CreateDummyCommandHandler(_mockDummyRepository.Object, _mockMapper.Object);
+        _mockDummyRepository = new Mock<IGenericRepository<Dummy>>();
+        var myProfile = new AutoMapperProfile();
+        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+        var mapper = new Mapper(configuration);
+        _dummyHandler = new CreateDummyCommandHandler(_mockDummyRepository.Object, mapper);
     }
 
     [Fact]
@@ -24,19 +27,20 @@ public class CreateDummyCommandHandlerTests
             Id = 1,
             Name = "Test"
         };
-        var mockDummy = new KeyManager.Domain.Entities.Dummy
+        var mockDummy = new Dummy
         {
             Id = 1,
             Name = "Test"
         };
-        _mockDummyRepository.Setup(s => s.AddAsync(It.IsAny<KeyManager.Domain.Entities.Dummy>())).ReturnsAsync(mockDummy);
-        _mockMapper.Setup(m => m.Map<DummyDto>(It.IsAny<KeyManager.Domain.Entities.Dummy>())).Returns(mockDummyDto);
+        _mockDummyRepository.Setup(s => s.AddAsync(It.IsAny<Dummy>())).ReturnsAsync(mockDummy);
 
         //Act
         var result = await _dummyHandler.Handle(new CreateDummyCommand("Test"), default);
 
         //Assert
-        Assert.Equal(result, mockDummyDto);
+        Assert.Equal(result.Id, mockDummyDto.Id);
+        Assert.Equal(result.Name, mockDummyDto.Name);
+
         _mockDummyRepository.VerifyAll();
     }
 
@@ -45,7 +49,7 @@ public class CreateDummyCommandHandlerTests
     {
         //Arrange
         var mockCreateDummyCommand = new CreateDummyCommand("Test");
-        var mockDummy = new KeyManager.Domain.Entities.Dummy
+        var mockDummy = new Dummy
         {
             Id = 1,
             Name = "Test"
