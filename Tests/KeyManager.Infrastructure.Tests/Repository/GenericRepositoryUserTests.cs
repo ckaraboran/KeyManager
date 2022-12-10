@@ -3,6 +3,7 @@ namespace KeyManager.Infrastructure.Tests.Repository;
 public class GenericRepositoryUserTests : IDisposable
 {
     private readonly DataContext _dataContext;
+    private readonly Role _mockRole = new() { Id = new Random().Next(), Name = "Role1" };
 
     public GenericRepositoryUserTests()
     {
@@ -28,9 +29,9 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUsers = new List<User>
         {
-            new() { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 },
-            new() { Id = 2, EmployeeId = 2, Name = "TestName2", Surname = "TestSurname2", RoleId = 1 },
-            new() { Id = 3, EmployeeId = 3, Name = "TestName3", Surname = "TestSurname3", RoleId = 1 }
+            new() { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", Role = _mockRole },
+            new() { Id = 2, EmployeeId = 2, Name = "TestName2", Surname = "TestSurname2", Role = _mockRole },
+            new() { Id = 3, EmployeeId = 3, Name = "TestName3", Surname = "TestSurname3", Role = _mockRole }
         };
 
         _dataContext.AddRange(mockUsers);
@@ -49,7 +50,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_GetAsync_ShouldReturnUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
 
@@ -63,7 +68,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
         Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
-        Assert.Equal(mockUser.RoleId, user.RoleId);
+        Assert.Equal(_mockRole.Id, user.RoleId);
         Assert.False(user.IsDeleted);
     }
 
@@ -71,7 +76,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
 
@@ -85,7 +94,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, users[0].Name);
         Assert.Equal(mockUser.Surname, users[0].Surname);
         Assert.Equal(mockUser.EmployeeId, users[0].EmployeeId);
-        Assert.Equal(mockUser.RoleId, users[0].RoleId);
+        Assert.Equal(_mockRole.Id, users[0].RoleId);
         Assert.False(users[0].IsDeleted);
     }
 
@@ -93,7 +102,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
 
@@ -108,7 +121,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
         Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
-        Assert.Equal(mockUser.RoleId, user.RoleId);
+        Assert.Equal(_mockRole.Id, user.RoleId);
         Assert.False(user.IsDeleted);
     }
 
@@ -116,7 +129,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
 
@@ -130,7 +147,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, users[0].Name);
         Assert.Equal(mockUser.Surname, users[0].Surname);
         Assert.Equal(mockUser.EmployeeId, users[0].EmployeeId);
-        Assert.Equal(mockUser.RoleId, users[0].RoleId);
+        Assert.Equal(_mockRole.Id, users[0].RoleId);
         Assert.False(users[0].IsDeleted);
     }
 
@@ -138,7 +155,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_AddAsync_WithGivenUser_ShouldReturnUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         var repository = new GenericRepository<User>(_dataContext);
 
         //Act
@@ -149,7 +170,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
         Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
-        Assert.Equal(mockUser.RoleId, user.RoleId);
+        Assert.Equal(_mockRole.Id, user.RoleId);
         Assert.False(user.IsDeleted);
     }
 
@@ -157,7 +178,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_DeleteAsync_WithGivenUser_ShouldDeleteUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
 
@@ -175,7 +200,11 @@ public class GenericRepositoryUserTests : IDisposable
     public async Task GenericRepository_UpdateAsync_WithGivenUser_ShouldReturnUpdatedUser()
     {
         //Arrange
-        var mockUser = new User { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1 };
+        var mockUser = new User
+        {
+            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1",
+            Role = _mockRole
+        };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
         mockUser.Name = "TestName2";
@@ -190,7 +219,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
         Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
-        Assert.Equal(mockUser.RoleId, user.RoleId);
+        Assert.Equal(_mockRole.Id, user.RoleId);
         Assert.False(user.IsDeleted);
     }
 
@@ -206,7 +235,7 @@ public class GenericRepositoryUserTests : IDisposable
         {
             await repository.AddAsync(new User
             {
-                Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", RoleId = 1
+                Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1", Role = _mockRole
             });
         }
 
