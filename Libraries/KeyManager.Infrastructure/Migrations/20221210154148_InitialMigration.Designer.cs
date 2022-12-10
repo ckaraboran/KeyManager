@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KeyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221210151233_InitialMigration")]
+    [Migration("20221210154148_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace KeyManager.Infrastructure.Migrations
                     b.ToTable("Dummies");
                 });
 
-            modelBuilder.Entity("KeyManager.Domain.Entities.Event", b =>
+            modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +149,7 @@ namespace KeyManager.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KeyManager.Domain.Entities.Event", b =>
+            modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
                 {
                     b.HasOne("KeyManager.Domain.Entities.Door", "Door")
                         .WithMany()

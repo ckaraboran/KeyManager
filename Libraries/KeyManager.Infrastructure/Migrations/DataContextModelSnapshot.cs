@@ -51,7 +51,7 @@ namespace KeyManager.Infrastructure.Migrations
                     b.ToTable("Dummies");
                 });
 
-            modelBuilder.Entity("KeyManager.Domain.Entities.Event", b =>
+            modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +147,7 @@ namespace KeyManager.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KeyManager.Domain.Entities.Event", b =>
+            modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
                 {
                     b.HasOne("KeyManager.Domain.Entities.Door", "Door")
                         .WithMany()

@@ -1,6 +1,6 @@
 namespace KeyManager.Domain.Entities;
 
-public class Event : BaseEntity
+public class Incident : BaseEntity
 {
     public long UserId { get; set; }
     public User User { get; set; }
