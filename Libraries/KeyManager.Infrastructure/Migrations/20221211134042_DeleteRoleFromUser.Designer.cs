@@ -3,6 +3,7 @@ using System;
 using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KeyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221211134042_DeleteRoleFromUser")]
+    partial class DeleteRoleFromUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
@@ -146,30 +148,6 @@ namespace KeyManager.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KeyManager.Domain.Entities.UserRole", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("RoleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UsersRoles");
-                });
-
             modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
                 {
                     b.HasOne("KeyManager.Domain.Entities.Door", "Door")
@@ -204,25 +182,6 @@ namespace KeyManager.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Door");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("KeyManager.Domain.Entities.UserRole", b =>
-                {
-                    b.HasOne("KeyManager.Domain.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KeyManager.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
