@@ -13,7 +13,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
     {
         var role = await _roleRepository.GetByIdAsync(request.Id);
 
-        if (role == null) throw new RoleException($"Role is not found while deleting. RoleId: '{request.Id}'");
+        if (role == null) throw new RoleException($"Role not found while deleting. RoleId: '{request.Id}'");
 
         await _roleRepository.DeleteAsync(role);
         return Unit.Value;

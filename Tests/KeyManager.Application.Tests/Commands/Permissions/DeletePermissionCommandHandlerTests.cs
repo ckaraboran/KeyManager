@@ -48,7 +48,7 @@ public class DeletePermissionCommandHandlerTests
 
         //Act-Assert
         var exception = await Assert.ThrowsAsync<PermissionException>(Result);
-        Assert.Equal("Permission is not found while deleting. PermissionId: '5'", exception.Message);
+        Assert.Equal("Permission not found while deleting. PermissionId: '5'", exception.Message);
         _mockPermissionRepository.VerifyAll();
     }
 }

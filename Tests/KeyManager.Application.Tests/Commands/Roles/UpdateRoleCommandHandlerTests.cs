@@ -63,7 +63,7 @@ public class UpdateRoleCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<RoleException>(Result);
-        Assert.Equal("Role is not found. RoleId: '1'", exception.Message);
+        Assert.Equal("Role not found. RoleId: '1'", exception.Message);
         _mockRoleRepository.VerifyAll();
     }
 }

@@ -47,7 +47,7 @@ public class DeleteDoorCommandHandlerTests
 
         //Act-Assert
         var exception = await Assert.ThrowsAsync<DoorException>(Result);
-        Assert.Equal("Door is not found while deleting. DoorId: '5'", exception.Message);
+        Assert.Equal("Door not found while deleting. DoorId: '5'", exception.Message);
         _mockDoorRepository.VerifyAll();
     }
 }

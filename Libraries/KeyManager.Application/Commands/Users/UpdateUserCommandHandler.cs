@@ -15,7 +15,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
     {
         var existingUser = await _userRepository.GetByIdAsync(request.Id);
 
-        if (existingUser == null) throw new UserException($"User is not found. UserId: '{request.Id}'");
+        if (existingUser == null) throw new UserException($"User not found. UserId: '{request.Id}'");
 
         if (existingUser.EmployeeId != request.EmployeeId)
             throw new UserException("Employee ID cannot be different then current one. " +

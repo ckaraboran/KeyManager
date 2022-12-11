@@ -47,7 +47,7 @@ public class DeleteRoleCommandHandlerTests
 
         //Act-Assert
         var exception = await Assert.ThrowsAsync<RoleException>(Result);
-        Assert.Equal("Role is not found while deleting. RoleId: '5'", exception.Message);
+        Assert.Equal("Role not found while deleting. RoleId: '5'", exception.Message);
         _mockRoleRepository.VerifyAll();
     }
 }

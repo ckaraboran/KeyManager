@@ -76,7 +76,7 @@ public class UpdatePermissionCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<PermissionException>(Result);
-        Assert.Equal($"Permission is not found. PermissionId: '{mockUpdatePermissionCommand.Id}'",
+        Assert.Equal($"Permission not found. PermissionId: '{mockUpdatePermissionCommand.Id}'",
             exception.Message);
         _mockPermissionRepository.VerifyAll();
     }

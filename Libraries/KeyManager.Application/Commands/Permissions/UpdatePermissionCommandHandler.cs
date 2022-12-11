@@ -22,7 +22,7 @@ public class UpdatePermissionCommandHandler : IRequestHandler<UpdatePermissionCo
         var existingPermission = await _permissionRepository.GetByIdAsync(request.Id);
 
         if (existingPermission == null)
-            throw new PermissionException($"Permission is not found. PermissionId: '{request.Id}'");
+            throw new PermissionException($"Permission not found. PermissionId: '{request.Id}'");
 
         var existingPermissionWithSameValues = await _permissionRepository
             .GetAsync(s => s.UserId == request.UserId && s.DoorId == request.DoorId && s.Id != request.Id);

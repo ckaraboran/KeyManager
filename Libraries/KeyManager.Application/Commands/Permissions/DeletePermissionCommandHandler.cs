@@ -14,7 +14,7 @@ public class DeletePermissionCommandHandler : IRequestHandler<DeletePermissionCo
         var permission = await _permissionRepository.GetByIdAsync(request.Id);
 
         if (permission == null)
-            throw new PermissionException($"Permission is not found while deleting. PermissionId: '{request.Id}'");
+            throw new PermissionException($"Permission not found while deleting. PermissionId: '{request.Id}'");
 
         await _permissionRepository.DeleteAsync(permission);
         return Unit.Value;
