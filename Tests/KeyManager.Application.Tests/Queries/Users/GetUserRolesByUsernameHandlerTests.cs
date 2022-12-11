@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries.Users;
 
-public class GetUserRolesByUsernameHandlerTests: IDisposable
+public class GetUserRolesByUsernameHandlerTests : IDisposable
 {
     private readonly DataContext _dataContext;
     private readonly GetUserRolesByUsernameHandler _userHandler;
@@ -63,20 +63,20 @@ public class GetUserRolesByUsernameHandlerTests: IDisposable
         var newMockRole = new Role
         {
             Id = new Random().Next(),
-            Name = "User Role 1",
+            Name = "User Role 1"
         };
         var newMockAnotherRole = new Role
         {
             Id = new Random().Next(),
-            Name = "User Role 2",
+            Name = "User Role 2"
         };
-        var newMockUserRole = new UserRole()
+        var newMockUserRole = new UserRole
         {
             Id = new Random().Next(),
             UserId = newMockUser.Id,
             RoleId = newMockRole.Id
         };
-        var newMockAnotherUserRole = new UserRole()
+        var newMockAnotherUserRole = new UserRole
         {
             Id = new Random().Next(),
             UserId = newMockUser.Id,
@@ -98,5 +98,40 @@ public class GetUserRolesByUsernameHandlerTests: IDisposable
         Assert.Equal(result.Username, newMockUser.Username);
         Assert.Equal(result.RoleNames[0], newMockRole.Name);
         Assert.Equal(result.RoleNames[1], newMockAnotherRole.Name);
+    }
+
+    [Fact]
+    public async Task User_GetAsync_WithNotExistUsername_ShouldThrowNotFoundException()
+    {
+        //Arrange
+
+        var mockUsers = new List<User>
+        {
+            new()
+            {
+                Id = 1, Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1"
+            },
+            new()
+            {
+                Id = 2, Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2"
+            },
+            new()
+            {
+                Id = 3, Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3"
+            }
+        };
+
+        await _dataContext.AddRangeAsync(mockUsers);
+        await _dataContext.SaveChangesAsync();
+
+        //Act
+        Task Result()
+        {
+            return _userHandler.Handle(new GetUserRolesByUsername("NotExistUsername"), default);
+        }
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        Assert.Equal("User not found. Username: 'NotExistUsername'", exception.Message);
     }
 }

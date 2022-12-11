@@ -74,4 +74,39 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         Assert.Equal(result.Surname, newMockUser.Surname);
         Assert.Equal(result.Username, newMockUser.Username);
     }
+
+    [Fact]
+    public async Task User_GetAsync_WithNotExistUsername_ShouldThrowNotFoundException()
+    {
+        //Arrange
+
+        var mockUsers = new List<User>
+        {
+            new()
+            {
+                Id = 1, Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1"
+            },
+            new()
+            {
+                Id = 2, Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2"
+            },
+            new()
+            {
+                Id = 3, Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3"
+            }
+        };
+
+        await _dataContext.AddRangeAsync(mockUsers);
+        await _dataContext.SaveChangesAsync();
+
+        //Act
+        Task Result()
+        {
+            return _userHandler.Handle(new GetUserByIdQuery(4), default);
+        }
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        Assert.Equal("User not found. User ID: '4'", exception.Message);
+    }
 }
