@@ -1,5 +1,3 @@
-using KeyManager.Api.DTOs.Responses.Dummy;
-using KeyManager.Api.Security.Authorization;
 using KeyManager.Application.Commands;
 using KeyManager.Application.Queries;
 using MediatR;
@@ -9,7 +7,7 @@ namespace KeyManager.Api.Controllers;
 [Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/dummy")]
 [ApiController]
-public class DummyController : Controller
+public class DummyController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;

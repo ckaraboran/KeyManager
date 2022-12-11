@@ -1,8 +1,7 @@
 using System.Text;
-using KeyManager.Api.Middlewares;
-using KeyManager.Api.Security.Authorization;
+using KeyManager.Api.Security.Handlers;
+using KeyManager.Api.Security.Requirements;
 using KeyManager.Application;
-using KeyManager.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace KeyManager.Api;
@@ -39,7 +38,7 @@ public class Startup
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.Http,
                 Scheme = JwtBearerDefaults.AuthenticationScheme,
-                Description = "Just enter token without Bearer.",
+                Description = "Enter user token created from Login endpoint.",
                 Reference = new OpenApiReference
                 {
                     Id = JwtBearerDefaults.AuthenticationScheme,
@@ -77,9 +76,12 @@ public class Startup
         {
             options.AddPolicy(nameof(AuthorizationRequirement),
                 policy => policy.Requirements.Add(new AuthorizationRequirement()));
+            options.AddPolicy(nameof(ManageUsersRequirement),
+                policy => policy.Requirements.Add(new ManageUsersRequirement()));
         });
         services.AddHttpContextAccessor();
         services.AddScoped<IAuthorizationHandler, AuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, ManageUsersAuthorizationHandler>();
 
         #endregion
     }

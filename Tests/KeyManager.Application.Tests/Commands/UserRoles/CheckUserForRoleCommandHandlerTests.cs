@@ -8,8 +8,8 @@ namespace KeyManager.Application.Tests.Commands.UserRoles;
 public class CheckUserForRoleCommandHandlerTests
 {
     private readonly Mock<IGenericRepository<Role>> _mockRoleRepository;
-    private readonly Mock<IGenericRepository<UserRole>> _mockUserRoleRepository;
     private readonly Mock<IGenericRepository<User>> _mockUserRepository;
+    private readonly Mock<IGenericRepository<UserRole>> _mockUserRoleRepository;
     private readonly CheckUserForRoleCommandHandler _openRoleHandler;
 
     public CheckUserForRoleCommandHandlerTests()
@@ -17,9 +17,11 @@ public class CheckUserForRoleCommandHandlerTests
         _mockUserRoleRepository = new Mock<IGenericRepository<UserRole>>();
         _mockUserRepository = new Mock<IGenericRepository<User>>();
         _mockRoleRepository = new Mock<IGenericRepository<Role>>();
-        _mockUserRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<User,bool>>>())).ReturnsAsync(new User { Name = "test" });
-        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<Role,bool>>>())).ReturnsAsync(new Role { Name = "test" });
-        _openRoleHandler = new CheckUserForRoleCommandHandler(_mockUserRoleRepository.Object, 
+        _mockUserRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
+            .ReturnsAsync(new User { Name = "test" });
+        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<Role, bool>>>()))
+            .ReturnsAsync(new Role { Name = "test" });
+        _openRoleHandler = new CheckUserForRoleCommandHandler(_mockUserRoleRepository.Object,
             _mockUserRepository.Object,
             _mockRoleRepository.Object);
     }
@@ -33,9 +35,10 @@ public class CheckUserForRoleCommandHandlerTests
                 s.GetAsync(It.IsAny<Expression<Func<UserRole, bool>>>()))
             .ReturnsAsync(new UserRole { RoleId = 1, UserId = 1 });
         //Act
-        await _openRoleHandler.Handle(newUserRole, default);
-        
+        var result = await _openRoleHandler.Handle(newUserRole, default);
+
         //Assert
+        Assert.True(result);
         _mockUserRoleRepository.VerifyAll();
         _mockUserRepository.VerifyAll();
     }
@@ -45,8 +48,8 @@ public class CheckUserForRoleCommandHandlerTests
     {
         //Arrange
         var newUserRole = new CheckUserForRoleCommand("test", "test");
-        _mockRoleRepository.Setup(s => 
-            s.GetAsync(It.IsAny<Expression<Func<Role,bool>>>())).ReturnsAsync((Role)null);
+        _mockRoleRepository.Setup(s =>
+            s.GetAsync(It.IsAny<Expression<Func<Role, bool>>>())).ReturnsAsync((Role)null);
 
         //Act
         Task Result()
@@ -64,8 +67,8 @@ public class CheckUserForRoleCommandHandlerTests
     {
         //Arrange
         var newUserRole = new CheckUserForRoleCommand("test", "test");
-        _mockUserRepository.Setup(s => 
-            s.GetAsync(It.IsAny<Expression<Func<User,bool>>>())).ReturnsAsync((User)null);
+        _mockUserRepository.Setup(s =>
+            s.GetAsync(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync((User)null);
 
         //Act
         Task Result()
@@ -88,14 +91,11 @@ public class CheckUserForRoleCommandHandlerTests
             .ReturnsAsync((UserRole)null);
 
         //Act
-        Task Result()
-        {
-            return _openRoleHandler.Handle(newUserRole, default);
-        }
+        var result = await _openRoleHandler.Handle(newUserRole, default);
 
         //Assert
-        var exception = await Assert.ThrowsAsync<RoleException>(Result);
-        Assert.Equal("User has no permission to use the role. " +
-                     $"Username: '{newUserRole.UserName}', Role name: '{newUserRole.RoleName}'", exception.Message);
+        Assert.False(result);
+        _mockUserRoleRepository.VerifyAll();
+        _mockUserRepository.VerifyAll();
     }
 }

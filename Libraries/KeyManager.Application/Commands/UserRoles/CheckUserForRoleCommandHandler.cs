@@ -1,10 +1,10 @@
 namespace KeyManager.Application.Commands.UserRoles;
 
-public class CheckUserForRoleCommandHandler: IRequestHandler<CheckUserForRoleCommand, bool>
+public class CheckUserForRoleCommandHandler : IRequestHandler<CheckUserForRoleCommand, bool>
 {
-    private readonly IGenericRepository<UserRole> _userRoleRepository;
-    private readonly IGenericRepository<User> _userRepository;
     private readonly IGenericRepository<Role> _roleRepository;
+    private readonly IGenericRepository<User> _userRepository;
+    private readonly IGenericRepository<UserRole> _userRoleRepository;
 
 
     public CheckUserForRoleCommandHandler(IGenericRepository<UserRole> userRoleRepository,
@@ -17,17 +17,14 @@ public class CheckUserForRoleCommandHandler: IRequestHandler<CheckUserForRoleCom
 
     public async Task<bool> Handle(CheckUserForRoleCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetAsync(x=>x.Username == request.UserName);
+        var user = await _userRepository.GetAsync(x => x.Username == request.UserName);
         if (user == null) throw new RoleException($"User not found. Username: '{request.UserName}'");
 
-        var role = await _roleRepository.GetAsync(x=>x.Name == request.RoleName);
+        var role = await _roleRepository.GetAsync(x => x.Name == request.RoleName);
         if (role == null) throw new RoleException($"Role not found. Role name: '{request.RoleName}'");
 
-        var userRole = await _userRoleRepository.GetAsync(x=>x.UserId == user.Id
-                                                             && x.RoleId == role.Id);
-        if (userRole == null)
-            throw new RoleException("User has no permission to use the role. " +
-                                    $"Username: '{request.UserName}', Role name: '{request.RoleName}'");
-        return true;
+        var userRole = await _userRoleRepository.GetAsync(x => x.UserId == user.Id
+                                                               && x.RoleId == role.Id);
+        return userRole != null;
     }
 }

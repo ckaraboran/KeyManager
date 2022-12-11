@@ -1,4 +1,4 @@
-﻿using KeyManager.Api.DTOs.Responses.Dummy;
+﻿using KeyManager.Api.DTOs.Responses.Users;
 
 namespace KeyManager.Api.Mappings;
 
@@ -9,5 +9,6 @@ public class AutoMapperProfile : Profile
         CreateMap<DummyDto, GetDummyResponse>().ReverseMap();
         CreateMap<DummyDto, CreateDummyResponse>().ReverseMap();
         CreateMap<DummyDto, UpdateDummyResponse>().ReverseMap();
+        CreateMap<UserDto, CreateUserResponse>();
     }
 }
