@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries.Users;
 
-public class GetUserByIdQueryHandlerTests : IDisposable
+public class GetUserRolesByUsernameHandlerTests : IDisposable
 {
     private readonly DataContext _dataContext;
-    private readonly GetUserByIdQueryHandler _userHandler;
+    private readonly GetUserRolesByUsernameHandler _userHandler;
 
-    public GetUserByIdQueryHandlerTests()
+    public GetUserRolesByUsernameHandlerTests()
     {
         var dbOptions = new DbContextOptionsBuilder<DataContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -19,7 +19,7 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         var myProfile = new AutoMapperProfile();
         var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
         var mapper = new Mapper(configuration);
-        _userHandler = new GetUserByIdQueryHandler(_dataContext, mapper);
+        _userHandler = new GetUserRolesByUsernameHandler(_dataContext, mapper);
     }
 
     public void Dispose()
@@ -60,19 +60,44 @@ public class GetUserByIdQueryHandlerTests : IDisposable
             Surname = "User Surname 4",
             Username = "Username 4"
         };
+        var newMockRole = new Role
+        {
+            Id = new Random().Next(),
+            Name = "User Role 1"
+        };
+        var newMockAnotherRole = new Role
+        {
+            Id = new Random().Next(),
+            Name = "User Role 2"
+        };
+        var newMockUserRole = new UserRole
+        {
+            Id = new Random().Next(),
+            UserId = newMockUser.Id,
+            RoleId = newMockRole.Id
+        };
+        var newMockAnotherUserRole = new UserRole
+        {
+            Id = new Random().Next(),
+            UserId = newMockUser.Id,
+            RoleId = newMockAnotherRole.Id
+        };
         mockUsers.Add(newMockUser);
 
         await _dataContext.AddRangeAsync(mockUsers);
+        await _dataContext.AddAsync(newMockRole);
+        await _dataContext.AddAsync(newMockAnotherRole);
+        await _dataContext.AddAsync(newMockUserRole);
+        await _dataContext.AddAsync(newMockAnotherUserRole);
         await _dataContext.SaveChangesAsync();
 
         //Act
-        var result = await _userHandler.Handle(new GetUserByIdQuery(newMockUser.Id), default);
+        var result = await _userHandler.Handle(new GetUserRolesByUsername(newMockUser.Username), default);
 
         //Assert
-        Assert.Equal(result.Id, newMockUser.Id);
-        Assert.Equal(result.Name, newMockUser.Name);
-        Assert.Equal(result.Surname, newMockUser.Surname);
         Assert.Equal(result.Username, newMockUser.Username);
+        Assert.Equal(result.RoleNames[0], newMockRole.Name);
+        Assert.Equal(result.RoleNames[1], newMockAnotherRole.Name);
     }
 
     [Fact]
@@ -102,11 +127,11 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         //Act
         Task Result()
         {
-            return _userHandler.Handle(new GetUserByIdQuery(4), default);
+            return _userHandler.Handle(new GetUserRolesByUsername("NotExistUsername"), default);
         }
 
         //Assert
         var exception = await Assert.ThrowsAsync<UserException>(Result);
-        Assert.Equal("User not found. User ID: '4'", exception.Message);
+        Assert.Equal("User not found. Username: 'NotExistUsername'", exception.Message);
     }
 }

@@ -28,7 +28,6 @@ public class Startup
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         //Can be replaced with a real db repository
-        services.AddScoped<IAuthUsersRepository, UserConstants>();
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>

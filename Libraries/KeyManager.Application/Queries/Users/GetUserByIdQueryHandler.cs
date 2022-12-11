@@ -17,6 +17,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto
     {
         var user = await _db.Users.AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        if (user == null) throw new UserException($"User not found. User ID: '{request.Id}'");
         return _mapper.Map<UserDto>(user);
     }
 }

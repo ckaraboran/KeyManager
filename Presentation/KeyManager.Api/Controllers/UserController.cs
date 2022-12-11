@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Security.Claims;
-using KeyManager.Domain.Models;
 
 namespace KeyManager.Api.Controllers;
 
@@ -16,16 +15,16 @@ public class UserController : ControllerBase
     public IActionResult AdminEndPoint()
     {
         var currentUser = GetCurrentUser();
-        return Ok($"Hi you are an {currentUser.Role}");
+        return Ok($"Hi you have these roles: {string.Join(", ", currentUser.RoleNames)}");
     }
-    private UserModel GetCurrentUser()
+    private UserWithRolesDto GetCurrentUser()
     {
         if (HttpContext.User.Identity is not ClaimsIdentity identity) return null;
         var userClaims = identity.Claims.ToList();
-        return new UserModel
+        return new UserWithRolesDto
         {
             Username = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-            Role = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value
+            RoleNames = userClaims.Select(x => x.Type == ClaimTypes.Role).Select(x=>x.ToString()).ToList()
         };
     }
 }
