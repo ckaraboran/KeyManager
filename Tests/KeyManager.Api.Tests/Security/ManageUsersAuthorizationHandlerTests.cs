@@ -59,7 +59,7 @@ public class ManageUsersAuthorizationHandlerTests
         await _authorizationHandler.HandleAsync(context);
 
         //Assert
-        Assert.True(context.HasSucceeded);
+        Assert.True(context.HasFailed);
     }
 
     [Fact]
