@@ -1,7 +1,6 @@
 using System;
 using KeyManager.Application.Queries.Doors;
 using KeyManager.Domain.Entities;
-using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries.Doors;
@@ -44,20 +43,15 @@ public class GetDoorsQueryHandlerTests : IDisposable
             new() { Id = 1, Name = "Test" },
             new() { Id = 2, Name = "Test2" }
         };
-        var mockDoorsDto = new List<DoorDto>
-        {
-            new() { Id = 1, Name = "Test" },
-            new() { Id = 2, Name = "Test2" }
-        };
         await _dataContext.AddRangeAsync(mockDoors);
         await _dataContext.SaveChangesAsync();
         //Act
         var result = await _doorHandler.Handle(new GetDoorsQuery(), default);
 
         //Assert
-        Assert.Equal(result[0].Id, mockDoorsDto[0].Id);
-        Assert.Equal(result[0].Name, mockDoorsDto[0].Name);
-        Assert.Equal(result[1].Id, mockDoorsDto[1].Id);
-        Assert.Equal(result[1].Name, mockDoorsDto[1].Name);
+        Assert.Equal(result[0].Id, mockDoors[0].Id);
+        Assert.Equal(result[0].Name, mockDoors[0].Name);
+        Assert.Equal(result[1].Id, mockDoors[1].Id);
+        Assert.Equal(result[1].Name, mockDoors[1].Name);
     }
 }
