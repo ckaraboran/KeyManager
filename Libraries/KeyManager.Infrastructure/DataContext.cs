@@ -15,6 +15,7 @@ public class DataContext : DbContext
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<UserRole> UsersRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,6 +25,7 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new EntityMapBase<Permission>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<Role>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<User>());
+        modelBuilder.ApplyConfiguration(new EntityMapBase<UserRole>());
         base.OnModelCreating(modelBuilder);
     }
 
