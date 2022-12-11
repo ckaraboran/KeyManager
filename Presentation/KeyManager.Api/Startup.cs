@@ -76,12 +76,12 @@ public class Startup
         {
             options.AddPolicy(nameof(AuthorizationRequirement),
                 policy => policy.Requirements.Add(new AuthorizationRequirement()));
-            options.AddPolicy(nameof(ManageUsersRequirement),
-                policy => policy.Requirements.Add(new ManageUsersRequirement()));
+            options.AddPolicy(nameof(SystemManagerRequirement),
+                policy => policy.Requirements.Add(new SystemManagerRequirement()));
         });
         services.AddHttpContextAccessor();
         services.AddScoped<IAuthorizationHandler, AuthorizationHandler>();
-        services.AddScoped<IAuthorizationHandler, ManageUsersAuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, WebsiteAccessAuthorizationHandler>();
 
         #endregion
     }

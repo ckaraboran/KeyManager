@@ -1,4 +1,5 @@
-﻿using KeyManager.Api.DTOs.Responses.Users;
+﻿using KeyManager.Api.DTOs.Responses.Doors;
+using KeyManager.Api.DTOs.Responses.Users;
 
 namespace KeyManager.Api.Mappings;
 
@@ -12,5 +13,8 @@ public class AutoMapperProfile : Profile
         CreateMap<UserDto, CreateUserResponse>();
         CreateMap<UserDto, UpdateUserResponse>();
         CreateMap<UserDto, GetUserResponse>();
+        CreateMap<DoorDto, CreateDoorResponse>();
+        CreateMap<DoorDto, UpdateDoorResponse>();
+        CreateMap<DoorDto, GetDoorResponse>();
     }
 }

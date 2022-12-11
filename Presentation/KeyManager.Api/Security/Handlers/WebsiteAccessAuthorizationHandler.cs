@@ -6,17 +6,17 @@ using MediatR;
 
 namespace KeyManager.Api.Security.Handlers;
 
-public class ManageUsersAuthorizationHandler : AuthorizationHandler<ManageUsersRequirement>
+public class WebsiteAccessAuthorizationHandler : AuthorizationHandler<IAccessRequirement>
 {
     private readonly ISender _mediator;
 
-    public ManageUsersAuthorizationHandler(ISender mediator)
+    public WebsiteAccessAuthorizationHandler(ISender mediator)
     {
         _mediator = mediator;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
-        ManageUsersRequirement requirement)
+        IAccessRequirement requirement)
     {
         if (context.User.Identity is not { IsAuthenticated: true })
         {

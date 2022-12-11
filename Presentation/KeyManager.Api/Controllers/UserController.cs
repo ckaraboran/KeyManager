@@ -25,7 +25,7 @@ public class UserController : ControllerBase
     //For admin Only
     [HttpGet]
     [Route("Admins")]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public IActionResult AdminEndPoint()
     {
         var currentUser = GetCurrentUser();
@@ -47,7 +47,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetUserResponse>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpGet]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<List<GetUserResponse>>> GetAsync()
     {
         var result = await _mediator.Send(new GetUsersQuery());
@@ -58,7 +58,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(GetUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpGet("{id}")]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<GetUserResponse>> GetAsync(int id)
     {
         var result = await _mediator.Send(new GetUserByIdQuery(id));
@@ -70,7 +70,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpPost]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<CreateUserResponse>> PostAsync([FromBody] CreateUserCommand createUserCommand)
     {
         var result = await _mediator.Send(createUserCommand);
@@ -81,7 +81,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpPut]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<UpdateUserResponse>> PutAsync([FromBody] UpdateUserCommand updateDummyCommand)
     {
         var result = await _mediator.Send(updateDummyCommand);
@@ -91,7 +91,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
-    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAsync(int id)
     {

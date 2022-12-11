@@ -2,9 +2,9 @@ using KeyManager.Domain.Enums;
 
 namespace KeyManager.Api.Security.Requirements;
 
-public class ManageUsersRequirement : IAuthorizationRequirement
+public class SystemManagerRequirement : IAccessRequirement
 {
-    private static readonly List<KnownRoles> AllowedRoles = new()
+    private static List<KnownRoles> AllowedRoles { get; } = new()
     {
         KnownRoles.OfficeManager
     };
