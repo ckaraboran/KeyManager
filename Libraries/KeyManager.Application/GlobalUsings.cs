@@ -7,3 +7,4 @@ global using KeyManager.Domain.Exceptions;
 global using KeyManager.Domain.Interfaces;
 global using MediatR;
 global using System.ComponentModel.DataAnnotations;
+global using KeyManager.Infrastructure;

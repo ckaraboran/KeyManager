@@ -1,4 +1,5 @@
-﻿using KeyManager.Infrastructure.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using KeyManager.Infrastructure.Extensions;
 using KeyManager.Infrastructure.Maps;
 
 namespace KeyManager.Infrastructure;
@@ -29,24 +30,28 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
         ChangeTracker.SetAuditProperties();
         return base.SaveChanges(acceptAllChangesOnSuccess);
     }
 
+    [ExcludeFromCodeCoverage]
     public override int SaveChanges()
     {
         ChangeTracker.SetAuditProperties();
         return base.SaveChanges();
     }
 
+    [ExcludeFromCodeCoverage]
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
         ChangeTracker.SetAuditProperties();
         return base.SaveChangesAsync(cancellationToken);
     }
 
+    [ExcludeFromCodeCoverage]
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
         CancellationToken cancellationToken = new())
     {
