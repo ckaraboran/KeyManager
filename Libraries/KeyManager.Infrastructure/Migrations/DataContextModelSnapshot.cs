@@ -61,7 +61,7 @@ namespace KeyManager.Infrastructure.Migrations
                     b.Property<long>("DoorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("EventDate")
+                    b.Property<DateTimeOffset>("EventDate")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -91,14 +91,14 @@ namespace KeyManager.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("RoleId")
+                    b.Property<long>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoorId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Permissions");
                 });
@@ -178,15 +178,15 @@ namespace KeyManager.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KeyManager.Domain.Entities.Role", "Role")
+                    b.HasOne("KeyManager.Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Door");
 
-                    b.Navigation("Role");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KeyManager.Domain.Entities.User", b =>

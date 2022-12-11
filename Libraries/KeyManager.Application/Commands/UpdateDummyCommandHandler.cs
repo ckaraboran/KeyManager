@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace KeyManager.Application.Commands;
 
 public class UpdateDummyCommandHandler : IRequestHandler<UpdateDummyCommand, DummyDto>
@@ -15,7 +13,7 @@ public class UpdateDummyCommandHandler : IRequestHandler<UpdateDummyCommand, Dum
 
     public async Task<DummyDto> Handle(UpdateDummyCommand request, CancellationToken cancellationToken)
     {
-        var existingDummy = await _dummyRepository.GetAsync(request.Id);
+        var existingDummy = await _dummyRepository.GetByIdAsync(request.Id);
 
         if (existingDummy == null)
             throw new DummyException($"Dummy is not found while updating. DummyId: '{request.Id}'");

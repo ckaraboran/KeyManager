@@ -1,5 +1,4 @@
 using KeyManager.Application.Commands;
-using KeyManager.Application.Mappings;
 using KeyManager.Domain.Entities;
 
 namespace KeyManager.Application.Tests.Commands;
@@ -35,7 +34,7 @@ public class UpdateDummyCommandHandlerTests
             Id = 1,
             Name = dummyName
         };
-        _mockDummyRepository.Setup(s => s.GetAsync(It.IsAny<long>())).ReturnsAsync(mockDummy);
+        _mockDummyRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockDummy);
         _mockDummyRepository.Setup(s => s.UpdateAsync(It.IsAny<Dummy>())).ReturnsAsync(mockDummy);
 
         //Act
@@ -53,7 +52,7 @@ public class UpdateDummyCommandHandlerTests
     {
         //Arrange
         var mockUpdateDummyCommand = new UpdateDummyCommand(1, "Test");
-        _mockDummyRepository.Setup(s => s.GetAsync(mockUpdateDummyCommand.Id))
+        _mockDummyRepository.Setup(s => s.GetByIdAsync(mockUpdateDummyCommand.Id))
             .ReturnsAsync((Dummy)null);
 
         //Act

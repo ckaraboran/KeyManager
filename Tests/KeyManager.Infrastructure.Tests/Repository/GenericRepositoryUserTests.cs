@@ -61,7 +61,7 @@ public class GenericRepositoryUserTests : IDisposable
         var repository = new GenericRepository<User>(_dataContext);
 
         //Act
-        var user = await repository.GetAsync(mockUser.Id);
+        var user = await repository.GetByIdAsync(mockUser.Id);
 
         //Assert
         Assert.Equal(mockUser.Id, user.Id);
@@ -190,7 +190,7 @@ public class GenericRepositoryUserTests : IDisposable
 
         //Act
         await repository.DeleteAsync(mockUser);
-        var user = await repository.GetAsync(mockUser.Id);
+        var user = await repository.GetByIdAsync(mockUser.Id);
 
         //Assert
         Assert.Null(user);
