@@ -4,7 +4,7 @@ namespace KeyManager.Domain.Entities;
 
 public class User : BaseEntity
 {
-    public long EmployeeId { get; set; }
+    public string Username { get; set; }
 
     [Required] public string Name { get; set; }
 

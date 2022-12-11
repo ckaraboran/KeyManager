@@ -2,14 +2,15 @@ namespace KeyManager.Application.Commands.Users;
 
 public class CreateUserCommand : IRequest<UserDto>
 {
-    public CreateUserCommand(long employeeId, string name, string surname)
+    public CreateUserCommand(string username, string name, string surname)
     {
-        EmployeeId = employeeId;
+        Username = username;
         Name = name;
         Surname = surname;
     }
 
-    public long EmployeeId { get; }
+    [Required(ErrorMessage = "Username is required.")]
+    public string Username { get; }
 
     [Required(ErrorMessage = "Name is required.")]
     public string Name { get; }

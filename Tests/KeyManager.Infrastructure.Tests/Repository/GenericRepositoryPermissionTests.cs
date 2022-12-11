@@ -8,7 +8,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     private readonly User _mockUser = new()
     {
         Id = new Random().Next(),
-        Name = "User1", Surname = "User surname1", EmployeeId = 1001
+        Name = "User1", Surname = "User surname1", Username = "Test Username"
     };
 
     public GenericRepositoryPermissionTests()

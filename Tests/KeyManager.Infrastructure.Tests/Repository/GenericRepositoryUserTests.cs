@@ -28,9 +28,9 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUsers = new List<User>
         {
-            new() { Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1" },
-            new() { Id = 2, EmployeeId = 2, Name = "TestName2", Surname = "TestSurname2" },
-            new() { Id = 3, EmployeeId = 3, Name = "TestName3", Surname = "TestSurname3" }
+            new() { Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1" },
+            new() { Id = 2, Username = "Test Username2", Name = "TestName2", Surname = "TestSurname2" },
+            new() { Id = 3, Username = "Test Username3", Name = "TestName3", Surname = "TestSurname3" }
         };
 
         _dataContext.AddRange(mockUsers);
@@ -51,7 +51,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -65,7 +65,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Id, user.Id);
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
-        Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
+        Assert.Equal(mockUser.Username, user.Username);
         Assert.False(user.IsDeleted);
     }
 
@@ -75,7 +75,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -89,7 +89,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Id, users[0].Id);
         Assert.Equal(mockUser.Name, users[0].Name);
         Assert.Equal(mockUser.Surname, users[0].Surname);
-        Assert.Equal(mockUser.EmployeeId, users[0].EmployeeId);
+        Assert.Equal(mockUser.Username, users[0].Username);
         Assert.False(users[0].IsDeleted);
     }
 
@@ -99,7 +99,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -114,7 +114,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(1, user.Id);
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
-        Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
+        Assert.Equal(mockUser.Username, user.Username);
         Assert.False(user.IsDeleted);
     }
 
@@ -124,7 +124,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -138,7 +138,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Id, users[0].Id);
         Assert.Equal(mockUser.Name, users[0].Name);
         Assert.Equal(mockUser.Surname, users[0].Surname);
-        Assert.Equal(mockUser.EmployeeId, users[0].EmployeeId);
+        Assert.Equal(mockUser.Username, users[0].Username);
         Assert.False(users[0].IsDeleted);
     }
 
@@ -148,7 +148,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         var repository = new GenericRepository<User>(_dataContext);
 
@@ -159,7 +159,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Id, user.Id);
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
-        Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
+        Assert.Equal(mockUser.Username, user.Username);
         Assert.False(user.IsDeleted);
     }
 
@@ -169,7 +169,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -190,7 +190,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -205,7 +205,7 @@ public class GenericRepositoryUserTests : IDisposable
         Assert.Equal(mockUser.Id, user.Id);
         Assert.Equal(mockUser.Name, user.Name);
         Assert.Equal(mockUser.Surname, user.Surname);
-        Assert.Equal(mockUser.EmployeeId, user.EmployeeId);
+        Assert.Equal(mockUser.Username, user.Username);
         Assert.False(user.IsDeleted);
     }
 
@@ -221,7 +221,7 @@ public class GenericRepositoryUserTests : IDisposable
         {
             await repository.AddAsync(new User
             {
-                Id = 1, EmployeeId = 1, Name = "TestName1", Surname = "TestSurname1"
+                Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
             });
         }
 
