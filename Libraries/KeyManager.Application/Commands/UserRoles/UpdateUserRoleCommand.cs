@@ -2,11 +2,11 @@ namespace KeyManager.Application.Commands.UserRoles;
 
 public class UpdateUserRoleCommand : IRequest<UserRoleDto>
 {
-    public UpdateUserRoleCommand(long id, long userId, long doorId)
+    public UpdateUserRoleCommand(long id, long userId, long roleId)
     {
         Id = id;
         UserId = userId;
-        RoleId = doorId;
+        RoleId = roleId;
     }
 
     [Required(ErrorMessage = "Id is required.")]

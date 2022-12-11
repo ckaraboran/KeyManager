@@ -1,8 +1,6 @@
 using System;
-using KeyManager.Application.Mappings;
 using KeyManager.Application.Queries;
 using KeyManager.Domain.Entities;
-using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries;
@@ -42,13 +40,13 @@ public class GetAllDummiesQueryHandlerTests : IDisposable
         //Arrange
         var mockDummies = new List<Dummy>
         {
-            new() { Id = 1, Name = "Test" },
-            new() { Id = 2, Name = "Test2" }
+            new() { Id = 1001, Name = "Test" },
+            new() { Id = 1002, Name = "Test2" }
         };
         var mockDummiesDto = new List<DummyDto>
         {
-            new() { Id = 1, Name = "Test" },
-            new() { Id = 2, Name = "Test2" }
+            new() { Id = 1001, Name = "Test" },
+            new() { Id = 1002, Name = "Test2" }
         };
         await _dataContext.AddRangeAsync(mockDummies);
         await _dataContext.SaveChangesAsync();

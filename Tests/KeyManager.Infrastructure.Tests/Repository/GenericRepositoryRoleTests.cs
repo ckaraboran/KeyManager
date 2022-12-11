@@ -28,9 +28,9 @@ public class GenericRepositoryRoleTests : IDisposable
         //Arrange
         var mockRoles = new List<Role>
         {
-            new() { Id = 1, Name = "TestName1" },
-            new() { Id = 2, Name = "TestName2" },
-            new() { Id = 3, Name = "TestName3" }
+            new() { Id = 1001, Name = "TestName1" },
+            new() { Id = 1002, Name = "TestName2" },
+            new() { Id = 1003, Name = "TestName3" }
         };
 
         _dataContext.AddRange(mockRoles);
@@ -49,7 +49,7 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_GetAsync_ShouldReturnRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
 
@@ -67,7 +67,7 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
 
@@ -85,14 +85,14 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
 
         var repository = new GenericRepository<Role>(_dataContext);
 
         //Act
-        var role = await repository.GetAsync(e => e.Id == 1);
+        var role = await repository.GetAsync(e => e.Id == 1001);
 
         //Assert
         Assert.Equal(mockRole.Id, role.Id);
@@ -103,14 +103,14 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
 
         var repository = new GenericRepository<Role>(_dataContext);
 
         //Act
-        var roles = await repository.FindAsync(e => e.Id == 1);
+        var roles = await repository.FindAsync(e => e.Id == 1001);
 
         //Assert
         Assert.Equal(mockRole.Id, roles[0].Id);
@@ -121,7 +121,7 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_AddAsync_WithGivenRole_ShouldReturnRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         var repository = new GenericRepository<Role>(_dataContext);
 
         //Act
@@ -136,7 +136,7 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_DeleteAsync_WithGivenRole_ShouldDeleteRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
 
@@ -154,7 +154,7 @@ public class GenericRepositoryRoleTests : IDisposable
     public async Task GenericRepository_UpdateAsync_WithGivenRole_ShouldReturnUpdatedRole()
     {
         //Arrange
-        var mockRole = new Role { Id = 1, Name = "TestName1" };
+        var mockRole = new Role { Id = 1001, Name = "TestName1" };
         _dataContext.Roles.Add(mockRole);
         await _dataContext.SaveChangesAsync();
         mockRole.Name = "TestName2";

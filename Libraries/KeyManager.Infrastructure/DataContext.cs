@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using KeyManager.Domain.Enums;
 using KeyManager.Infrastructure.Extensions;
 using KeyManager.Infrastructure.Maps;
 
@@ -27,7 +28,26 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new EntityMapBase<Role>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<User>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<UserRole>());
+        Seed(modelBuilder);
         base.OnModelCreating(modelBuilder);
+    }
+
+    public void Seed(ModelBuilder modelBuilder)
+    {
+        var count = 1;
+        foreach (var knownRoles in Enum.GetValues(typeof(KnownRoles)))
+        {
+            var user = new User
+            {
+                Id = count, Username = knownRoles.ToString(), Name = knownRoles.ToString(),
+                Surname = knownRoles.ToString()
+            };
+            var role = new Role { Id = count, Name = knownRoles.ToString() };
+            modelBuilder.Entity<Role>().HasData(role);
+            modelBuilder.Entity<User>().HasData(user);
+            modelBuilder.Entity<UserRole>().HasData(new UserRole { Id = count, UserId = user.Id, RoleId = role.Id });
+            count++;
+        }
     }
 
     [ExcludeFromCodeCoverage]
