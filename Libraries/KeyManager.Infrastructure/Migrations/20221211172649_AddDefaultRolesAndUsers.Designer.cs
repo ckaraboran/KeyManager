@@ -3,6 +3,7 @@ using System;
 using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KeyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221211172649_AddDefaultRolesAndUsers")]
+    partial class AddDefaultRolesAndUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
@@ -32,7 +34,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doors", (string)null);
+                    b.ToTable("Doors");
                 });
 
             modelBuilder.Entity("KeyManager.Domain.Entities.Dummy", b =>
@@ -49,7 +51,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dummies", (string)null);
+                    b.ToTable("Dummies");
                 });
 
             modelBuilder.Entity("KeyManager.Domain.Entities.Incident", b =>
@@ -76,7 +78,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Incidents", (string)null);
+                    b.ToTable("Incidents");
                 });
 
             modelBuilder.Entity("KeyManager.Domain.Entities.Permission", b =>
@@ -100,7 +102,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("KeyManager.Domain.Entities.Role", b =>
@@ -118,7 +120,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -163,7 +165,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -213,7 +215,7 @@ namespace KeyManager.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersRoles", (string)null);
+                    b.ToTable("UsersRoles");
 
                     b.HasData(
                         new
