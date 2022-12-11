@@ -21,15 +21,14 @@ public class UpdateUserCommandHandlerTests
     public async Task Given_User_When_UpdateUser_Then_ReturnsUpdateUserDto()
     {
         //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname", 1);
+        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
 
         var newUser = new User
         {
             EmployeeId = 1001,
             Id = 1,
             Name = "Old User",
-            Surname = "Old Surname",
-            RoleId = 1
+            Surname = "Old Surname"
         };
 
         var oldUser = new User
@@ -37,8 +36,7 @@ public class UpdateUserCommandHandlerTests
             EmployeeId = 1001,
             Id = 1,
             Name = "Old User",
-            Surname = "Old Surname",
-            RoleId = 1
+            Surname = "Old Surname"
         };
         _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(oldUser);
         _mockUserRepository.Setup(s => s.UpdateAsync(It.IsAny<User>())).ReturnsAsync(newUser);
@@ -59,7 +57,7 @@ public class UpdateUserCommandHandlerTests
         Given_User_When_UpdateUserNotFound_Then_ThrowsUserNotFoundException()
     {
         //Arrange
-        var mockUpdateUserCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname", 1);
+        var mockUpdateUserCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
         _mockUserRepository.Setup(s => s.GetByIdAsync(mockUpdateUserCommand.Id))
             .ReturnsAsync((User)null);
 
@@ -79,15 +77,14 @@ public class UpdateUserCommandHandlerTests
     public async Task Given_User_When_UpdateEmployeeIsDifferent_Then_ThrowsEmployeeDifferentException()
     {
         //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname", 1);
+        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
 
         var updatedUser = new User
         {
             EmployeeId = 1002,
             Id = 1,
             Name = "OldUser",
-            Surname = "OldSurname",
-            RoleId = 1
+            Surname = "OldSurname"
         };
         _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(updatedUser);
 
