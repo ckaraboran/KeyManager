@@ -30,9 +30,9 @@ public class GenericRepositoryIncidentTests : IDisposable
         //Arrange
         var mockIncidents = new List<Incident>
         {
-            new() { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now },
-            new() { Id = 2, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now },
-            new() { Id = 3, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now }
+            new() { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow },
+            new() { Id = 2, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow },
+            new() { Id = 3, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow }
         };
 
         _dataContext.AddRange(mockIncidents);
@@ -51,7 +51,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -71,7 +71,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -91,7 +91,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -111,7 +111,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -131,7 +131,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_AddAsync_WithGivenIncident_ShouldReturnIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         var repository = new GenericRepository<Incident>(_dataContext);
 
         //Act
@@ -148,7 +148,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_DeleteAsync_WithGivenIncident_ShouldDeleteIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
 
@@ -166,7 +166,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_UpdateAsync_WithGivenIncidentUser_ShouldReturnUpdatedIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
         mockIncident.UserId = 2;
@@ -187,7 +187,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     public async Task GenericRepository_UpdateAsync_WithGivenIncidentDoor_ShouldReturnUpdatedIncident()
     {
         //Arrange
-        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now };
+        var mockIncident = new Incident { Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow };
         _dataContext.Incidents.Add(mockIncident);
         await _dataContext.SaveChangesAsync();
         mockIncident.DoorId = 2;
@@ -216,7 +216,7 @@ public class GenericRepositoryIncidentTests : IDisposable
         {
             await repository.AddAsync(new Incident
             {
-                Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTime.Now
+                Id = 1, User = _mockUser, Door = _mockDoor, EventDate = DateTimeOffset.UtcNow
             });
         }
 

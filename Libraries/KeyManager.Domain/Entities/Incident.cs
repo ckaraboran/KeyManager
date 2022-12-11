@@ -10,5 +10,5 @@ public class Incident : BaseEntity
     [ForeignKey(nameof(Door))]
     public long DoorId { get; set; }
     public Door Door { get; set; }
-    public DateTime EventDate { get; set; }
+    public DateTimeOffset EventDate { get; set; }
 }
