@@ -7,7 +7,6 @@ public class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCo
     private readonly IGenericRepository<Permission> _permissionRepository;
     private readonly IGenericRepository<User> _userRepository;
 
-
     public CreatePermissionCommandHandler(IGenericRepository<Permission> permissionRepository,
         IGenericRepository<User> userRepository, IGenericRepository<Door> doorRepository,
         IMapper mapper)

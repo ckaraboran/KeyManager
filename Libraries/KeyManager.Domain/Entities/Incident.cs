@@ -4,11 +4,12 @@ namespace KeyManager.Domain.Entities;
 
 public class Incident : BaseEntity
 {
-    [ForeignKey(nameof(User))]
-    public long UserId { get; set; }
+    [ForeignKey(nameof(User))] public long UserId { get; set; }
+
     public User User { get; set; }
-    [ForeignKey(nameof(Door))]
-    public long DoorId { get; set; }
+
+    [ForeignKey(nameof(Door))] public long DoorId { get; set; }
+
     public Door Door { get; set; }
-    public DateTimeOffset EventDate { get; set; }
+    public DateTimeOffset IncidentDate { get; set; }
 }
