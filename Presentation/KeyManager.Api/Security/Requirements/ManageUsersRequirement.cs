@@ -6,8 +6,7 @@ public class ManageUsersRequirement : IAuthorizationRequirement
 {
     private static readonly List<KnownRoles> AllowedRoles = new()
     {
-        KnownRoles.OfficeManager,
-        KnownRoles.Director
+        KnownRoles.OfficeManager
     };
 
     public IEnumerable<KnownRoles> GetAllowedRoles()

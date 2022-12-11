@@ -10,5 +10,7 @@ public class AutoMapperProfile : Profile
         CreateMap<DummyDto, CreateDummyResponse>().ReverseMap();
         CreateMap<DummyDto, UpdateDummyResponse>().ReverseMap();
         CreateMap<UserDto, CreateUserResponse>();
+        CreateMap<UserDto, UpdateUserResponse>();
+        CreateMap<UserDto, GetUserResponse>();
     }
 }

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Api.Security.Requirements;
 using KeyManager.Application.Commands.Users;
+using KeyManager.Application.Queries.Users;
 using MediatR;
 
 namespace KeyManager.Api.Controllers;
@@ -28,7 +29,7 @@ public class UserController : ControllerBase
     public IActionResult AdminEndPoint()
     {
         var currentUser = GetCurrentUser();
-        return Ok($"Hi you have these roles: {string.Join(", ", currentUser.RoleNames)}");
+        return Ok($"Hi. you have these roles: {string.Join(", ", currentUser.RoleNames)}");
     }
 
     private UserWithRolesDto GetCurrentUser()
@@ -41,6 +42,29 @@ public class UserController : ControllerBase
             RoleNames = userClaims.Select(x => x.Type == ClaimTypes.Role).Select(x => x.ToString()).ToList()
         };
     }
+
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetUserResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetUserResponse>))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [HttpGet]
+    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    public async Task<ActionResult<List<GetUserResponse>>> GetAsync()
+    {
+        var result = await _mediator.Send(new GetUsersQuery());
+        return Ok(_mapper.Map<List<GetUserResponse>>(result));
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(GetUserResponse))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [HttpGet("{id}")]
+    [Authorize(Policy = nameof(ManageUsersRequirement))]
+    public async Task<ActionResult<GetUserResponse>> GetAsync(int id)
+    {
+        var result = await _mediator.Send(new GetUserByIdQuery(id));
+        return Ok(_mapper.Map<GetUserResponse>(result));
+    }
+
 
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserResponse))]
