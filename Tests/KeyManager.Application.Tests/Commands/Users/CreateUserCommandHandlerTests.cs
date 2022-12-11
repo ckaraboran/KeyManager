@@ -26,36 +26,37 @@ public class CreateUserCommandHandlerTests
             Id = 1,
             Name = "New Name",
             Surname = "New Surname",
-            EmployeeId = 1001
+            Username = "New Username"
         };
         _mockUserRepository.Setup(s => s.AddAsync(It.IsAny<User>())).ReturnsAsync(newUser);
 
         //Act
         var result =
             await _userHandler.Handle(
-                new CreateUserCommand(newUser.EmployeeId, newUser.Name, newUser.Surname), default);
+                new CreateUserCommand(newUser.Username, newUser.Name, newUser.Surname), default);
 
         //Assert
         Assert.Equal(result.Id, newUser.Id);
         Assert.Equal(result.Name, newUser.Name);
         Assert.Equal(result.Surname, newUser.Surname);
-        Assert.Equal(result.EmployeeId, newUser.EmployeeId);
+        Assert.Equal(result.Username, newUser.Username);
 
         _mockUserRepository.VerifyAll();
     }
 
     [Fact]
-    public async Task Given_User_When_CreateUserWithSameEmployeeId_Then_ThrowsExistingRecordException()
+    public async Task Given_User_When_CreateUserWithSameUsername_Then_ThrowsExistingRecordException()
     {
         //Arrange
-        var mockCreateUserCommand = new CreateUserCommand(1001, "Test", "TestSurname");
+        var mockCreateUserCommand = new CreateUserCommand("Test Username", "Test", "TestSurname");
         var mockUser = new User
         {
             Id = 1001,
+            Username = "Test Username",
             Name = "Test1",
             Surname = "TestSurname"
         };
-        _mockUserRepository.Setup(s => s.GetAsync(p => p.EmployeeId == mockCreateUserCommand.EmployeeId))
+        _mockUserRepository.Setup(s => s.GetAsync(p => p.Username == mockCreateUserCommand.Username))
             .ReturnsAsync(mockUser);
 
         //Act
@@ -66,7 +67,7 @@ public class CreateUserCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<UserException>(Result);
-        Assert.Equal("There is a user with the same employee ID: 'Test'", exception.Message);
+        Assert.Equal("There is a user with the same username: 'Test Username'", exception.Message);
         _mockUserRepository.VerifyAll();
     }
 }

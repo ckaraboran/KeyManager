@@ -21,11 +21,11 @@ public class UpdateUserCommandHandlerTests
     public async Task Given_User_When_UpdateUser_Then_ReturnsUpdateUserDto()
     {
         //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
+        var mockUserUpdateCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
 
         var newUser = new User
         {
-            EmployeeId = 1001,
+            Username = "Test Username",
             Id = 1,
             Name = "Old User",
             Surname = "Old Surname"
@@ -33,7 +33,7 @@ public class UpdateUserCommandHandlerTests
 
         var oldUser = new User
         {
-            EmployeeId = 1001,
+            Username = "Test Username",
             Id = 1,
             Name = "Old User",
             Surname = "Old Surname"
@@ -48,7 +48,7 @@ public class UpdateUserCommandHandlerTests
         Assert.Equal(result.Id, newUser.Id);
         Assert.Equal(result.Name, newUser.Name);
         Assert.Equal(result.Surname, newUser.Surname);
-        Assert.Equal(result.EmployeeId, newUser.EmployeeId);
+        Assert.Equal(result.Username, newUser.Username);
         _mockUserRepository.VerifyAll();
     }
 
@@ -57,7 +57,7 @@ public class UpdateUserCommandHandlerTests
         Given_User_When_UpdateUserNotFound_Then_ThrowsUserNotFoundException()
     {
         //Arrange
-        var mockUpdateUserCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
+        var mockUpdateUserCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
         _mockUserRepository.Setup(s => s.GetByIdAsync(mockUpdateUserCommand.Id))
             .ReturnsAsync((User)null);
 
@@ -74,14 +74,14 @@ public class UpdateUserCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_User_When_UpdateEmployeeIsDifferent_Then_ThrowsEmployeeDifferentException()
+    public async Task Given_User_When_UpdateWithDifferentUsername_Then_ThrowsEmployeeDifferentException()
     {
         //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, 1001, "Test", "TestSurname");
+        var mockUserUpdateCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
 
         var updatedUser = new User
         {
-            EmployeeId = 1002,
+            Username = "Different Username",
             Id = 1,
             Name = "OldUser",
             Surname = "OldSurname"
@@ -96,8 +96,8 @@ public class UpdateUserCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<UserException>(Result);
-        Assert.Equal("Employee ID cannot be different then current one. " +
-                     "EmployeeId: '1001'", exception.Message);
+        Assert.Equal("Username cannot be different then current one. " +
+                     "Username: 'Test Username'", exception.Message);
         _mockUserRepository.VerifyAll();
     }
 }
