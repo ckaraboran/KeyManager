@@ -40,8 +40,8 @@ public class GetRolesQueryHandlerTests : IDisposable
         //Arrange
         var mockRoles = new List<Role>
         {
-            new() { Id = 1, Name = "Test" },
-            new() { Id = 2, Name = "Test2" }
+            new() { Id = 1001, Name = "Test" },
+            new() { Id = 1002, Name = "Test2" }
         };
         await _dataContext.AddRangeAsync(mockRoles);
         await _dataContext.SaveChangesAsync();
@@ -49,9 +49,9 @@ public class GetRolesQueryHandlerTests : IDisposable
         var result = await _roleHandler.Handle(new GetRolesQuery(), default);
 
         //Assert
-        Assert.Equal(result[0].Id, mockRoles[0].Id);
-        Assert.Equal(result[0].Name, mockRoles[0].Name);
-        Assert.Equal(result[1].Id, mockRoles[1].Id);
-        Assert.Equal(result[1].Name, mockRoles[1].Name);
+        Assert.Equal(mockRoles[0].Id, result[0].Id);
+        Assert.Equal(mockRoles[0].Name, result[0].Name);
+        Assert.Equal(mockRoles[1].Id, result[1].Id);
+        Assert.Equal(mockRoles[1].Name, result[1].Name);
     }
 }

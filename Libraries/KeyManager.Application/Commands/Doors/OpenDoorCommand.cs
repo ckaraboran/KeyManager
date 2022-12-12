@@ -2,14 +2,14 @@ namespace KeyManager.Application.Commands.Doors;
 
 public class OpenDoorCommand : IRequest<bool>
 {
-    public OpenDoorCommand(long userId, long doorId)
+    public OpenDoorCommand(string username, long doorId)
     {
-        UserId = userId;
+        Username = username;
         DoorId = doorId;
     }
 
-    [Required(ErrorMessage = "UserId is required.")]
-    public long UserId { get; }
+    [Required(ErrorMessage = "Username is required.")]
+    public string Username { get; }
 
     [Required(ErrorMessage = "DoorId is required.")]
     public long DoorId { get; }

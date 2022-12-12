@@ -1,8 +1,8 @@
-namespace KeyManager.Domain.DTOs;
+namespace KeyManager.Api.DTOs.Responses.Users;
 
-public class UserDto
+public class UpdateUserResponse
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
     public string Username { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }

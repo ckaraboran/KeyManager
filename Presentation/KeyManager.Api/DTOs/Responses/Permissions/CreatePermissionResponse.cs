@@ -1,6 +1,6 @@
-namespace KeyManager.Domain.DTOs;
+namespace KeyManager.Api.DTOs.Responses.Permissions;
 
-public class PermissionDto
+public class CreatePermissionResponse
 {
     public long Id { get; set; }
     public long UserId { get; set; }

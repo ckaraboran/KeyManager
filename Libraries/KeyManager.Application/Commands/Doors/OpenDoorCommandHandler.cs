@@ -20,23 +20,21 @@ public class OpenDoorCommandHandler : IRequestHandler<OpenDoorCommand, bool>
 
     public async Task<bool> Handle(OpenDoorCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new DoorException($"User not found. User ID: '{request.UserId}'");
+        var user = await _userRepository.GetAsync(x => x.Username == request.Username);
+        if (user == null) throw new DoorException($"User not found. Username: '{request.Username}'");
 
         var door = await _doorRepository.GetByIdAsync(request.DoorId);
         if (door == null) throw new DoorException($"Door not found. Door ID: '{request.DoorId}'");
 
         var permission = await _permissionRepository.GetAsync(p =>
-            p.DoorId == request.DoorId && p.UserId == request.UserId);
+            p.DoorId == door.Id && p.UserId == user.Id);
 
-        if (permission == null)
-            throw new DoorException("User has no permission to open the door. " +
-                                    $"User ID: '{request.UserId}', Door ID: '{request.DoorId}'");
+        if (permission == null) return false;
 
         var incident = new Incident
         {
-            DoorId = request.DoorId,
-            UserId = request.UserId,
+            DoorId = door.Id,
+            UserId = user.Id,
             IncidentDate = DateTimeOffset.UtcNow
         };
 

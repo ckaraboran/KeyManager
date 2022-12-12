@@ -19,7 +19,8 @@ public class OpenDoorCommandHandlerTests
         _mockPermissionRepository = new Mock<IGenericRepository<Permission>>();
         _mockUserRepository = new Mock<IGenericRepository<User>>();
         _mockDoorRepository = new Mock<IGenericRepository<Door>>();
-        _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new User { Name = "test" });
+        _mockUserRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<User, bool>>>()))
+            .ReturnsAsync(new User { Name = "test" });
         _mockDoorRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(new Door { Name = "test" });
         _openDoorHandler = new OpenDoorCommandHandler(_mockDoorRepository.Object,
             _mockUserRepository.Object,
@@ -30,7 +31,7 @@ public class OpenDoorCommandHandlerTests
     public async Task Given_OpenDoorCommand_When_OpenDoor_Then_ReturnsTrue()
     {
         //Arrange
-        var newPermission = new OpenDoorCommand(1, 1);
+        var newPermission = new OpenDoorCommand("Test", 1);
         _mockPermissionRepository.Setup(s =>
                 s.GetAsync(It.IsAny<Expression<Func<Permission, bool>>>()))
             .ReturnsAsync(new Permission { DoorId = 1, UserId = 1 });
@@ -47,7 +48,7 @@ public class OpenDoorCommandHandlerTests
     public async Task Given_OpenDoorCommand_When_OpenDoorDoorNotFound_Then_ReturnsDoorNotFoundException()
     {
         //Arrange
-        var newPermission = new OpenDoorCommand(1, 2);
+        var newPermission = new OpenDoorCommand("Test", 2);
         _mockDoorRepository.Setup(s => s.GetByIdAsync(2)).ReturnsAsync((Door)null);
 
         //Act
@@ -65,8 +66,9 @@ public class OpenDoorCommandHandlerTests
     public async Task Given_OpenDoorCommand_When_OpenDoorUserNotFound_Then_ReturnsUserNotFoundException()
     {
         //Arrange
-        var newPermission = new OpenDoorCommand(2, 1);
-        _mockUserRepository.Setup(s => s.GetByIdAsync(2)).ReturnsAsync((User)null);
+        var newPermission = new OpenDoorCommand("Test", 1);
+        _mockUserRepository.Setup(s =>
+            s.GetAsync(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync((User)null);
 
         //Act
         Task Result()
@@ -76,27 +78,23 @@ public class OpenDoorCommandHandlerTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<DoorException>(Result);
-        Assert.Equal($"User not found. User ID: '{newPermission.UserId}'", exception.Message);
+        Assert.Equal($"User not found. Username: '{newPermission.Username}'", exception.Message);
     }
 
     [Fact]
     public async Task Given_OpenDoorCommand_When_NotPermitted_Then_ThrowsNotPermittedException()
     {
         //Arrange
-        var newPermission = new OpenDoorCommand(1, 1);
+        var newPermission = new OpenDoorCommand("Test", 1);
         _mockPermissionRepository.Setup(s =>
                 s.GetAsync(It.IsAny<Expression<Func<Permission, bool>>>()))
             .ReturnsAsync((Permission)null);
 
         //Act
-        Task Result()
-        {
-            return _openDoorHandler.Handle(newPermission, default);
-        }
+        var result = await _openDoorHandler.Handle(newPermission, default);
 
         //Assert
-        var exception = await Assert.ThrowsAsync<DoorException>(Result);
-        Assert.Equal("User has no permission to open the door. " +
-                     $"User ID: '{newPermission.UserId}', Door ID: '{newPermission.DoorId}'", exception.Message);
+        Assert.False(result);
+        _mockPermissionRepository.VerifyAll();
     }
 }

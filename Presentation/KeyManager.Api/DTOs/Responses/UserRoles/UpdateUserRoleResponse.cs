@@ -1,6 +1,6 @@
-namespace KeyManager.Domain.DTOs;
+namespace KeyManager.Api.DTOs.Responses.UserRoles;
 
-public class UserRoleDto
+public class UpdateUserRoleResponse
 {
     public long Id { get; set; }
     public long UserId { get; set; }
