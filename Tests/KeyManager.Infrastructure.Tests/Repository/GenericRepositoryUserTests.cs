@@ -28,9 +28,21 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUsers = new List<User>
         {
-            new() { Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1" },
-            new() { Id = 2, Username = "Test Username2", Name = "TestName2", Surname = "TestSurname2" },
-            new() { Id = 3, Username = "Test Username3", Name = "TestName3", Surname = "TestSurname3" }
+            new()
+            {
+                Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1",
+                Password = "TestPassword1"
+            },
+            new()
+            {
+                Id = 2, Username = "Test Username2", Name = "TestName2", Surname = "TestSurname2",
+                Password = "TestPassword1"
+            },
+            new()
+            {
+                Id = 3, Username = "Test Username3", Name = "TestName3", Surname = "TestSurname3",
+                Password = "TestPassword1"
+            }
         };
 
         _dataContext.AddRange(mockUsers);
@@ -51,7 +63,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -75,7 +87,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -99,7 +111,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -124,7 +136,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -148,7 +160,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword1"
         };
         var repository = new GenericRepository<User>(_dataContext);
 
@@ -169,7 +181,7 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1", Password = "TestPassword"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();
@@ -190,7 +202,8 @@ public class GenericRepositoryUserTests : IDisposable
         //Arrange
         var mockUser = new User
         {
-            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1"
+            Id = 1, Username = "Test Username", Name = "TestName1", Surname = "TestSurname1",
+            Password = "TestPassword1"
         };
         _dataContext.Users.Add(mockUser);
         await _dataContext.SaveChangesAsync();

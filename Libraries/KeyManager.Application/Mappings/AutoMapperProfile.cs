@@ -4,6 +4,7 @@ using KeyManager.Application.Commands.Permissions;
 using KeyManager.Application.Commands.Roles;
 using KeyManager.Application.Commands.UserRoles;
 using KeyManager.Application.Commands.Users;
+using KeyManager.Infrastructure.Security;
 
 namespace KeyManager.Application.Mappings;
 
@@ -20,9 +21,12 @@ public class AutoMapperProfile : Profile
         CreateMap<Role, CreateRoleCommand>().ReverseMap();
         CreateMap<Role, RoleDto>().ReverseMap();
         CreateMap<Role, UpdateRoleCommand>().ReverseMap();
-        CreateMap<User, CreateUserCommand>().ReverseMap();
+        CreateMap<CreateUserCommand, User>()
+            .ForMember(dest => dest.Password, opt
+                => opt.MapFrom((src, dest)
+                    => ClayPasswordHasher.HashPassword(dest, src.Password)));
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<User, UpdateUserCommand>().ReverseMap();
+        CreateMap<UpdateUserCommand, User>();
         CreateMap<Permission, CreatePermissionCommand>().ReverseMap();
         CreateMap<Permission, PermissionDto>().ReverseMap();
         CreateMap<Permission, UpdatePermissionCommand>().ReverseMap();

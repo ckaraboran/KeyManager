@@ -79,7 +79,7 @@ public class UserControllerTests
     {
         //Arrange
         var mockCreateUserCommand =
-            new CreateUserCommand("Test Username", "Test name", "Test surname");
+            new CreateUserCommand("Test Username", "Test name", "Test surname", "Test password");
         var mockUserDto = new UserDto
         {
             Id = 1,
@@ -104,7 +104,7 @@ public class UserControllerTests
     {
         //Arrange
         var mockUpdateUserCommand =
-            new UpdateUserCommand(1, "Test Username", "Test name", "Test surname");
+            new UpdateUserCommand(1, "Test name", "Test surname");
         var mockUserDto = new UserDto
         {
             Id = 1,

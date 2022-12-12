@@ -4,7 +4,12 @@ public class GenericRepositoryIncidentTests : IDisposable
 {
     private readonly DataContext _dataContext;
     private readonly Door _mockDoor = new() { Id = new Random().Next(), Name = "Door1" };
-    private readonly User _mockUser = new() { Id = new Random().Next(), Name = "Name1", Surname = "Surname1" };
+
+    private readonly User _mockUser = new()
+    {
+        Id = new Random().Next(), Name = "Name1",
+        Surname = "Surname1", Password = "Password1"
+    };
 
     public GenericRepositoryIncidentTests()
     {

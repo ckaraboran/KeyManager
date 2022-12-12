@@ -42,15 +42,18 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         {
             new()
             {
-                Id = new Random().Next(), Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1"
+                Id = new Random().Next(), Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1",
+                Password = "Password 1"
             },
             new()
             {
-                Id = new Random().Next(), Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2"
+                Id = new Random().Next(), Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2",
+                Password = "Password 2"
             },
             new()
             {
-                Id = new Random().Next(), Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3"
+                Id = new Random().Next(), Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3",
+                Password = "Password 3"
             }
         };
         var newMockUser = new User
@@ -58,7 +61,8 @@ public class GetUserByIdQueryHandlerTests : IDisposable
             Id = new Random().Next(),
             Name = "User Name 4",
             Surname = "User Surname 4",
-            Username = "Username 4"
+            Username = "Username 4",
+            Password = "Password 4"
         };
         mockUsers.Add(newMockUser);
 
@@ -84,15 +88,18 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         {
             new()
             {
-                Id = 1, Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1"
+                Id = 1, Name = "User Name 1", Surname = "User Surname 1", Username = "Username 1",
+                Password = "Password 1"
             },
             new()
             {
-                Id = 2, Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2"
+                Id = 2, Name = "User Name 2", Surname = "User Surname 2", Username = "Username 2",
+                Password = "Password 2"
             },
             new()
             {
-                Id = 3, Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3"
+                Id = 3, Name = "User Name 3", Surname = "User Surname 3", Username = "Username 3",
+                Password = "Password 3"
             }
         };
 

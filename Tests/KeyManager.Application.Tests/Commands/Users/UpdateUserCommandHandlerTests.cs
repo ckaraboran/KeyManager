@@ -21,7 +21,7 @@ public class UpdateUserCommandHandlerTests
     public async Task Given_User_When_UpdateUser_Then_ReturnsUpdateUserDto()
     {
         //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
+        var mockUserUpdateCommand = new UpdateUserCommand(1, "Test", "TestSurname");
 
         var newUser = new User
         {
@@ -57,7 +57,7 @@ public class UpdateUserCommandHandlerTests
         Given_User_When_UpdateUserNotFound_Then_ThrowsUserNotFoundException()
     {
         //Arrange
-        var mockUpdateUserCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
+        var mockUpdateUserCommand = new UpdateUserCommand(1, "Test", "TestSurname");
         _mockUserRepository.Setup(s => s.GetByIdAsync(mockUpdateUserCommand.Id))
             .ReturnsAsync((User)null);
 
@@ -70,34 +70,6 @@ public class UpdateUserCommandHandlerTests
         //Assert
         var exception = await Assert.ThrowsAsync<UserException>(Result);
         Assert.Equal("User not found. UserId: '1'", exception.Message);
-        _mockUserRepository.VerifyAll();
-    }
-
-    [Fact]
-    public async Task Given_User_When_UpdateWithDifferentUsername_Then_ThrowsEmployeeDifferentException()
-    {
-        //Arrange
-        var mockUserUpdateCommand = new UpdateUserCommand(1, "Test Username", "Test", "TestSurname");
-
-        var updatedUser = new User
-        {
-            Username = "Different Username",
-            Id = 1,
-            Name = "OldUser",
-            Surname = "OldSurname"
-        };
-        _mockUserRepository.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(updatedUser);
-
-        //Act
-        Task Result()
-        {
-            return _userHandler.Handle(mockUserUpdateCommand, default);
-        }
-
-        //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
-        Assert.Equal("Username cannot be different then current one. " +
-                     "Username: 'Test Username'", exception.Message);
         _mockUserRepository.VerifyAll();
     }
 }

@@ -1,8 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using KeyManager.Api.DTOs.Requests;
+using KeyManager.Application.Commands.Users;
 using KeyManager.Application.Queries.Users;
-using KeyManager.Domain.Models;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,17 +16,20 @@ public class LoginController : ControllerBase
     private readonly IConfiguration _config;
     private readonly ISender _mediator;
 
-    public LoginController(IConfiguration config,ISender mediator)
+    public LoginController(IConfiguration config, ISender mediator)
     {
         _config = config;
         _mediator = mediator;
     }
 
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkObjectResult))]
     [AllowAnonymous]
     [HttpPost]
     public async Task<ActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
     {
-        var user = await Authenticate(userLoginRequest.Username);
+        var user = await Authenticate(userLoginRequest.Username, userLoginRequest.Password);
         if (user != null)
         {
             var token = GenerateToken(user);
@@ -40,11 +44,8 @@ public class LoginController : ControllerBase
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        var claims = new List<Claim> { new (ClaimTypes.Name, user.Username) };
-        foreach (var roleName in user.RoleNames)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, roleName));
-        }
+        var claims = new List<Claim> { new(ClaimTypes.Name, user.Username) };
+        foreach (var roleName in user.RoleNames) claims.Add(new Claim(ClaimTypes.Role, roleName));
 
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
             _config["Jwt:Audience"],
@@ -55,10 +56,11 @@ public class LoginController : ControllerBase
     }
 
     //To authenticate user
-    private async Task<UserWithRolesDto> Authenticate(string username)
+    private async Task<UserWithRolesDto> Authenticate(string username, string password)
     {
+        var userAuthenticated = await _mediator.Send(new CheckAuthenticationCommand(username, password));
+        if (!userAuthenticated) return null;
         var currentUser = await _mediator.Send(new GetUserRolesByUsername(username));
-        if (currentUser != null) return currentUser;
-        return null;
+        return currentUser;
     }
 }

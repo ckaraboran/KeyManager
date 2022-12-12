@@ -26,14 +26,15 @@ public class CreateUserCommandHandlerTests
             Id = 1,
             Name = "New Name",
             Surname = "New Surname",
-            Username = "New Username"
+            Username = "New Username",
+            Password = "New Password"
         };
         _mockUserRepository.Setup(s => s.AddAsync(It.IsAny<User>())).ReturnsAsync(newUser);
 
         //Act
         var result =
             await _userHandler.Handle(
-                new CreateUserCommand(newUser.Username, newUser.Name, newUser.Surname), default);
+                new CreateUserCommand(newUser.Username, newUser.Name, newUser.Surname, newUser.Password), default);
 
         //Assert
         Assert.Equal(result.Id, newUser.Id);
@@ -48,13 +49,14 @@ public class CreateUserCommandHandlerTests
     public async Task Given_User_When_CreateUserWithSameUsername_Then_ThrowsExistingRecordException()
     {
         //Arrange
-        var mockCreateUserCommand = new CreateUserCommand("Test Username", "Test", "TestSurname");
+        var mockCreateUserCommand = new CreateUserCommand("Test Username", "Test", "TestSurname", "TestPassword");
         var mockUser = new User
         {
             Id = 1001,
             Username = "Test Username",
             Name = "Test1",
-            Surname = "TestSurname"
+            Surname = "TestSurname",
+            Password = "TestPassword"
         };
         _mockUserRepository.Setup(s => s.GetAsync(p => p.Username == mockCreateUserCommand.Username))
             .ReturnsAsync(mockUser);

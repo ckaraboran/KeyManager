@@ -2,10 +2,9 @@ namespace KeyManager.Application.Commands.Users;
 
 public class UpdateUserCommand : IRequest<UserDto>
 {
-    public UpdateUserCommand(long id, string username, string name, string surname)
+    public UpdateUserCommand(long id, string name, string surname)
     {
         Id = id;
-        Username = username;
         Name = name;
         Surname = surname;
     }
@@ -13,8 +12,6 @@ public class UpdateUserCommand : IRequest<UserDto>
     [Required(ErrorMessage = "Id is required.")]
     public long Id { get; }
 
-    [Required(ErrorMessage = "Username is required.")]
-    public string Username { get; }
 
     [Required(ErrorMessage = "Name is required.")]
     public string Name { get; }
