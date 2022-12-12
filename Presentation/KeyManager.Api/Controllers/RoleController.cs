@@ -6,6 +6,9 @@ using MediatR;
 
 namespace KeyManager.Api.Controllers;
 
+[Authorize(Policy = nameof(AuthorizationRequirement))]
+[Route("api/{controller}")]
+[ApiController]
 public class RoleController : ControllerBase
 {
     private readonly IMapper _mapper;

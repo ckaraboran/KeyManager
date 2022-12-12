@@ -1,4 +1,5 @@
 ﻿using KeyManager.Api.DTOs.Responses.Doors;
+using KeyManager.Api.DTOs.Responses.Incident;
 using KeyManager.Api.DTOs.Responses.Permissions;
 using KeyManager.Api.DTOs.Responses.Roles;
 using KeyManager.Api.DTOs.Responses.UserRoles;
@@ -28,5 +29,6 @@ public class AutoMapperProfile : Profile
         CreateMap<UserRoleWithNamesDto, GetUserRoleResponse>();
         CreateMap<UserRoleDto, CreateUserRoleResponse>();
         CreateMap<UserRoleDto, UpdateUserRoleResponse>();
+        CreateMap<IncidentWithNamesDto, GetIncidentResponse>();
     }
 }

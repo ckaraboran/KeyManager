@@ -8,7 +8,7 @@ using MediatR;
 namespace KeyManager.Api.Controllers;
 
 [Authorize(Policy = nameof(AuthorizationRequirement))]
-[Route("api/door")]
+[Route("api/{controller}")]
 [ApiController]
 public class DoorController : ControllerBase
 {
