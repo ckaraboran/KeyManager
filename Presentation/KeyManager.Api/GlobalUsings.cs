@@ -24,7 +24,6 @@ global using System.Collections.Generic;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Net;
 global using System.Threading.Tasks;
-global using KeyManager.Api.DTOs.Responses.Dummy;
 global using Microsoft.OpenApi.Models;
 global using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 global using KeyManager.Domain.Interfaces;
