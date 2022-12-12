@@ -73,6 +73,27 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
+    public async Task Given_UnauthorizedAccessException_When_Thrown_Then_ShouldReturnUnauthorizedHttpCode()
+    {
+        //Arrange
+        var mockProductApiException = new UnauthorizedAccessException("test");
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockProductApiException);
+        }
+
+        var httpContext = new DefaultHttpContext();
+        var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
+
+        //Act
+        await exceptionHandlingMiddleware.Invoke(httpContext);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Unauthorized, (HttpStatusCode)httpContext.Response.StatusCode);
+    }
+
+    [Fact]
     public async Task ExceptionMiddleware_RandomException_ShouldReturnReturnInternalServerErrorStatusCode()
     {
         //Arrange
