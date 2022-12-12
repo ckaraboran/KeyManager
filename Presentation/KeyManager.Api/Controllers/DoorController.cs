@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using KeyManager.Api.DTOs.Responses.Doors;
 using KeyManager.Api.Security.Requirements;
 using KeyManager.Application.Commands.Doors;
@@ -72,6 +73,20 @@ public class DoorController : ControllerBase
     public async Task<ActionResult> DeleteAsync(int id)
     {
         await _mediator.Send(new DeleteDoorCommand(id));
+        return Ok();
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [HttpDelete("{id}")]
+    [Authorize(Policy = nameof(KnownRolesRequirement))]
+    public async Task<ActionResult> OpenDoorAsync(int id)
+    {
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+        if (username == null) return Unauthorized();
+        var result = await _mediator.Send(new OpenDoorCommand(username, id));
+        if (!result) return Unauthorized();
         return Ok();
     }
 }
