@@ -43,18 +43,6 @@ public class UserRoleController : ControllerBase
         return Created(nameof(PostAsync), _mapper.Map<CreateUserRoleResponse>(result));
     }
 
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserRoleResponse))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserRoleResponse))]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
-    [HttpPut]
-    [Authorize(Policy = nameof(SystemManagerRequirement))]
-    public async Task<ActionResult<UpdateUserRoleResponse>> PutAsync(
-        [FromBody] UpdateUserRoleCommand updateUserRoleCommand)
-    {
-        var result = await _mediator.Send(updateUserRoleCommand);
-        return Ok(_mapper.Map<UpdateUserRoleResponse>(result));
-    }
-
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
