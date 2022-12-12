@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries.Permissions;
 
-public class GetPermissionsQueryHandlerTests
-    : IDisposable
+public class GetPermissionsQueryHandlerTests : IDisposable
 {
     private readonly DataContext _dataContext;
     private readonly GetPermissionsQueryHandler _permissionHandler;

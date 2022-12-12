@@ -40,14 +40,14 @@ public class PermissionControllerTests
         Assert.NotNull(resultObject);
         Assert.Equal(mockPermissionDto[0].Id, resultObject[0].Id);
         Assert.Equal(mockPermissionDto[0].UserId, resultObject[0].UserId);
-        Assert.Equal(mockPermissionDto[0].UserName, resultObject[0].Username);
+        Assert.Equal(mockPermissionDto[0].UserName, resultObject[0].UserName);
         Assert.Equal(mockPermissionDto[0].DoorId, resultObject[0].DoorId);
-        Assert.Equal(mockPermissionDto[0].DoorName, resultObject[0].Doorname);
+        Assert.Equal(mockPermissionDto[0].DoorName, resultObject[0].DoorName);
         Assert.Equal(mockPermissionDto[1].Id, resultObject[1].Id);
         Assert.Equal(mockPermissionDto[1].UserId, resultObject[1].UserId);
-        Assert.Equal(mockPermissionDto[1].UserName, resultObject[1].Username);
+        Assert.Equal(mockPermissionDto[1].UserName, resultObject[1].UserName);
         Assert.Equal(mockPermissionDto[1].DoorId, resultObject[1].DoorId);
-        Assert.Equal(mockPermissionDto[1].DoorName, resultObject[1].Doorname);
+        Assert.Equal(mockPermissionDto[1].DoorName, resultObject[1].DoorName);
         _mockMediator.VerifyAll();
     }
 
