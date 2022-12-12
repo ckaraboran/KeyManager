@@ -137,4 +137,27 @@ public class UserControllerTests
         //Assert
         _mockMediator.VerifyAll();
     }
+
+    [Fact]
+    public async Task Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Role, "Test name"),
+            new Claim(ClaimTypes.Role, "Admin1"),
+            new Claim(ClaimTypes.Role, "User1")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+
+        //Act
+        var result = _sut.AdminEndPoint();
+
+        //Assert
+        var resultValue = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal("Hi. you have these roles: Test name, Admin1, User1", resultValue.Value);
+    }
 }
