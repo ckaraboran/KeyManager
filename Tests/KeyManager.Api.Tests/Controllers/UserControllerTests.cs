@@ -1,4 +1,5 @@
 using System.Threading;
+using KeyManager.Api.DTOs.Requests;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Application.Commands.Users;
 using KeyManager.Application.Queries.Users;
@@ -136,6 +137,49 @@ public class UserControllerTests
 
         //Assert
         _mockMediator.VerifyAll();
+    }
+
+    [Fact]
+    public async Task Given_UpdatePasswordRequest_When_KnownUser_ThenShouldCallMediator()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Name, "Test name")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)));
+
+        //Act
+        await _sut.UpdatePasswordAsync(new UpdateUserPasswordRequest("old", "new"));
+
+        //Assert
+        _mockMediator.VerifyAll();
+    }
+
+    [Fact]
+    public async Task Given_UpdatePasswordRequest_When_UserNotKnown_ThenShouldReturnUnAuthorized()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(Array.Empty<Claim>(), "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)));
+
+        //Act
+        var result = await _sut.UpdatePasswordAsync(new UpdateUserPasswordRequest("old", "new"));
+
+        //Assert
+        Assert.IsType<UnauthorizedResult>(result);
+        _mockMediator.Verify(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)), Times.Never);
     }
 
     [Fact]
