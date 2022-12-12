@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Security.Claims;
+using KeyManager.Api.DTOs.Requests;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Api.Security.Requirements;
 using KeyManager.Application.Commands.Users;
@@ -81,6 +82,21 @@ public class UserController : ControllerBase
     {
         var result = await _mediator.Send(updateDummyCommand);
         return Ok(_mapper.Map<UpdateUserResponse>(result));
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [HttpPut("password")]
+    [Authorize(Policy = nameof(SystemManagerRequirement))]
+    public async Task<ActionResult>
+        UpdatePasswordAsync([FromBody] UpdateUserPasswordRequest updateUserPasswordRequest)
+    {
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+        if (username == null) return Unauthorized();
+        await _mediator.Send(new UpdateUserPasswordCommand(username,
+            updateUserPasswordRequest.OldPassword, updateUserPasswordRequest.NewPassword));
+        return Ok();
     }
 
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
