@@ -10,7 +10,7 @@ using MediatR;
 namespace KeyManager.Api.Controllers;
 
 [Authorize(Policy = nameof(AuthorizationRequirement))]
-[Route("api/[controller]")]
+[Route("api/users")]
 [ApiController]
 public class UserController : ControllerBase
 {
