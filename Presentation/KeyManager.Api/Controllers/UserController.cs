@@ -23,22 +23,22 @@ public class UserController : ControllerBase
 
     //For admin Only
     [HttpGet]
-    [Route("Admins")]
-    [Authorize(Policy = nameof(SystemManagerRequirement))]
+    [Route("Roles")]
+    [Authorize(Policy = nameof(KnownRolesRequirement))]
     public IActionResult AdminEndPoint()
     {
-        var currentUser = GetCurrentUser();
+        var currentUser = GetCurrentUserRoles();
         return Ok($"Hi. you have these roles: {string.Join(", ", currentUser.RoleNames)}");
     }
 
-    private UserWithRolesDto GetCurrentUser()
+    private UserWithRolesDto GetCurrentUserRoles()
     {
         if (HttpContext.User.Identity is not ClaimsIdentity identity) return null;
         var userClaims = identity.Claims.ToList();
         return new UserWithRolesDto
         {
             Username = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-            RoleNames = userClaims.Select(x => x.Type == ClaimTypes.Role).Select(x => x.ToString()).ToList()
+            RoleNames = userClaims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value.ToString()).ToList()
         };
     }
 

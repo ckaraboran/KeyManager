@@ -24,7 +24,7 @@ public class LoginController : ControllerBase
 
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkObjectResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [AllowAnonymous]
     [HttpPost]
     public async Task<ActionResult> Login([FromBody] UserLoginRequest userLoginRequest)

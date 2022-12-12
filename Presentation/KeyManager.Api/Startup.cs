@@ -79,6 +79,10 @@ public class Startup
                 policy => policy.Requirements.Add(new AuthorizationRequirement()));
             options.AddPolicy(nameof(SystemManagerRequirement),
                 policy => policy.Requirements.Add(new SystemManagerRequirement()));
+            options.AddPolicy(nameof(KnownRolesRequirement),
+                policy => policy.Requirements.Add(new KnownRolesRequirement()));
+            options.AddPolicy(nameof(UserManagerRequirement),
+                policy => policy.Requirements.Add(new UserManagerRequirement()));
         });
         services.AddHttpContextAccessor();
         services.AddScoped<IAuthorizationHandler, AuthorizationHandler>();
