@@ -24,9 +24,15 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateUserCommand, User>()
             .ForMember(dest => dest.Password, opt
                 => opt.MapFrom((src, dest)
-                    => ClayPasswordHasher.HashPassword(dest, src.Password)));
+                    => ClayPasswordHasher.HashPassword(dest, src.Password)))
+            .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<UpdateUserCommand, User>();
+        CreateMap<UpdateUserCommand, User>()
+            .ForMember(dest => dest.Username, opt => opt.Ignore())
+            .ForMember(dest => dest.Password, opt => opt.Ignore())
+            .ForMember(dest => dest.IsDeleted, opt => opt.Ignore());
+
         CreateMap<Permission, CreatePermissionCommand>().ReverseMap();
         CreateMap<Permission, PermissionDto>().ReverseMap();
         CreateMap<Permission, UpdatePermissionCommand>().ReverseMap();

@@ -14,7 +14,7 @@ public class CheckAuthenticationCommandHandler : IRequestHandler<CheckAuthentica
     public async Task<bool> Handle(CheckAuthenticationCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetAsync(x => x.Username == request.Username);
-        if (user == null) throw new UserException($"User not found. Username: '{request.Username}'");
+        if (user == null) return false;
 
         var isUserOk =
             ClayPasswordHasher.IsPasswordOk(user, user.Password, request.Password);
