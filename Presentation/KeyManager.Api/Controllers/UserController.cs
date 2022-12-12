@@ -10,7 +10,6 @@ namespace KeyManager.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[ExcludeFromCodeCoverage]
 public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;
