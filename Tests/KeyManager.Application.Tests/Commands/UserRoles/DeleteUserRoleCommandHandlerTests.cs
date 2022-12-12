@@ -47,7 +47,7 @@ public class DeleteUserRoleCommandHandlerTests
         }
 
         //Act-Assert
-        var exception = await Assert.ThrowsAsync<UserRoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("UserRole not found while deleting. UserRoleId: '5'", exception.Message);
         _mockUserRoleRepository.VerifyAll();
     }

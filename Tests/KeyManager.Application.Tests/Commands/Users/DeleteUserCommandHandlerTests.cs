@@ -46,7 +46,7 @@ public class DeleteUserCommandHandlerTests
         }
 
         //Act-Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found while deleting. UserId: '5'", exception.Message);
         _mockUserRepository.VerifyAll();
     }

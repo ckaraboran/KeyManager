@@ -58,7 +58,7 @@ public class OpenDoorCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<DoorException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal($"Door not found. Door ID: '{newPermission.DoorId}'", exception.Message);
     }
 
@@ -77,7 +77,7 @@ public class OpenDoorCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<DoorException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal($"User not found. Username: '{newPermission.Username}'", exception.Message);
     }
 

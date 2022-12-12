@@ -72,7 +72,7 @@ public class UpdateUserPasswordCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<UnauthorizedAccessException>(Result);
         Assert.Equal("Old password is wrong.", exception.Message);
         _mockUserRepository.Verify(s =>
             s.GetAsync(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);

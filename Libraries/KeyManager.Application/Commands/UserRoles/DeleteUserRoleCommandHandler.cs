@@ -14,7 +14,7 @@ public class DeleteUserRoleCommandHandler : IRequestHandler<DeleteUserRoleComman
         var userRole = await _userRoleRepository.GetByIdAsync(request.Id);
 
         if (userRole == null)
-            throw new UserRoleException($"UserRole not found while deleting. UserRoleId: '{request.Id}'");
+            throw new RecordNotFoundException($"UserRole not found while deleting. UserRoleId: '{request.Id}'");
 
         await _userRoleRepository.DeleteAsync(userRole);
         return Unit.Value;

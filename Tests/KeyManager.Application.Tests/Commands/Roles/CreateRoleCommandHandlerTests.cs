@@ -57,7 +57,7 @@ public class CreateRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<RoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal("There is a role with the same name: 'Test'", exception.Message);
         _mockRoleRepository.VerifyAll();
     }

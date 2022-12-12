@@ -21,10 +21,10 @@ public class OpenDoorCommandHandler : IRequestHandler<OpenDoorCommand, bool>
     public async Task<bool> Handle(OpenDoorCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetAsync(x => x.Username == request.Username);
-        if (user == null) throw new DoorException($"User not found. Username: '{request.Username}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. Username: '{request.Username}'");
 
         var door = await _doorRepository.GetByIdAsync(request.DoorId);
-        if (door == null) throw new DoorException($"Door not found. Door ID: '{request.DoorId}'");
+        if (door == null) throw new RecordNotFoundException($"Door not found. Door ID: '{request.DoorId}'");
 
         var permission = await _permissionRepository.GetAsync(p =>
             p.DoorId == door.Id && p.UserId == user.Id);

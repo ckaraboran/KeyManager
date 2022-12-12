@@ -15,7 +15,8 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, RoleD
     {
         var existingRole = await _roleRepository.GetAsync(s => s.Name == request.Name);
 
-        if (existingRole != null) throw new RoleException($"There is a role with the same name: '{request.Name}'");
+        if (existingRole != null)
+            throw new RecordAlreadyExistsException($"There is a role with the same name: '{request.Name}'");
 
         var dummy = await _roleRepository.AddAsync(_mapper.Map<Role>(request));
 

@@ -18,10 +18,10 @@ public class CheckUserForRoleCommandHandler : IRequestHandler<CheckUserForRoleCo
     public async Task<bool> Handle(CheckUserForRoleCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetAsync(x => x.Username == request.UserName);
-        if (user == null) throw new RoleException($"User not found. Username: '{request.UserName}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. Username: '{request.UserName}'");
 
         var role = await _roleRepository.GetAsync(x => x.Name == request.RoleName);
-        if (role == null) throw new RoleException($"Role not found. Role name: '{request.RoleName}'");
+        if (role == null) throw new RecordNotFoundException($"Role not found. Role name: '{request.RoleName}'");
 
         var userRole = await _userRoleRepository.GetAsync(x => x.UserId == user.Id
                                                                && x.RoleId == role.Id);

@@ -23,14 +23,14 @@ public class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCo
             .GetAsync(s => s.UserId == request.UserId && s.DoorId == request.DoorId);
 
         if (existingPermission != null)
-            throw new PermissionException("There is a permission with the same User ID and Door ID: " +
-                                          $"User ID: '{request.UserId}', Door ID: '{request.DoorId}'");
+            throw new RecordAlreadyExistsException("There is a permission with the same User ID and Door ID: " +
+                                                   $"User ID: '{request.UserId}', Door ID: '{request.DoorId}'");
 
         var user = await _userRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new PermissionException($"User not found. User ID: '{request.UserId}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. User ID: '{request.UserId}'");
 
         var door = await _doorRepository.GetByIdAsync(request.DoorId);
-        if (door == null) throw new PermissionException($"Door not found. Door ID: '{request.DoorId}'");
+        if (door == null) throw new RecordNotFoundException($"Door not found. Door ID: '{request.DoorId}'");
 
         var permission = await _permissionRepository.AddAsync(_mapper.Map<Permission>(request));
 

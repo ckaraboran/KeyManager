@@ -113,7 +113,7 @@ public class GetUserByIdQueryHandlerTests : IDisposable
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found. User ID: '4'", exception.Message);
     }
 }

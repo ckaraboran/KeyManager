@@ -75,7 +75,7 @@ public class UpdatePermissionCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<PermissionException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal($"Permission not found. PermissionId: '{mockUpdatePermissionCommand.Id}'",
             exception.Message);
         _mockPermissionRepository.VerifyAll();
@@ -111,7 +111,7 @@ public class UpdatePermissionCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<PermissionException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal("There is a permission with the same User ID and Door ID: " +
                      $"User ID: '{updatedPermission.UserId}', Door ID: '{updatedPermission.DoorId}'",
             exception.Message);
@@ -138,7 +138,7 @@ public class UpdatePermissionCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<PermissionException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found. User ID: '2'", exception.Message);
         _mockPermissionRepository.VerifyAll();
     }
@@ -163,7 +163,7 @@ public class UpdatePermissionCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<PermissionException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("Door not found. Door ID: '2'", exception.Message);
         _mockPermissionRepository.VerifyAll();
     }

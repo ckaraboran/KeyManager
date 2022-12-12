@@ -68,7 +68,7 @@ public class UpdateUserCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found. UserId: '1'", exception.Message);
         _mockUserRepository.VerifyAll();
     }

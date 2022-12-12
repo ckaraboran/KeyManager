@@ -13,7 +13,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
     {
         var user = await _userRepository.GetByIdAsync(request.Id);
 
-        if (user == null) throw new UserException($"User not found while deleting. UserId: '{request.Id}'");
+        if (user == null) throw new RecordNotFoundException($"User not found while deleting. UserId: '{request.Id}'");
 
         await _userRepository.DeleteAsync(user);
         return Unit.Value;
