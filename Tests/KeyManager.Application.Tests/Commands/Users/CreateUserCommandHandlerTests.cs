@@ -68,7 +68,7 @@ public class CreateUserCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal("There is a user with the same username: 'Test Username'", exception.Message);
         _mockUserRepository.VerifyAll();
     }

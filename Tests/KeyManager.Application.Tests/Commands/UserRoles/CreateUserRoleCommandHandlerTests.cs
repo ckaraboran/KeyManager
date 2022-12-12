@@ -73,7 +73,7 @@ public class CreateUserRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserRoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal("There is a userRole with the same User ID and Role ID: " +
                      $"User ID: '{mockUserRole.UserId}', Role ID: '{mockUserRole.RoleId}'", exception.Message);
         _mockUserRoleRepository.VerifyAll();
@@ -92,7 +92,7 @@ public class CreateUserRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserRoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found. User ID: '2'", exception.Message);
         _mockUserRoleRepository.VerifyAll();
     }
@@ -110,7 +110,7 @@ public class CreateUserRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserRoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("Role not found. Role ID: '2'", exception.Message);
         _mockUserRoleRepository.VerifyAll();
     }

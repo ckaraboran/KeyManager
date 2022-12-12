@@ -22,20 +22,20 @@ public class UpdateUserRoleCommandHandler : IRequestHandler<UpdateUserRoleComman
         var existingUserRole = await _userRoleRepository.GetByIdAsync(request.Id);
 
         if (existingUserRole == null)
-            throw new UserRoleException($"UserRole not found. UserRoleId: '{request.Id}'");
+            throw new RecordNotFoundException($"UserRole not found. UserRoleId: '{request.Id}'");
 
         var existingUserRoleWithSameValues = await _userRoleRepository
             .GetAsync(s => s.UserId == request.UserId && s.RoleId == request.RoleId && s.Id != request.Id);
 
         if (existingUserRoleWithSameValues != null)
-            throw new UserRoleException("There is a userRole with the same User ID and Role ID: " +
-                                        $"User ID: '{request.UserId}', Role ID: '{request.RoleId}'");
+            throw new RecordAlreadyExistsException("There is a userRole with the same User ID and Role ID: " +
+                                                   $"User ID: '{request.UserId}', Role ID: '{request.RoleId}'");
 
         var user = await _userRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new UserRoleException($"User not found. User ID: '{request.UserId}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. User ID: '{request.UserId}'");
 
         var role = await _roleRepository.GetByIdAsync(request.RoleId);
-        if (role == null) throw new UserRoleException($"Role not found. Role ID: '{request.RoleId}'");
+        if (role == null) throw new RecordNotFoundException($"Role not found. Role ID: '{request.RoleId}'");
 
         existingUserRole = _mapper.Map<UserRole>(request);
         var updatedUserRole = await _userRoleRepository.UpdateAsync(existingUserRole);

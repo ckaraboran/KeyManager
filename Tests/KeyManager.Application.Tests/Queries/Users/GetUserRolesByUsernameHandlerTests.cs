@@ -16,10 +16,7 @@ public class GetUserRolesByUsernameHandlerTests : IDisposable
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
         _dataContext = new DataContext(dbOptions);
-        var myProfile = new AutoMapperProfile();
-        var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-        var mapper = new Mapper(configuration);
-        _userHandler = new GetUserRolesByUsernameHandler(_dataContext, mapper);
+        _userHandler = new GetUserRolesByUsernameHandler(_dataContext);
     }
 
     public void Dispose()
@@ -138,7 +135,7 @@ public class GetUserRolesByUsernameHandlerTests : IDisposable
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<UserException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("User not found. Username: 'NotExistUsername'", exception.Message);
     }
 }

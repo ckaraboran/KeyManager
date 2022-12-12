@@ -22,20 +22,20 @@ public class UpdatePermissionCommandHandler : IRequestHandler<UpdatePermissionCo
         var existingPermission = await _permissionRepository.GetByIdAsync(request.Id);
 
         if (existingPermission == null)
-            throw new PermissionException($"Permission not found. PermissionId: '{request.Id}'");
+            throw new RecordNotFoundException($"Permission not found. PermissionId: '{request.Id}'");
 
         var existingPermissionWithSameValues = await _permissionRepository
             .GetAsync(s => s.UserId == request.UserId && s.DoorId == request.DoorId && s.Id != request.Id);
 
         if (existingPermissionWithSameValues != null)
-            throw new PermissionException("There is a permission with the same User ID and Door ID: " +
-                                          $"User ID: '{request.UserId}', Door ID: '{request.DoorId}'");
+            throw new RecordAlreadyExistsException("There is a permission with the same User ID and Door ID: " +
+                                                   $"User ID: '{request.UserId}', Door ID: '{request.DoorId}'");
 
         var user = await _userRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new PermissionException($"User not found. User ID: '{request.UserId}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. User ID: '{request.UserId}'");
 
         var door = await _doorRepository.GetByIdAsync(request.DoorId);
-        if (door == null) throw new PermissionException($"Door not found. Door ID: '{request.DoorId}'");
+        if (door == null) throw new RecordNotFoundException($"Door not found. Door ID: '{request.DoorId}'");
 
         existingPermission = _mapper.Map<Permission>(request);
         var updatedPermission = await _permissionRepository.UpdateAsync(existingPermission);

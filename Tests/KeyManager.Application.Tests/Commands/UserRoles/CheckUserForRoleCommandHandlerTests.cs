@@ -58,7 +58,7 @@ public class CheckUserForRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<RoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal($"Role not found. Role name: '{newUserRole.RoleName}'", exception.Message);
     }
 
@@ -77,7 +77,7 @@ public class CheckUserForRoleCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<RoleException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal($"User not found. Username: '{newUserRole.RoleName}'", exception.Message);
     }
 

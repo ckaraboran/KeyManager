@@ -15,7 +15,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
     {
         var existingUser = await _userRepository.GetByIdAsync(request.Id);
 
-        if (existingUser == null) throw new UserException($"User not found. UserId: '{request.Id}'");
+        if (existingUser == null) throw new RecordNotFoundException($"User not found. UserId: '{request.Id}'");
 
         existingUser = _mapper.Map(request, existingUser);
         var updatedUser = await _userRepository.UpdateAsync(existingUser);

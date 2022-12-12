@@ -62,7 +62,7 @@ public class UpdateDoorCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<DoorException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordNotFoundException>(Result);
         Assert.Equal("Door not found. DoorId: '1'", exception.Message);
         _mockDoorRepository.VerifyAll();
     }

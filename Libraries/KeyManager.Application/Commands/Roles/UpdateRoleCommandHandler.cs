@@ -16,7 +16,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleD
         var existingRole = await _roleRepository.GetByIdAsync(request.Id);
 
         if (existingRole == null)
-            throw new RoleException($"Role not found. RoleId: '{request.Id}'");
+            throw new RecordNotFoundException($"Role not found. RoleId: '{request.Id}'");
 
         existingRole = _mapper.Map<Role>(request);
         var updatedRole = await _roleRepository.UpdateAsync(existingRole);

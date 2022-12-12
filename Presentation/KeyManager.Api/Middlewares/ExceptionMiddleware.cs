@@ -2,8 +2,8 @@
 
 public class ExceptionMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionMiddleware> _logger;
+    private readonly RequestDelegate _next;
 
     public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
@@ -24,10 +24,27 @@ public class ExceptionMiddleware
 
             switch (error)
             {
-                case DummyException ex:
+                case RecordNotFoundException ex:
 
-                    _logger.LogError("Dummy exception occurred. Error message: '{Message}'  Exception stack trace: '{StackTrace}'", ex.Message, ex.StackTrace);
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    _logger.LogError(
+                        "Record not found exception occurred. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
+                        ex.Message, ex.StackTrace);
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+                case RecordAlreadyExistsException ex:
+
+                    _logger.LogError(
+                        "Record already exists exception occured. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
+                        ex.Message, ex.StackTrace);
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                    break;
+                case UnauthorizedAccessException ex:
+
+                    _logger.LogError(
+                        "Unauthorized Access exception occurred. Error message: '{Message}'  Exception stack trace: '{StackTrace}'",
+                        ex.Message, ex.StackTrace);
+                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
                     break;
                 default:

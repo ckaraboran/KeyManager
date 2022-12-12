@@ -23,14 +23,14 @@ public class CreateUserRoleCommandHandler : IRequestHandler<CreateUserRoleComman
             .GetAsync(s => s.UserId == request.UserId && s.RoleId == request.RoleId);
 
         if (existingUserRole != null)
-            throw new UserRoleException("There is a userRole with the same User ID and Role ID: " +
-                                        $"User ID: '{request.UserId}', Role ID: '{request.RoleId}'");
+            throw new RecordAlreadyExistsException("There is a userRole with the same User ID and Role ID: " +
+                                                   $"User ID: '{request.UserId}', Role ID: '{request.RoleId}'");
 
         var user = await _userRepository.GetByIdAsync(request.UserId);
-        if (user == null) throw new UserRoleException($"User not found. User ID: '{request.UserId}'");
+        if (user == null) throw new RecordNotFoundException($"User not found. User ID: '{request.UserId}'");
 
         var role = await _roleRepository.GetByIdAsync(request.RoleId);
-        if (role == null) throw new UserRoleException($"Role not found. Role ID: '{request.RoleId}'");
+        if (role == null) throw new RecordNotFoundException($"Role not found. Role ID: '{request.RoleId}'");
 
         var userRole = await _userRoleRepository.AddAsync(_mapper.Map<UserRole>(request));
 

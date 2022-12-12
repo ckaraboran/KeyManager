@@ -17,7 +17,7 @@ public class UpdateUserPasswordCommandHandler : IRequestHandler<UpdateUserPasswo
 
         var oldPasswordCorrect = ClayPasswordHasher
             .IsSameWithHashedPassword(existingUser, existingUser.Password, request.OldPassword);
-        if (!oldPasswordCorrect) throw new UserException("Old password is wrong.");
+        if (!oldPasswordCorrect) throw new UnauthorizedAccessException("Old password is wrong.");
 
         existingUser.Password = ClayPasswordHasher.HashPassword(existingUser, request.NewPassword);
         await _userRepository.UpdateAsync(existingUser);

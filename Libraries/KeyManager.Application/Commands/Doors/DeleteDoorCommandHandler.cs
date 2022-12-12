@@ -13,7 +13,7 @@ public class DeleteDoorCommandHandler : IRequestHandler<DeleteDoorCommand>
     {
         var door = await _doorRepository.GetByIdAsync(request.Id);
 
-        if (door == null) throw new DoorException($"Door not found while deleting. DoorId: '{request.Id}'");
+        if (door == null) throw new RecordNotFoundException($"Door not found while deleting. DoorId: '{request.Id}'");
 
         await _doorRepository.DeleteAsync(door);
         return Unit.Value;

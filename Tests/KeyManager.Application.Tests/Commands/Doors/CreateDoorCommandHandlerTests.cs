@@ -57,7 +57,7 @@ public class CreateDoorCommandHandlerTests
         }
 
         //Assert
-        var exception = await Assert.ThrowsAsync<DoorException>(Result);
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal("There is a door with the same name: 'Test'", exception.Message);
         _mockDoorRepository.VerifyAll();
     }

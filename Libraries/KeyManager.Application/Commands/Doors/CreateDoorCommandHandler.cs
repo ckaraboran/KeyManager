@@ -15,7 +15,8 @@ public class CreateDoorCommandHandler : IRequestHandler<CreateDoorCommand, DoorD
     {
         var existingDummy = await _doorRepository.GetAsync(s => s.Name == request.Name);
 
-        if (existingDummy != null) throw new DoorException($"There is a door with the same name: '{request.Name}'");
+        if (existingDummy != null)
+            throw new RecordAlreadyExistsException($"There is a door with the same name: '{request.Name}'");
 
         var dummy = await _doorRepository.AddAsync(_mapper.Map<Door>(request));
 
