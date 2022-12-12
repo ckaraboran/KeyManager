@@ -14,7 +14,12 @@ public class ExceptionMiddlewareTests
     {
         //Arrange
         var mockProductApiException = new DummyException("test");
-        Task MockNextMiddleware(HttpContext _) => Task.FromException(mockProductApiException);
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockProductApiException);
+        }
+
         var httpContext = new DefaultHttpContext();
         var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
 
@@ -26,11 +31,58 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
+    public async Task Given_RecordNotFoundException_When_Thrown_Then_ShouldReturnNotFoundHttpCode()
+    {
+        //Arrange
+        var mockProductApiException = new RecordNotFoundException("test");
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockProductApiException);
+        }
+
+        var httpContext = new DefaultHttpContext();
+        var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
+
+        //Act
+        await exceptionHandlingMiddleware.Invoke(httpContext);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.NotFound, (HttpStatusCode)httpContext.Response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Given_RecordAlreadyExistsException_When_Thrown_Then_ShouldReturnBadRequestHttpCode()
+    {
+        //Arrange
+        var mockProductApiException = new RecordAlreadyExistsException("test");
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockProductApiException);
+        }
+
+        var httpContext = new DefaultHttpContext();
+        var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
+
+        //Act
+        await exceptionHandlingMiddleware.Invoke(httpContext);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.BadRequest, (HttpStatusCode)httpContext.Response.StatusCode);
+    }
+
+    [Fact]
     public async Task ExceptionMiddleware_RandomException_ShouldReturnReturnInternalServerErrorStatusCode()
     {
         //Arrange
         var mockException = new Exception("test");
-        Task MockNextMiddleware(HttpContext _) => Task.FromException(mockException);
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockException);
+        }
+
         var httpContext = new DefaultHttpContext();
         var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
 

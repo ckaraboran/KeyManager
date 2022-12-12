@@ -30,7 +30,6 @@ public class ExceptionMiddleware
                         "Record not found exception occurred. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
                         ex.Message, ex.StackTrace);
                     response.StatusCode = (int)HttpStatusCode.NotFound;
-
                     break;
                 case RecordAlreadyExistsException ex:
 
