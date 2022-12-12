@@ -75,29 +75,6 @@ public class UserRoleControllerTests
         _mockMediator.VerifyAll();
     }
 
-    [Fact]
-    public async Task UserRole_PutAsync_WithGivenUserRole_ShouldUpdateUserRole()
-    {
-        //Arrange
-        var mockUserRoleDto = new UserRoleDto
-        {
-            Id = 1, UserId = 2, RoleId = 2
-        };
-        _mockMediator.Setup(s => s.Send(It.IsAny<UpdateUserRoleCommand>()
-            , It.Is<CancellationToken>(x => x == default))).ReturnsAsync(mockUserRoleDto);
-
-        //Act
-        var result = await _sut.PutAsync(new UpdateUserRoleCommand(mockUserRoleDto.Id, mockUserRoleDto.UserId,
-            mockUserRoleDto.RoleId));
-
-        //Assert
-        var resultObject = (UpdateUserRoleResponse)Assert.IsType<OkObjectResult>(result.Result).Value;
-        Assert.NotNull(resultObject);
-        Assert.Equal(mockUserRoleDto.Id, resultObject.Id);
-        Assert.Equal(mockUserRoleDto.UserId, resultObject.UserId);
-        Assert.Equal(mockUserRoleDto.RoleId, resultObject.RoleId);
-        _mockMediator.VerifyAll();
-    }
 
     [Fact]
     public async Task UserRole_DeleteAsync_WithGivenUserRole_ShouldDeleteUserRole()
