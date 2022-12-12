@@ -124,9 +124,7 @@ public class DoorControllerTests
     public async Task Given_UserNotExist_When_OpenDoor_Then_ShouldUnauthorized()
     {
         //Arrange
-        var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
-        {
-        }, "mock"));
+        var user = new ClaimsPrincipal(new ClaimsIdentity(Array.Empty<Claim>(), "mock"));
         _sut.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext { User = user }
