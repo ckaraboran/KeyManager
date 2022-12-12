@@ -26,7 +26,6 @@ public class Startup
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped(typeof(IPasswordRepository), typeof(UserRepository));
         //Can be replaced with a real db repository
         services.AddControllers();
         services.AddEndpointsApiExplorer();

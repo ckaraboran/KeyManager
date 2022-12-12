@@ -139,7 +139,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
+    public void Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
