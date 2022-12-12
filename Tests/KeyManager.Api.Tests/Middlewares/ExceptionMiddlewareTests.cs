@@ -10,27 +10,6 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task ExceptionMiddleware_DummyException_ShouldReturnReturnInternalServerErrorStatusCode()
-    {
-        //Arrange
-        var mockProductApiException = new DummyException("test");
-
-        Task MockNextMiddleware(HttpContext _)
-        {
-            return Task.FromException(mockProductApiException);
-        }
-
-        var httpContext = new DefaultHttpContext();
-        var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
-
-        //Act
-        await exceptionHandlingMiddleware.Invoke(httpContext);
-
-        //Assert
-        Assert.Equal(HttpStatusCode.InternalServerError, (HttpStatusCode)httpContext.Response.StatusCode);
-    }
-
-    [Fact]
     public async Task Given_RecordNotFoundException_When_Thrown_Then_ShouldReturnNotFoundHttpCode()
     {
         //Arrange

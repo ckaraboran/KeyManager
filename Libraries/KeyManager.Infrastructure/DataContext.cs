@@ -11,7 +11,6 @@ public class DataContext : DbContext
     {
     }
 
-    public DbSet<Dummy> Dummies { get; set; }
     public DbSet<Door> Doors { get; set; }
     public DbSet<Incident> Incidents { get; set; }
     public DbSet<Permission> Permissions { get; set; }
@@ -21,7 +20,6 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new EntityMapBase<Dummy>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<Door>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<Incident>());
         modelBuilder.ApplyConfiguration(new EntityMapBase<Permission>());
