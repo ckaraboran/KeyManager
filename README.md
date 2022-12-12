@@ -12,18 +12,6 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ckaraboran_KeyManager&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ckaraboran_KeyManager)
 [![Build](https://github.com/ckaraboran/KeyManager/actions/workflows/build.yml/badge.svg)](https://github.com/ckaraboran/KeyManager/actions/workflows/build.yml)
 
-### Table of Contents
-  
-<ol>
-  <li>
-    <a href="#about-the-project">About The Project</a>
-    <ul>
-      <li><a href="#built-with">Built With</a></li>
-    </ul>
-  </li>
-</ol>
-
-
 ## About The Project
 
 The project is assessment project for Clay Solutions.

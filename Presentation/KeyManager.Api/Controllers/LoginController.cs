@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using KeyManager.Api.DTOs.Requests;
+using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Application.Commands.Users;
 using KeyManager.Application.Queries.Users;
 using MediatR;
@@ -33,7 +34,8 @@ public class LoginController : ControllerBase
         if (user != null)
         {
             var token = GenerateToken(user);
-            return Ok(token);
+
+            return Ok(new UserTokenResponse(token));
         }
 
         return NotFound("user not found");
