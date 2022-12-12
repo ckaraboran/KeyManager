@@ -98,6 +98,76 @@ public class DoorControllerTests
     }
 
     [Fact]
+    public async Task Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Name, "Test name")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<OpenDoorCommand>()
+            , It.Is<CancellationToken>(x => x == default))).ReturnsAsync(true);
+
+        //Act
+        var result = await _sut.OpenDoorAsync(1);
+
+        //Assert
+        Assert.IsType<OkResult>(result);
+        _mockMediator.VerifyAll();
+    }
+
+    [Fact]
+    public async Task Given_UserNotExist_When_OpenDoor_Then_ShouldUnauthorized()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<OpenDoorCommand>()
+            , It.Is<CancellationToken>(x => x == default))).ReturnsAsync(true);
+
+        //Act
+        var result = await _sut.OpenDoorAsync(1);
+
+        //Assert
+        Assert.IsType<UnauthorizedResult>(result);
+        _mockMediator.Verify(s => s.Send(It.IsAny<OpenDoorCommand>()
+            , It.Is<CancellationToken>(x => x == default)), Times.Never);
+    }
+
+    [Fact]
+    public async Task Given_UserExistButNotAuthorized_When_OpenDoor_Then_ShouldUnauthorized()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Name, "Test name")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<OpenDoorCommand>()
+            , It.Is<CancellationToken>(x => x == default))).ReturnsAsync(false);
+
+        //Act
+        var result = await _sut.OpenDoorAsync(1);
+
+        //Assert
+        Assert.IsType<UnauthorizedResult>(result);
+        _mockMediator.Verify(s => s.Send(It.IsAny<OpenDoorCommand>()
+            , It.Is<CancellationToken>(x => x == default)), Times.Once);
+    }
+
+    [Fact]
     public async Task Door_PutAsync_WithGivenDoor_ShouldUpdateDoor()
     {
         //Arrange
