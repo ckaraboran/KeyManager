@@ -76,30 +76,6 @@ public class PermissionControllerTests
     }
 
     [Fact]
-    public async Task Permission_PutAsync_WithGivenPermission_ShouldUpdatePermission()
-    {
-        //Arrange
-        var mockPermissionDto = new PermissionDto
-        {
-            Id = 1, UserId = 2, DoorId = 2
-        };
-        _mockMediator.Setup(s => s.Send(It.IsAny<UpdatePermissionCommand>()
-            , It.Is<CancellationToken>(x => x == default))).ReturnsAsync(mockPermissionDto);
-
-        //Act
-        var result = await _sut.PutAsync(new UpdatePermissionCommand(mockPermissionDto.Id, mockPermissionDto.UserId,
-            mockPermissionDto.DoorId));
-
-        //Assert
-        var resultObject = (UpdatePermissionResponse)Assert.IsType<OkObjectResult>(result.Result).Value;
-        Assert.NotNull(resultObject);
-        Assert.Equal(mockPermissionDto.Id, resultObject.Id);
-        Assert.Equal(mockPermissionDto.UserId, resultObject.UserId);
-        Assert.Equal(mockPermissionDto.DoorId, resultObject.DoorId);
-        _mockMediator.VerifyAll();
-    }
-
-    [Fact]
     public async Task Permission_DeleteAsync_WithGivenPermission_ShouldDeletePermission()
     {
         //Arrange
