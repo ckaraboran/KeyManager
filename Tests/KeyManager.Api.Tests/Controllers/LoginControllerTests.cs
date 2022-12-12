@@ -1,4 +1,5 @@
 using KeyManager.Api.DTOs.Requests;
+using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Application.Commands.Users;
 using KeyManager.Application.Queries.Users;
 using MediatR;
@@ -33,7 +34,9 @@ public class LoginControllerTests
 
         //Act
         var result = await _sut.Login(new UserLoginRequest());
-        Assert.IsType<OkObjectResult>(result);
+        var resultObject = (UserTokenResponse)Assert.IsType<OkObjectResult>(result).Value;
+        Assert.NotNull(resultObject);
+        Assert.NotEmpty(resultObject.Token);
     }
 
     [Fact]
