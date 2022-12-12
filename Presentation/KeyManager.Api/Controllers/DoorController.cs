@@ -80,7 +80,6 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpPost("open")]
-    [Authorize(Policy = nameof(KnownRolesRequirement))]
     public async Task<ActionResult> OpenDoorAsync(int id)
     {
         var username = User.FindFirst(ClaimTypes.Name)?.Value;

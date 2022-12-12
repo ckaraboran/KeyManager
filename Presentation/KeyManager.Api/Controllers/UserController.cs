@@ -9,6 +9,7 @@ using MediatR;
 
 namespace KeyManager.Api.Controllers;
 
+[Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -88,7 +89,6 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpPut("password")]
-    [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult>
         UpdatePasswordAsync([FromBody] UpdateUserPasswordRequest updateUserPasswordRequest)
     {
