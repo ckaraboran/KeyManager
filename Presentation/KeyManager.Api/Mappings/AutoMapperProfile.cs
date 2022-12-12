@@ -22,7 +22,6 @@ public class AutoMapperProfile : Profile
         CreateMap<RoleDto, GetRoleResponse>();
         CreateMap<PermissionWithNamesDto, GetPermissionResponse>();
         CreateMap<PermissionDto, CreatePermissionResponse>();
-        CreateMap<PermissionDto, UpdatePermissionResponse>();
         CreateMap<UserRoleWithNamesDto, GetUserRoleResponse>();
         CreateMap<UserRoleDto, CreateUserRoleResponse>();
         CreateMap<UserRoleDto, UpdateUserRoleResponse>();

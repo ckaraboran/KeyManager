@@ -43,18 +43,6 @@ public class PermissionController : ControllerBase
         return Created(nameof(PostAsync), _mapper.Map<CreatePermissionResponse>(result));
     }
 
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdatePermissionResponse))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdatePermissionResponse))]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
-    [HttpPut]
-    [Authorize(Policy = nameof(SystemManagerRequirement))]
-    public async Task<ActionResult<UpdatePermissionResponse>> PutAsync(
-        [FromBody] UpdatePermissionCommand updatePermissionCommand)
-    {
-        var result = await _mediator.Send(updatePermissionCommand);
-        return Ok(_mapper.Map<UpdatePermissionResponse>(result));
-    }
-
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
