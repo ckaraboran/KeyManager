@@ -17,7 +17,7 @@ public class CheckAuthenticationCommandHandler : IRequestHandler<CheckAuthentica
         if (user == null) return false;
 
         var isUserOk =
-            ClayPasswordHasher.IsPasswordOk(user, user.Password, request.Password);
+            ClayPasswordHasher.IsSameWithHashedPassword(user, user.Password, request.Password);
         return isUserOk;
     }
 }

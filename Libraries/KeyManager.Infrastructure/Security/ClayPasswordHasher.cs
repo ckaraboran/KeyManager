@@ -21,7 +21,7 @@ public static class ClayPasswordHasher
         }
     }
 
-    public static bool IsPasswordOk(User user, string hashedPassword, string password)
+    public static bool IsSameWithHashedPassword(User user, string hashedPassword, string password)
     {
         return Instance.VerifyHashedPassword(user, hashedPassword, password) == PasswordVerificationResult.Success;
     }
