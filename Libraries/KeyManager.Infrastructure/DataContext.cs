@@ -32,7 +32,7 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public void Seed(ModelBuilder modelBuilder)
+    private static void Seed(ModelBuilder modelBuilder)
     {
         AddSeedUserWithPassword(modelBuilder, 1, KnownRoles.OfficeManager.ToString()
             , "AQAAAAEAACcQAAAAEFUGForCcdWHYJyckgcjZ0pFQhrgt4Eqe+6PGIX5ikKvEpA59nqexR8t9vGf9rkqzA==");
@@ -42,7 +42,7 @@ public class DataContext : DbContext
             , "AQAAAAEAACcQAAAAEIy8r8Fw3fH8XbRcZQ4Twu9FAm8smsLBIb1rhUFxZ00XEyfRvxTZtSTV7HGESbz/VA==");
     }
 
-    public void AddSeedUserWithPassword(ModelBuilder modelBuilder, long id, string name, string password)
+    private static void AddSeedUserWithPassword(ModelBuilder modelBuilder, long id, string name, string password)
     {
         var user = new User
         {
