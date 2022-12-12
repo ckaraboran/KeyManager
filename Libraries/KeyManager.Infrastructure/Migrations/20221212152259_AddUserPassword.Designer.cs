@@ -3,6 +3,7 @@ using System;
 using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KeyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221212152259_AddUserPassword")]
+    partial class AddUserPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
@@ -125,19 +127,19 @@ namespace KeyManager.Infrastructure.Migrations
                         {
                             Id = 1L,
                             IsDeleted = false,
-                            Name = "OfficeManager"
+                            Name = "OfficeUser"
                         },
                         new
                         {
                             Id = 2L,
                             IsDeleted = false,
-                            Name = "Director"
+                            Name = "OfficeManager"
                         },
                         new
                         {
                             Id = 3L,
                             IsDeleted = false,
-                            Name = "OfficeUser"
+                            Name = "Director"
                         });
                 });
 
@@ -174,28 +176,28 @@ namespace KeyManager.Infrastructure.Migrations
                         {
                             Id = 1L,
                             IsDeleted = false,
-                            Name = "OfficeManager",
-                            Password = "AQAAAAEAACcQAAAAEFUGForCcdWHYJyckgcjZ0pFQhrgt4Eqe+6PGIX5ikKvEpA59nqexR8t9vGf9rkqzA==",
-                            Surname = "OfficeManager",
-                            Username = "OfficeManager"
+                            Name = "OfficeUser",
+                            Password = "AGv7UyvVBJRuYrSq/IT6S7qqCeCCKHrxhykSwZrrIPW4HTCw5HmjZ6xNnI6k3RQrCA==",
+                            Surname = "OfficeUser",
+                            Username = "OfficeUser"
                         },
                         new
                         {
                             Id = 2L,
                             IsDeleted = false,
-                            Name = "Director",
-                            Password = "AQAAAAEAACcQAAAAEBvydgTOzCeMJb7wl7/t5ocKay40ZlGb1S7aMs2y8TH9nu20KZY/HCnmEN8UlOHbBw==",
-                            Surname = "Director",
-                            Username = "Director"
+                            Name = "OfficeManager",
+                            Password = "AArmasRqrHkUjd1xSaIDqn74z1M4b0tlbnacYN/FzK/jpB/2cfj9KangrflvroK+rQ==",
+                            Surname = "OfficeManager",
+                            Username = "OfficeManager"
                         },
                         new
                         {
                             Id = 3L,
                             IsDeleted = false,
-                            Name = "OfficeUser",
-                            Password = "AQAAAAEAACcQAAAAEIy8r8Fw3fH8XbRcZQ4Twu9FAm8smsLBIb1rhUFxZ00XEyfRvxTZtSTV7HGESbz/VA==",
-                            Surname = "OfficeUser",
-                            Username = "OfficeUser"
+                            Name = "Director",
+                            Password = "AEYpnvDw1VY6Z9bqnCr3hAgVwFsx5d9JoNYAT9bu+BCP5pF93DTbwa3pg4up9t5fng==",
+                            Surname = "Director",
+                            Username = "Director"
                         });
                 });
 

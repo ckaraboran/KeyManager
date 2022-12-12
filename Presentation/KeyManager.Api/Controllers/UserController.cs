@@ -23,23 +23,19 @@ public class UserController : ControllerBase
 
     //For admin Only
     [HttpGet]
-    [Route("Admins")]
-    [Authorize(Policy = nameof(SystemManagerRequirement))]
+    [Route("Roles")]
+    [Authorize(Policy = nameof(KnownRolesRequirement))]
     public IActionResult AdminEndPoint()
     {
-        var currentUser = GetCurrentUser();
-        return Ok($"Hi. you have these roles: {string.Join(", ", currentUser.RoleNames)}");
+        var roles = GetCurrentUserRoles();
+        return Ok($"Hi. you have these roles: {string.Join(", ", roles)}");
     }
 
-    private UserWithRolesDto GetCurrentUser()
+    private List<string> GetCurrentUserRoles()
     {
-        if (HttpContext.User.Identity is not ClaimsIdentity identity) return null;
+        if (HttpContext.User.Identity is not ClaimsIdentity identity) return new List<string>();
         var userClaims = identity.Claims.ToList();
-        return new UserWithRolesDto
-        {
-            Username = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-            RoleNames = userClaims.Select(x => x.Type == ClaimTypes.Role).Select(x => x.ToString()).ToList()
-        };
+        return userClaims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value.ToString()).ToList();
     }
 
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetUserResponse>))]

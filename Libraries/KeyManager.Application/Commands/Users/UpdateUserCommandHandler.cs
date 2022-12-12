@@ -17,13 +17,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
 
         if (existingUser == null) throw new UserException($"User not found. UserId: '{request.Id}'");
 
-        if (existingUser.Username != request.Username)
-            throw new UserException("Username cannot be different then current one. " +
-                                    $"Username: '{request.Username}'");
-
-        existingUser = _mapper.Map<User>(request);
+        existingUser = _mapper.Map(request, existingUser);
         var updatedUser = await _userRepository.UpdateAsync(existingUser);
-
         return _mapper.Map<UserDto>(updatedUser);
     }
 }

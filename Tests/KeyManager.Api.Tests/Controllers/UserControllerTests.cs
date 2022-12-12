@@ -79,7 +79,7 @@ public class UserControllerTests
     {
         //Arrange
         var mockCreateUserCommand =
-            new CreateUserCommand("Test Username", "Test name", "Test surname");
+            new CreateUserCommand("Test Username", "Test name", "Test surname", "Test password");
         var mockUserDto = new UserDto
         {
             Id = 1,
@@ -104,7 +104,7 @@ public class UserControllerTests
     {
         //Arrange
         var mockUpdateUserCommand =
-            new UpdateUserCommand(1, "Test Username", "Test name", "Test surname");
+            new UpdateUserCommand(1, "Test name", "Test surname");
         var mockUserDto = new UserDto
         {
             Id = 1,
@@ -136,5 +136,28 @@ public class UserControllerTests
 
         //Assert
         _mockMediator.VerifyAll();
+    }
+
+    [Fact]
+    public void Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Role, "Test name"),
+            new Claim(ClaimTypes.Role, "Admin1"),
+            new Claim(ClaimTypes.Role, "User1")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+
+        //Act
+        var result = _sut.AdminEndPoint();
+
+        //Assert
+        var resultValue = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal("Hi. you have these roles: Test name, Admin1, User1", resultValue.Value);
     }
 }

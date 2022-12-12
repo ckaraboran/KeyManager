@@ -40,8 +40,16 @@ public class GetUsersQueryHandlerTests : IDisposable
         //Arrange
         var mockUsers = new List<User>
         {
-            new() { Id = 1, Name = "Test Name1", Surname = "Test Surname1", Username = "Test Username1" },
-            new() { Id = 2, Name = "Test Name2", Surname = "Test Surname2", Username = "Test Username2" }
+            new()
+            {
+                Id = 1, Name = "Test Name1", Surname = "Test Surname1", Username = "Test Username1",
+                Password = "Test Password1"
+            },
+            new()
+            {
+                Id = 2, Name = "Test Name2", Surname = "Test Surname2", Username = "Test Username2",
+                Password = "Test Password2"
+            }
         };
         await _dataContext.AddRangeAsync(mockUsers);
         await _dataContext.SaveChangesAsync();

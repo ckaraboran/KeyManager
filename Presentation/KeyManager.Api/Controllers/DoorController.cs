@@ -8,7 +8,7 @@ using MediatR;
 namespace KeyManager.Api.Controllers;
 
 [Authorize(Policy = nameof(AuthorizationRequirement))]
-[Route("api/{controller}")]
+[Route("api/[controller]")]
 [ApiController]
 public class DoorController : ControllerBase
 {
@@ -79,7 +79,7 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
-    [HttpDelete("{id}")]
+    [HttpPost("open")]
     [Authorize(Policy = nameof(KnownRolesRequirement))]
     public async Task<ActionResult> OpenDoorAsync(int id)
     {

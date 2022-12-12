@@ -32,22 +32,28 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public void Seed(ModelBuilder modelBuilder)
+    private static void Seed(ModelBuilder modelBuilder)
     {
-        var count = 1;
-        foreach (var knownRoles in Enum.GetValues(typeof(KnownRoles)))
+        AddSeedUserWithPassword(modelBuilder, 1, KnownRoles.OfficeManager.ToString()
+            , "AQAAAAEAACcQAAAAEFUGForCcdWHYJyckgcjZ0pFQhrgt4Eqe+6PGIX5ikKvEpA59nqexR8t9vGf9rkqzA==");
+        AddSeedUserWithPassword(modelBuilder, 2, KnownRoles.Director.ToString()
+            , "AQAAAAEAACcQAAAAEBvydgTOzCeMJb7wl7/t5ocKay40ZlGb1S7aMs2y8TH9nu20KZY/HCnmEN8UlOHbBw==");
+        AddSeedUserWithPassword(modelBuilder, 3, KnownRoles.OfficeUser.ToString()
+            , "AQAAAAEAACcQAAAAEIy8r8Fw3fH8XbRcZQ4Twu9FAm8smsLBIb1rhUFxZ00XEyfRvxTZtSTV7HGESbz/VA==");
+    }
+
+    private static void AddSeedUserWithPassword(ModelBuilder modelBuilder, long id, string name, string password)
+    {
+        var user = new User
         {
-            var user = new User
-            {
-                Id = count, Username = knownRoles.ToString(), Name = knownRoles.ToString(),
-                Surname = knownRoles.ToString()
-            };
-            var role = new Role { Id = count, Name = knownRoles.ToString() };
-            modelBuilder.Entity<Role>().HasData(role);
-            modelBuilder.Entity<User>().HasData(user);
-            modelBuilder.Entity<UserRole>().HasData(new UserRole { Id = count, UserId = user.Id, RoleId = role.Id });
-            count++;
-        }
+            Id = id, Username = name, Name = name,
+            Surname = name,
+            Password = password
+        };
+        var role = new Role { Id = id, Name = name };
+        modelBuilder.Entity<Role>().HasData(role);
+        modelBuilder.Entity<User>().HasData(user);
+        modelBuilder.Entity<UserRole>().HasData(new UserRole { Id = id, UserId = user.Id, RoleId = role.Id });
     }
 
     [ExcludeFromCodeCoverage]

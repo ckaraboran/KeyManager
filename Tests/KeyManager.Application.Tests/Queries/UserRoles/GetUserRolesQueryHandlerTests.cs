@@ -40,7 +40,8 @@ public class GetUserRolesQueryHandlerTests : IDisposable
         {
             Id = 1001,
             Name = "Test User1",
-            Surname = "Test Surname1"
+            Surname = "Test Surname1",
+            Password = "Test Password1"
         };
         var mockRole = new Role
         {

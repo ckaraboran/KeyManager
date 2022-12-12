@@ -6,7 +6,7 @@ using MediatR;
 namespace KeyManager.Api.Controllers;
 
 [Authorize(Policy = nameof(AuthorizationRequirement))]
-[Route("api/{controller}")]
+[Route("api/[controller]")]
 [ApiController]
 public class IncidentController : ControllerBase
 {
