@@ -13,13 +13,13 @@ public class CreateDoorCommandHandler : IRequestHandler<CreateDoorCommand, DoorD
 
     public async Task<DoorDto> Handle(CreateDoorCommand request, CancellationToken cancellationToken)
     {
-        var existingDummy = await _doorRepository.GetAsync(s => s.Name == request.Name);
+        var existingDoor = await _doorRepository.GetAsync(s => s.Name == request.Name);
 
-        if (existingDummy != null)
+        if (existingDoor != null)
             throw new RecordAlreadyExistsException($"There is a door with the same name: '{request.Name}'");
 
-        var dummy = await _doorRepository.AddAsync(_mapper.Map<Door>(request));
+        var door = await _doorRepository.AddAsync(_mapper.Map<Door>(request));
 
-        return _mapper.Map<DoorDto>(dummy);
+        return _mapper.Map<DoorDto>(door);
     }
 }

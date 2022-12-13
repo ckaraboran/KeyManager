@@ -20,8 +20,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
         if (existingEmployee != null)
             throw new RecordAlreadyExistsException($"There is a user with the same username: '{request.Username}'");
 
-        var dummy = await _userRepository.AddAsync(_mapper.Map<User>(request));
+        var user = await _userRepository.AddAsync(_mapper.Map<User>(request));
 
-        return _mapper.Map<UserDto>(dummy);
+        return _mapper.Map<UserDto>(user);
     }
 }

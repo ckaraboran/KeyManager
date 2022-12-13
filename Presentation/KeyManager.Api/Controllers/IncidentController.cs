@@ -5,6 +5,9 @@ using MediatR;
 
 namespace KeyManager.Api.Controllers;
 
+/// <summary>
+///     Endpoint for incidents
+/// </summary>
 [Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/incidents")]
 [ApiController]
@@ -13,12 +16,21 @@ public class IncidentController : ControllerBase
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor for IncidentController
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="mapper"></param>
     public IncidentController(ISender mediator, IMapper mapper)
     {
         _mapper = mapper;
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Get all incidents
+    /// </summary>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetIncidentResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetIncidentResponse>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
