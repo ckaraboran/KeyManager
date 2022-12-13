@@ -18,7 +18,7 @@ public class UpdateRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_RolePut_When_WithGivenUpdateRoleRequest_Then_ShouldReturnCreateRoleDto()
+    public async Task Given_RolePut_When_WithGivenUpdateRoleRequest_Then_ReturnCreateRoleDto()
     {
         //Arrange
         var newRole = new Role
@@ -47,7 +47,7 @@ public class UpdateRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_RolePut_When_RecordDoesNotExist_Then_ShouldThrowRecordNotFoundException()
+    public async Task Given_RolePut_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException()
     {
         //Arrange
         var mockUpdateRoleCommand = new UpdateRoleCommand(1, "Test");

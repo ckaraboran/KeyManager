@@ -10,7 +10,7 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task Given_RecordNotFoundException_When_Thrown_Then_ShouldReturnNotFoundHttpCode()
+    public async Task Given_RecordNotFoundException_When_Thrown_Then_ReturnNotFoundHttpCode()
     {
         //Arrange
         var mockProductApiException = new RecordNotFoundException("test");
@@ -31,7 +31,7 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task Given_RecordAlreadyExistsException_When_Thrown_Then_ShouldReturnBadRequestHttpCode()
+    public async Task Given_RecordAlreadyExistsException_When_Thrown_Then_ReturnBadRequestHttpCode()
     {
         //Arrange
         var mockProductApiException = new RecordAlreadyExistsException("test");
@@ -52,7 +52,7 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task Given_UnauthorizedAccessException_When_Thrown_Then_ShouldReturnUnauthorizedHttpCode()
+    public async Task Given_UnauthorizedAccessException_When_Thrown_Then_ReturnUnauthorizedHttpCode()
     {
         //Arrange
         var mockProductApiException = new UnauthorizedAccessException("test");
@@ -73,7 +73,7 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task Given_RandomException_When_Thrown_Then_ShouldReturnReturnInternalServerErrorStatusCode()
+    public async Task Given_RandomException_When_Thrown_Then_ReturnReturnInternalServerErrorStatusCode()
     {
         //Arrange
         var mockException = new Exception("test");

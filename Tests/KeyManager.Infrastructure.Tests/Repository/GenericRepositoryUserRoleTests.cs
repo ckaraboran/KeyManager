@@ -31,7 +31,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_UserRole_When_AddedToDb_Then_ReturnedInQuery()
     {
         //Arrange
         var mockUserRoles = new List<UserRole>
@@ -54,7 +54,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnUserRole()
+    public async Task Given_UserRole_When_GetAsync_Then_ReturnUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -73,7 +73,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnUserRole()
+    public async Task Given_UserRole_When_GetAsync_WithGivenId_Then_ReturnUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -92,7 +92,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnUserRole()
+    public async Task Given_UserRole_When_GetAsync_WithGivenExpression_Then_ReturnUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -111,7 +111,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnUserRole()
+    public async Task Given_UserRole_When_FindAsync_WithGivenExpression_Then_ReturnUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -130,7 +130,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenUserRole_ShouldReturnUserRole()
+    public async Task Given_UserRole_When_AddAsync_Then_ReturnUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -146,7 +146,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenUserRole_ShouldDeleteUserRole()
+    public async Task Given_UserRole_When_DeleteAsync_Then_DeleteUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -164,7 +164,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenUserRoleUser_ShouldReturnUpdatedUserRole()
+    public async Task Given_UserRole_When_UpdateAsync_WithGivenUser_Then_ReturnUpdatedUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -184,7 +184,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenUserRoleRole_ShouldReturnUpdatedUserRole()
+    public async Task Given_UserRole_When_UpdateAsync_WithGivenRole_Then_ReturnUpdatedUserRole()
     {
         //Arrange
         var mockUserRole = new UserRole { Id = 1, User = _mockUser, Role = _mockRole };
@@ -204,7 +204,7 @@ public class GenericRepositoryUserRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_UserRole_When_AddAsync_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();

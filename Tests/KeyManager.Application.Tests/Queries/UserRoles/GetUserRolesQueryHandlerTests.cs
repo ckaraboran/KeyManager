@@ -32,7 +32,7 @@ public class GetUserRolesQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_UserRole_When_GetAsync_Then_ShouldReturnUserRolesDto()
+    public async Task Given_UserRole_When_GetAsync_Then_ReturnUserRolesDto()
     {
         //Arrange
 

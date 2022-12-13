@@ -15,7 +15,7 @@ public class DeleteUserRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UserRole_When_DeleteAsyncWithGivenId_ShouldBeDeleted()
+    public async Task Given_UserRole_When_DeleteAsyncWithGivenId_Then_BeDeleted()
     {
         //Arrange
         var mockUserRole = new UserRole
@@ -35,7 +35,7 @@ public class DeleteUserRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UserRoleDelete_When_RecordDoesNotExist_Then_ShouldThrowRecordNotFoundException()
+    public async Task Given_UserRoleDelete_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException()
     {
         //Arrange
         _mockUserRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((UserRole)null);

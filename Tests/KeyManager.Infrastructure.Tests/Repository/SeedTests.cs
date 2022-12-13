@@ -26,7 +26,7 @@ public class SeedTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_RoleSeedValues_When_Requested_Then_Should_Returned_In_Query()
+    public async Task Given_RoleSeedValues_When_Requested_Then__Returned_In_Query()
     {
         var repository = new GenericRepository<Role>(_dataContext);
 
@@ -40,7 +40,7 @@ public class SeedTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_UserSeedValues_When_Requested_Then_Should_Returned_In_Query()
+    public async Task Given_UserSeedValues_When_Requested_Then__Returned_In_Query()
     {
         var repository = new GenericRepository<User>(_dataContext);
 
@@ -54,7 +54,7 @@ public class SeedTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_UserRoleSeedValues_When_Requested_Then_Should_ReturnSameCountOfValues()
+    public async Task Given_UserRoleSeedValues_When_Requested_Then__ReturnSameCountOfValues()
     {
         var repository = new GenericRepository<UserRole>(_dataContext);
 

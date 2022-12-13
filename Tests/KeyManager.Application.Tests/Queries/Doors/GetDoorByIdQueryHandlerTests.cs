@@ -34,7 +34,7 @@ public class GetDoorByIdQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_DoorGet_When_WithGivenId_Then_ShouldReturnDoorDto()
+    public async Task Given_DoorGet_When_WithGivenId_Then_ReturnDoorDto()
     {
         //Arrange
 

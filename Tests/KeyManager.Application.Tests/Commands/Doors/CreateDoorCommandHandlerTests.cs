@@ -18,7 +18,7 @@ public class CreateDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_DoorCreate_When_WithGivenCreateDoorCommand_Then_ShouldReturnCreateDoorDto()
+    public async Task Given_DoorCreate_When_WithGivenCreateDoorCommand_Then_ReturnCreateDoorDto()
     {
         //Arrange
         var mockDoor = new Door
@@ -40,7 +40,7 @@ public class CreateDoorCommandHandlerTests
 
     [Fact]
     public async Task
-        Given_DoorPost_When_WithGivenCreateDoorRequest_Then_ShouldThrowExistingRecordException_IfRecordExists()
+        Given_DoorPost_When_WithGivenCreateDoorRequest_Then_ThrowExistingRecordException_IfRecordExists()
     {
         //Arrange
         var mockCreateDoorCommand = new CreateDoorCommand("Test");

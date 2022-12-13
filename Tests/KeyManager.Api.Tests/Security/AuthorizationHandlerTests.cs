@@ -10,7 +10,7 @@ public class AuthorizationHandlerTests
     }
 
     [Fact]
-    public async Task Given_AuthorizationRequirement_When_UserAuthorized_Then_ShouldBeSuccessful()
+    public async Task Given_AuthorizationRequirement_When_UserAuthorized_Then_BeSuccessful()
     {
         //Arrange    
         var requirements = new[] { new AuthorizationRequirement() };
@@ -33,7 +33,7 @@ public class AuthorizationHandlerTests
 
 
     [Fact]
-    public async Task Given_AuthorizationRequirement_When_UserNotKnown_Then_ShouldFail()
+    public async Task Given_AuthorizationRequirement_When_UserNotKnown_Then_Fail()
     {
         //Arrange    
         var requirements = new[] { new AuthorizationRequirement() };

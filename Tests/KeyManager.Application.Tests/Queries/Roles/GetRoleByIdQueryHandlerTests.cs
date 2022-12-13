@@ -34,7 +34,7 @@ public class GetRoleByIdQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_RoleGet_When_WithGivenId_Then_ShouldReturnRoleDto()
+    public async Task Given_RoleGet_When_WithGivenId_Then_ReturnRoleDto()
     {
         //Arrange
 

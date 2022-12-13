@@ -32,7 +32,7 @@ public class GetPermissionsQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Permission_When_GetAsync_Then_ShouldReturnPermissionsDto()
+    public async Task Given_Permission_When_GetAsync_Then_ReturnPermissionsDto()
     {
         //Arrange
 

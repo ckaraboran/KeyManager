@@ -21,7 +21,7 @@ public class PermissionControllerTests
     }
 
     [Fact]
-    public async Task Given_GetPermissionCommand_When_GetAsync_Then_ShouldReturnAllPermissions()
+    public async Task Given_GetPermissionCommand_When_GetAsync_Then_ReturnAllPermissions()
     {
         //Arrange
         var mockPermissionDto = new List<PermissionWithNamesDto>
@@ -52,7 +52,7 @@ public class PermissionControllerTests
     }
 
     [Fact]
-    public async Task Given_PermissionPostCommand_When_WithGivenPermission_Then_ShouldAddPermission()
+    public async Task Given_PermissionPostCommand_When_WithGivenPermission_Then_AddPermission()
     {
         //Arrange
         var mockPermissionDto = new PermissionDto
@@ -76,7 +76,7 @@ public class PermissionControllerTests
     }
 
     [Fact]
-    public async Task Given_PermissionDeleteCommand_When_WithGivenPermission_Then_ShouldDeletePermission()
+    public async Task Given_PermissionDeleteCommand_When_WithGivenPermission_Then_DeletePermission()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeletePermissionCommand>()

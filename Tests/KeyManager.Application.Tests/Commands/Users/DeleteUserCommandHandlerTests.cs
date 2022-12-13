@@ -15,7 +15,7 @@ public class DeleteUserCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UserDelete_When_WithGivenId_Then_ShouldBeVerified()
+    public async Task Given_UserDelete_When_WithGivenId_Then_BeVerified()
     {
         //Arrange
         var mockUser = new User
@@ -34,7 +34,7 @@ public class DeleteUserCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UserDelete_When_RecordDoesNotExist_ShouldThrowRecordNotFoundException()
+    public async Task Given_UserDelete_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException()
     {
         //Arrange
         _mockUserRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((User)null);

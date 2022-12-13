@@ -21,7 +21,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserGet_When_Get_Then_ShouldReturnAllUsers()
+    public async Task Given_UserGet_When_Get_Then_ReturnAllUsers()
     {
         //Arrange
         var mockUserDto = new List<UserDto>
@@ -52,7 +52,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserGet_When_WithGivenId_Then_ShouldReturnAllUser()
+    public async Task Given_UserGet_When_WithGivenId_Then_ReturnAllUser()
     {
         //Arrange
         var mockUserDto = new UserDto
@@ -75,7 +75,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserPost_When_WithGivenUser_Then_ShouldAddUser()
+    public async Task Given_UserPost_When_WithGivenUser_Then_AddUser()
     {
         //Arrange
         var mockCreateUserCommand =
@@ -100,7 +100,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserPut_When_WithGivenUser_Then_ShouldUpdateUser()
+    public async Task Given_UserPut_When_WithGivenUser_Then_UpdateUser()
     {
         //Arrange
         var mockUpdateUserCommand =
@@ -125,7 +125,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task Given_UserDelete_When_WithGivenUser_Then_ShouldDeleteUser()
+    public async Task Given_UserDelete_When_WithGivenUser_Then_DeleteUser()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteUserCommand>()
