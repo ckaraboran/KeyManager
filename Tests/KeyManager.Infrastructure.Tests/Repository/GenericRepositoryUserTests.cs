@@ -23,7 +23,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_User_When_AddedToDb_Then_ReturnedInQuery()
     {
         //Arrange
         var mockUsers = new List<User>
@@ -58,7 +58,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnUser()
+    public async Task Given_User_When_GetAsync_Then_ReturnUser()
     {
         //Arrange
         var mockUser = new User
@@ -82,7 +82,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnUser()
+    public async Task Given_User_When_GetAsync_WithGivenId_Then_ReturnUser()
     {
         //Arrange
         var mockUser = new User
@@ -106,7 +106,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnUser()
+    public async Task Given_User_When_GetAsync_WithGivenExpression_Then_ReturnUser()
     {
         //Arrange
         var mockUser = new User
@@ -131,7 +131,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnUser()
+    public async Task Given_User_When_FindAsync_WithGivenExpression_Then_ReturnUser()
     {
         //Arrange
         var mockUser = new User
@@ -155,7 +155,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenUser_ShouldReturnUser()
+    public async Task Given_User_When_AddAsync_Then_ReturnUser()
     {
         //Arrange
         var mockUser = new User
@@ -176,7 +176,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenUser_ShouldDeleteUser()
+    public async Task Given_User_When_DeleteAsync_Then_DeleteUser()
     {
         //Arrange
         var mockUser = new User
@@ -197,7 +197,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenUser_ShouldReturnUpdatedUser()
+    public async Task Given_User_When_UpdateAsync_Then_ReturnUpdatedUser()
     {
         //Arrange
         var mockUser = new User
@@ -223,7 +223,7 @@ public class GenericRepositoryUserTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_User_When_DbError_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();

@@ -20,7 +20,7 @@ public class IncidentControllerTests
     }
 
     [Fact]
-    public async Task Incident_GetAsync_ShouldReturnAllIncidents()
+    public async Task Given_GetIncidentQuery_When_GetAsync_Then_ReturnAllIncidents()
     {
         //Arrange
         var mockIncidentDto = new List<IncidentWithNamesDto>

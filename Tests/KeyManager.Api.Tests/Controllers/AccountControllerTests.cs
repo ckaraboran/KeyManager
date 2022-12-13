@@ -22,7 +22,7 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public async Task Given_User_When_In_AuthUsers_Then_ShouldGetToken()
+    public async Task Given_User_When_In_AuthUsers_Then_GetToken()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<CheckAuthenticationCommand>(), default))
@@ -41,7 +41,7 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public async Task Given_User_When_NotKnown_Then_ShouldReturnNotFound()
+    public async Task Given_User_When_NotKnown_Then_ReturnNotFound()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<CheckAuthenticationCommand>(), default))
@@ -58,7 +58,7 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public async Task Given_User_When_Not_In_AuthUsers_Then_Should_Return_NotFound()
+    public async Task Given_User_When_Not_In_AuthUsers_Then_Return_NotFound()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<GetUserRolesByUsername>(), default))
@@ -71,9 +71,9 @@ public class AccountControllerTests
         var result = await _sut.Login(new UserLoginRequest());
         Assert.IsType<NotFoundObjectResult>(result);
     }
-    
+
     [Fact]
-    public async Task Given_UpdatePasswordRequest_When_UserNotKnown_ThenShouldReturnUnAuthorized()
+    public async Task Given_UpdatePasswordRequest_When_UserNotKnown_Then_ReturnUnAuthorized()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(Array.Empty<Claim>(), "mock"));
@@ -92,9 +92,9 @@ public class AccountControllerTests
         _mockMediator.Verify(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
             , It.Is<CancellationToken>(x => x == default)), Times.Never);
     }
-    
+
     [Fact]
-    public async Task Given_UpdatePasswordRequest_When_KnownUser_ThenShouldCallMediator()
+    public async Task Given_UpdatePasswordRequest_When_KnownUser_Then_CallMediator()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -114,9 +114,9 @@ public class AccountControllerTests
         //Assert
         _mockMediator.VerifyAll();
     }
-    
+
     [Fact]
-    public void Given_AuthenticatedUser_When_AskRoles_Then_ShouldGetRoles()
+    public void Given_AuthenticatedUser_When_AskRoles_ThenGetRoles()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(new[]

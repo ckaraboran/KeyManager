@@ -35,7 +35,7 @@ public class GetUsersQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task User_GetAsync_ShouldReturnUsersDto()
+    public async Task Given_User_When_GetAsync_Then_ReturnUsersDto()
     {
         //Arrange
         var mockUsers = new List<User>

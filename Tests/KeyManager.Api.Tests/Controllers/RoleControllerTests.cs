@@ -21,7 +21,7 @@ public class RoleControllerTests
     }
 
     [Fact]
-    public async Task Role_GetAsync_ShouldReturnAllRoles()
+    public async Task Given_GetRoleCommand_When_Get_Then_ReturnAllRoles()
     {
         //Arrange
         var mockRoleDto = new List<RoleDto>
@@ -51,7 +51,7 @@ public class RoleControllerTests
     }
 
     [Fact]
-    public async Task Role_GetAsync_WithGivenId_ShouldReturnAllRole()
+    public async Task Given_RoleGet_When_WithGivenId_Then_ReturnAllRole()
     {
         //Arrange
         var mockRoleDto = new RoleDto
@@ -74,7 +74,7 @@ public class RoleControllerTests
     }
 
     [Fact]
-    public async Task Role_PostAsync_WithGivenRole_ShouldAddRole()
+    public async Task Given_RolePost_When_WithGivenRole_Then_AddRole()
     {
         //Arrange
         var mockCreateRoleCommand = new CreateRoleCommand("Test");
@@ -98,7 +98,7 @@ public class RoleControllerTests
     }
 
     [Fact]
-    public async Task Role_PutAsync_WithGivenRole_ShouldUpdateRole()
+    public async Task Given_RolePut_When_WithGivenRole_Then_UpdateRole()
     {
         //Arrange
         var mockUpdateRoleCommand = new UpdateRoleCommand(1, "Test");
@@ -122,7 +122,7 @@ public class RoleControllerTests
     }
 
     [Fact]
-    public async Task Role_DeleteAsync_WithGivenRole_ShouldDeleteRole()
+    public async Task Given_RoleDelete_When_WithGivenRole_Then_DeleteRole()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteRoleCommand>()

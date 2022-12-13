@@ -10,15 +10,15 @@ public class AuthorizationHandlerTests
     }
 
     [Fact]
-    public async Task AuthorizationHandler_HandleRequirementAsync_WithGivenRequirement_ShouldBeSuccessful()
+    public async Task Given_AuthorizationRequirement_When_UserAuthorized_Then_BeSuccessful()
     {
         //Arrange    
         var requirements = new[] { new AuthorizationRequirement() };
         var user = new ClaimsPrincipal(
             new ClaimsIdentity(
-                new[] 
+                new[]
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, "test"),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, "test")
                 },
                 JwtBearerDefaults.AuthenticationScheme)
         );
@@ -32,9 +32,8 @@ public class AuthorizationHandlerTests
     }
 
 
-
     [Fact]
-    public async Task AuthorizationHandler_HandleRequirementAsync_WithGivenRequirement_ShouldBeFailed()
+    public async Task Given_AuthorizationRequirement_When_UserNotKnown_Then_Fail()
     {
         //Arrange    
         var requirements = new[] { new AuthorizationRequirement() };

@@ -18,7 +18,7 @@ public class CreateRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Role_Create_WithGivenCreateRoleCommand_ShouldReturnCreateRoleDto()
+    public async Task Given_RoleCreate_When_WithGivenCreateRoleCommand_Then_ReturnCreateRoleDto()
     {
         //Arrange
         var mockRole = new Role
@@ -39,7 +39,7 @@ public class CreateRoleCommandHandlerTests
     }
 
     [Fact]
-    public async Task Role_PostAsync_WithGivenCreateRoleRequest_ShouldThrowExistingRecordException_IfRecordExists()
+    public async Task Given_RolePost_When_RecordAlreadyExists_Then_ThrowExistingRecordException()
     {
         //Arrange
         var mockCreateRoleCommand = new CreateRoleCommand("Test");

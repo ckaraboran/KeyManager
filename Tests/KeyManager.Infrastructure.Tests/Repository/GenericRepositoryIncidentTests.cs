@@ -30,7 +30,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_Incident_When_AddedToDb_Then_ReturnedInQuery()
     {
         //Arrange
         var mockIncidents = new List<Incident>
@@ -53,7 +53,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnIncident()
+    public async Task Given_Incident_When_GetAsync_Then_ReturnIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -74,7 +74,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnIncident()
+    public async Task Given_Incident_When_GetAsync_With_GivenId_Then_ReturnIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -95,7 +95,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnIncident()
+    public async Task Given_Incident_When_GetAsync_With_GivenExpression_Then_ReturnIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -116,7 +116,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnIncident()
+    public async Task Given_Incident_When_FindAsync_With_GivenExpression_Then_ReturnIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -137,7 +137,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenIncident_ShouldReturnIncident()
+    public async Task Given_Incident_When_AddAsync_Then_ReturnIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -155,7 +155,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenIncident_ShouldDeleteIncident()
+    public async Task Given_Incident_When_DeleteAsync_Then_DeleteIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -174,7 +174,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenIncidentUser_ShouldReturnUpdatedIncident()
+    public async Task Given_Incident_When_UpdateUserAsync_Then_ReturnUpdatedIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -196,7 +196,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenIncidentDoor_ShouldReturnUpdatedIncident()
+    public async Task Given_Incident_When_UpdateDoorAsync_Then_ReturnUpdatedIncident()
     {
         //Arrange
         var mockIncident = new Incident
@@ -218,7 +218,7 @@ public class GenericRepositoryIncidentTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_Incident_When_DatabaseError_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();

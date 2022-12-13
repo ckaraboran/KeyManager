@@ -15,7 +15,7 @@ public class DeletePermissionCommandHandlerTests
     }
 
     [Fact]
-    public async Task Permission_DeleteAsync_WithGivenId_ShouldBeVerified()
+    public async Task Given_PermissionDelete_When_WithGivenId_Then_BeVerified()
     {
         //Arrange
         var mockPermission = new Permission
@@ -35,7 +35,7 @@ public class DeletePermissionCommandHandlerTests
     }
 
     [Fact]
-    public async Task Permission_DeleteAsync_WithGivenId_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
+    public async Task Given_PermissionDelete_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException()
     {
         //Arrange
         _mockPermissionRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((Permission)null);

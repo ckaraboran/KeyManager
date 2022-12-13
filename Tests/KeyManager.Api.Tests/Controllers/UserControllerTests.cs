@@ -1,5 +1,4 @@
 using System.Threading;
-using KeyManager.Api.DTOs.Requests;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Application.Commands.Users;
 using KeyManager.Application.Queries.Users;
@@ -22,7 +21,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task User_GetAsync_ShouldReturnAllUsers()
+    public async Task Given_UserGet_When_Get_Then_ReturnAllUsers()
     {
         //Arrange
         var mockUserDto = new List<UserDto>
@@ -53,7 +52,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task User_GetAsync_WithGivenId_ShouldReturnAllUser()
+    public async Task Given_UserGet_When_WithGivenId_Then_ReturnAllUser()
     {
         //Arrange
         var mockUserDto = new UserDto
@@ -76,7 +75,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task User_PostAsync_WithGivenUser_ShouldAddUser()
+    public async Task Given_UserPost_When_WithGivenUser_Then_AddUser()
     {
         //Arrange
         var mockCreateUserCommand =
@@ -101,7 +100,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task User_PutAsync_WithGivenUser_ShouldUpdateUser()
+    public async Task Given_UserPut_When_WithGivenUser_Then_UpdateUser()
     {
         //Arrange
         var mockUpdateUserCommand =
@@ -126,7 +125,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public async Task User_DeleteAsync_WithGivenUser_ShouldDeleteUser()
+    public async Task Given_UserDelete_When_WithGivenUser_Then_DeleteUser()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteUserCommand>()

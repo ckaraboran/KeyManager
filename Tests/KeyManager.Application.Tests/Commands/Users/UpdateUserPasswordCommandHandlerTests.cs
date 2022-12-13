@@ -18,7 +18,7 @@ public class UpdateUserPasswordCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UpdateUserPassword_When_UpdateToNewOne_ThenShouldBeOk()
+    public async Task Given_UpdateUserPassword_When_UpdateToNewOne_ThenBeOk()
     {
         //Arrange
         var oldPassword = "Test old password";
@@ -44,7 +44,7 @@ public class UpdateUserPasswordCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_UpdateUserPassword_When_OldPasswordWrong_ThenShouldThrow()
+    public async Task Given_UpdateUserPassword_When_OldPasswordWrong_ThenThrow()
     {
         //Arrange
         var oldPassword = "Test old password";

@@ -21,7 +21,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_GetAsync_ShouldReturnAllDoors()
+    public async Task Given_Door_When_GetAsync_Then_ReturnAllDoors()
     {
         //Arrange
         var mockDoorDto = new List<DoorDto>
@@ -51,7 +51,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_GetAsync_WithGivenId_ShouldReturnAllDoor()
+    public async Task Given_Door_When_GetAsync_WithGivenId_Then_ReturnAllDoor()
     {
         //Arrange
         var mockDoorDto = new DoorDto
@@ -74,7 +74,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_PostAsync_WithGivenDoor_ShouldAddDoor()
+    public async Task Given_Door_When_PostAsync_Then_AddDoor()
     {
         //Arrange
         var mockCreateDoorCommand = new CreateDoorCommand("Test");
@@ -98,7 +98,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Given_UserExist_When_OpenDoor_Then_ShouldAddDoor()
+    public async Task Given_UserExist_When_OpenDoor_Then_AddDoor()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -121,7 +121,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Given_UserNotExist_When_OpenDoor_Then_ShouldUnauthorized()
+    public async Task Given_UserNotExist_When_OpenDoor_Then_Unauthorized()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(Array.Empty<Claim>(), "mock"));
@@ -142,7 +142,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Given_UserExistButNotAuthorized_When_OpenDoor_Then_ShouldUnauthorized()
+    public async Task Given_UserExistButNotAuthorized_When_OpenDoor_Then_Unauthorized()
     {
         //Arrange
         var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -166,7 +166,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_PutAsync_WithGivenDoor_ShouldUpdateDoor()
+    public async Task Given_Door_When_PutAsync_Then_UpdateDoor()
     {
         //Arrange
         var mockUpdateDoorCommand = new UpdateDoorCommand(1, "Test");
@@ -190,7 +190,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_DeleteAsync_WithGivenDoor_ShouldDeleteDoor()
+    public async Task Given_DeleteDoorCommand_WhenWithGivenDoor_ThenDeleteDoor()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteDoorCommand>()

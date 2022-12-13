@@ -1,7 +1,6 @@
 using System;
 using KeyManager.Application.Queries.Doors;
 using KeyManager.Domain.Entities;
-using KeyManager.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace KeyManager.Application.Tests.Queries.Doors;
@@ -35,7 +34,7 @@ public class GetDoorByIdQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Door_GetAsync_WithGivenId_ShouldReturnDoorDto()
+    public async Task Given_DoorGet_When_WithGivenId_Then_ReturnDoorDto()
     {
         //Arrange
 

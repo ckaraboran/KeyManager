@@ -31,7 +31,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_Permission_WhenAddedToDb_Then_Returned_In_Query()
     {
         //Arrange
         var mockPermissions = new List<Permission>
@@ -54,7 +54,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnPermission()
+    public async Task Given_Permission_When_GetAsync_ThenReturnPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -73,7 +73,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnPermission()
+    public async Task Given_Permission_When_GetAsync_WithGivenId_ThenReturnPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -92,7 +92,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnPermission()
+    public async Task Given_Permission_When_GetAsync_WithGivenExpression_ThenReturnPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -111,7 +111,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnPermission()
+    public async Task Given_Permission_When_FindAsync_WithGivenExpression_ThenReturnPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -130,7 +130,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenPermission_ShouldReturnPermission()
+    public async Task Given_Permission_When_AddAsync_ThenReturnPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -146,7 +146,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenPermission_ShouldDeletePermission()
+    public async Task Given_Permission_When_DeleteAsync_ThenDeletePermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -164,7 +164,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenPermissionUser_ShouldReturnUpdatedPermission()
+    public async Task Given_Permission_When_UpdateUser_ThenReturnUpdatedPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -184,7 +184,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenPermissionDoor_ShouldReturnUpdatedPermission()
+    public async Task Given_Permission_When_UpdateDoor_ThenReturnUpdatedPermission()
     {
         //Arrange
         var mockPermission = new Permission { Id = 1, User = _mockUser, Door = _mockDoor };
@@ -204,7 +204,7 @@ public class GenericRepositoryPermissionTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_Permission_When_DbError_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();

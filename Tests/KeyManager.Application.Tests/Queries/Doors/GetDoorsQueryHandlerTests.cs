@@ -35,7 +35,7 @@ public class GetDoorsQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Door_GetAsync_ShouldReturnDoorsDto()
+    public async Task Given_Door_When_GetAsync_Then_ReturnDoorsDto()
     {
         //Arrange
         var mockDoors = new List<Door>

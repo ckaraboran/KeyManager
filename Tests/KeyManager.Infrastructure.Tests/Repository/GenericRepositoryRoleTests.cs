@@ -23,7 +23,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task Given_Entities_When_Added_To_Db_Then_Should_Returned_In_Query()
+    public async Task Given_Roles_When_AddedToDbThen_Then_ReturnedInQuery()
     {
         //Arrange
         var mockRoles = new List<Role>
@@ -46,7 +46,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_ShouldReturnRole()
+    public async Task Given_Role_When_GetAsync_Then_ReturnRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -64,7 +64,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenId_ShouldReturnRole()
+    public async Task Given_Role_When_GetAsync_WithGivenId_Then_ReturnRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -82,7 +82,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_GetAsync_WithGivenExpression_ShouldReturnRole()
+    public async Task Given_Role_When_GetAsync_WithGivenExpression_ThenReturnRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -100,7 +100,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_FindAsync_WithGivenExpression_ShouldReturnRole()
+    public async Task Given_Role_When_FindAsync_WithGivenExpression_Then_ReturnRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -118,7 +118,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenRole_ShouldReturnRole()
+    public async Task Given_Role_When_AddAsync_Then_ReturnRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -133,7 +133,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_DeleteAsync_WithGivenRole_ShouldDeleteRole()
+    public async Task Given_Role_When_DeleteAsync_Then_DeleteRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -151,7 +151,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_UpdateAsync_WithGivenRole_ShouldReturnUpdatedRole()
+    public async Task Given_Role_When_UpdateAsync_Then_ReturnUpdatedRole()
     {
         //Arrange
         var mockRole = new Role { Id = 1001, Name = "TestName1" };
@@ -170,7 +170,7 @@ public class GenericRepositoryRoleTests : IDisposable
     }
 
     [Fact]
-    public async Task GenericRepository_AddAsync_WithGivenEntity_ThrowsDbUpdateException()
+    public async Task Given_Role_When_DbError_Then_ThrowsDbUpdateException()
     {
         await using var dbConnection = new SqliteConnection("DataSource=:memory:");
         dbConnection.Open();

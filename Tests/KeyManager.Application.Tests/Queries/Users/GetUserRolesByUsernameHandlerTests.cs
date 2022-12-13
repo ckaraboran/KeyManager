@@ -31,7 +31,7 @@ public class GetUserRolesByUsernameHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task User_GetAsync_WithGivenId_ShouldReturnUserDto()
+    public async Task Given_UserGet_When_WithGivenId_Then_ReturnUserDto()
     {
         //Arrange
 
@@ -102,7 +102,7 @@ public class GetUserRolesByUsernameHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task User_GetAsync_WithNotExistUsername_ShouldThrowNotFoundException()
+    public async Task Given_UserGet_When_WithNotExistUsername_Then_ThrowNotFoundException()
     {
         //Arrange
 

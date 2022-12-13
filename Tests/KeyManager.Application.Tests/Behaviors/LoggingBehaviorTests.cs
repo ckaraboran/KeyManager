@@ -20,7 +20,7 @@ public class LoggingBehaviorTests
     }
 
     [Fact]
-    public async Task Given_Request_When_SentToMediator_Then_Will_Be_Logged()
+    public async Task Given_Request_When_SentToMediator_Then_WillBeLogged()
     {
         //Arrange
         var request = new TestRequest
