@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Security.Claims;
-using KeyManager.Api.DTOs.Requests;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Api.Security.Requirements;
 using KeyManager.Application.Commands.Users;
@@ -9,6 +6,9 @@ using MediatR;
 
 namespace KeyManager.Api.Controllers;
 
+/// <summary>
+///     Endpoint for managing users
+/// </summary>
 [Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/users")]
 [ApiController]
@@ -23,6 +23,10 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Get all users
+    /// </summary>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetUserResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetUserResponse>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -34,6 +38,11 @@ public class UserController : ControllerBase
         return Ok(_mapper.Map<List<GetUserResponse>>(result));
     }
 
+    /// <summary>
+    ///     Get a user by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>User with the specific id</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(GetUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -45,7 +54,11 @@ public class UserController : ControllerBase
         return Ok(_mapper.Map<GetUserResponse>(result));
     }
 
-
+    /// <summary>
+    ///     Create a new user
+    /// </summary>
+    /// <param name="createUserCommand"></param>
+    /// <returns>Created user</returns>
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -57,17 +70,27 @@ public class UserController : ControllerBase
         return Created(nameof(PostAsync), _mapper.Map<CreateUserResponse>(result));
     }
 
+    /// <summary>
+    ///     Update a user
+    /// </summary>
+    /// <param name="updateUserCommand"></param>
+    /// <returns>Updated user</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
     [HttpPut]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
-    public async Task<ActionResult<UpdateUserResponse>> PutAsync([FromBody] UpdateUserCommand updateDummyCommand)
+    public async Task<ActionResult<UpdateUserResponse>> PutAsync([FromBody] UpdateUserCommand updateUserCommand)
     {
-        var result = await _mediator.Send(updateDummyCommand);
+        var result = await _mediator.Send(updateUserCommand);
         return Ok(_mapper.Map<UpdateUserResponse>(result));
     }
 
+    /// <summary>
+    ///     Delete a user
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Deletion result</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]

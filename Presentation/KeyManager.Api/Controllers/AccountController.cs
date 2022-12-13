@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace KeyManager.Api.Controllers;
 
+/// <summary>
+///     Endpoint for account management
+/// </summary>
 [Route("api/account")]
 [ApiController]
 public class AccountController : ControllerBase
@@ -25,6 +28,11 @@ public class AccountController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Login endpoint for users
+    /// </summary>
+    /// <param name="userLoginRequest"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
@@ -43,7 +51,11 @@ public class AccountController : ControllerBase
         return NotFound("user not found");
     }
 
-    // To generate token
+    /// <summary>
+    ///     Creates a token for the user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     private string GenerateToken(UserWithRolesDto user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -59,7 +71,12 @@ public class AccountController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    //To authenticate user
+    /// <summary>
+    ///     Authenticates the user
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
     private async Task<UserWithRolesDto> Authenticate(string username, string password)
     {
         var userAuthenticated = await _mediator.Send(new CheckAuthenticationCommand(username, password));
@@ -67,7 +84,12 @@ public class AccountController : ControllerBase
         var currentUser = await _mediator.Send(new GetUserRolesByUsername(username));
         return currentUser;
     }
-    
+
+    /// <summary>
+    ///     Updates the password for the current user
+    /// </summary>
+    /// <param name="updateUserPasswordRequest"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -82,8 +104,11 @@ public class AccountController : ControllerBase
             updateUserPasswordRequest.OldPassword, updateUserPasswordRequest.NewPassword));
         return Ok();
     }
-    
-    //For admin Only
+
+    /// <summary>
+    ///     Lists all roles for the current user
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [Route("roles")]
     [Authorize(Policy = nameof(KnownRolesRequirement))]
@@ -92,12 +117,12 @@ public class AccountController : ControllerBase
         var roles = GetCurrentUserRoles();
         return Ok($"Hi. you have these roles: {string.Join(", ", roles)}");
     }
-    
+
     /// <summary>
-    /// Returns the current user roles
+    ///     Returns the current user roles
     /// </summary>
     /// <returns>current user roles</returns>
-    private List<string> GetCurrentUserRoles()
+    private IEnumerable<string> GetCurrentUserRoles()
     {
         if (HttpContext.User.Identity is not ClaimsIdentity identity) return new List<string>();
         var userClaims = identity.Claims.ToList();

@@ -6,6 +6,9 @@ using MediatR;
 
 namespace KeyManager.Api.Controllers;
 
+/// <summary>
+///     Endpoint for managing user roles
+/// </summary>
 [Authorize(Policy = nameof(AuthorizationRequirement))]
 [Route("api/userroles")]
 [ApiController]
@@ -20,6 +23,10 @@ public class UserRoleController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Get all user roles
+    /// </summary>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetUserRoleResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetUserRoleResponse>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -31,6 +38,11 @@ public class UserRoleController : ControllerBase
         return Ok(_mapper.Map<List<GetUserRoleResponse>>(result));
     }
 
+    /// <summary>
+    ///     Create a new user role
+    /// </summary>
+    /// <param name="createUserRoleCommand"></param>
+    /// <returns></returns>
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateUserRoleResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserRoleResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -43,6 +55,11 @@ public class UserRoleController : ControllerBase
         return Created(nameof(PostAsync), _mapper.Map<CreateUserRoleResponse>(result));
     }
 
+    /// <summary>
+    ///     Delete a user role
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Deletion result</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
