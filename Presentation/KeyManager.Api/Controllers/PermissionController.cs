@@ -51,6 +51,8 @@ public class PermissionController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreatePermissionResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreatePermissionResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpPost]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<CreatePermissionResponse>> PostAsync(
@@ -68,6 +70,7 @@ public class PermissionController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpDelete("{id}")]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult> DeleteAsync(int id)

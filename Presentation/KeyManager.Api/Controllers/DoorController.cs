@@ -68,6 +68,7 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateDoorResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateDoorResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(void))]
     [HttpPost]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<CreateDoorResponse>> PostAsync([FromBody] CreateDoorCommand createDoorCommand)
@@ -84,6 +85,8 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateDoorResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateDoorResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpPut]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<UpdateDoorResponse>> PutAsync([FromBody] UpdateDoorCommand updateDoorCommand)
@@ -100,6 +103,7 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpDelete("{id}")]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult> DeleteAsync(int id)
@@ -116,6 +120,7 @@ public class DoorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpPost("{id}/open")]
     public async Task<ActionResult> OpenDoorAsync(int id)
     {

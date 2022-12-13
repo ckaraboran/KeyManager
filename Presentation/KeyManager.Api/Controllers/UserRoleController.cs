@@ -51,6 +51,8 @@ public class UserRoleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateUserRoleResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserRoleResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpPost]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<CreateUserRoleResponse>> PostAsync(
@@ -68,6 +70,7 @@ public class UserRoleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpDelete("{id}")]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult> DeleteAsync(int id)
