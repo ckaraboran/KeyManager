@@ -18,6 +18,11 @@ public class UpdateDoorCommandHandler : IRequestHandler<UpdateDoorCommand, DoorD
         if (existingDoor == null)
             throw new RecordNotFoundException($"Door not found. DoorId: '{request.Id}'");
 
+        var existingAnotherDoor = await _doorRepository.GetAsync(s => s.Name == request.Name && s.Id != request.Id);
+
+        if (existingAnotherDoor != null)
+            throw new RecordAlreadyExistsException($"There is a door with the same name: '{request.Name}'");
+
         existingDoor = _mapper.Map<Door>(request);
         var updatedDoor = await _doorRepository.UpdateAsync(existingDoor);
 

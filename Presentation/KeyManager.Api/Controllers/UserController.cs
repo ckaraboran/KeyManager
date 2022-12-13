@@ -51,6 +51,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(GetUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpGet("{id}")]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<GetUserResponse>> GetAsync(int id)
@@ -67,6 +68,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(CreateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(void))]
     [HttpPost]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<CreateUserResponse>> PostAsync([FromBody] CreateUserCommand createUserCommand)
@@ -83,6 +85,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [HttpPut]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     public async Task<ActionResult<UpdateUserResponse>> PutAsync([FromBody] UpdateUserCommand updateUserCommand)
@@ -99,6 +102,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(void))]
     [Authorize(Policy = nameof(SystemManagerRequirement))]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAsync(int id)

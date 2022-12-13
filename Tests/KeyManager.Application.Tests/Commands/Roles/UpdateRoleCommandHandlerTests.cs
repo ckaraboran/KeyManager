@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using KeyManager.Application.Commands.Roles;
 using KeyManager.Domain.Entities;
 
@@ -44,6 +46,45 @@ public class UpdateRoleCommandHandlerTests
         Assert.Equal(result.Id, newRole.Id);
         Assert.Equal(result.Name, newRole.Name);
         _mockRoleRepository.VerifyAll();
+    }
+
+    [Fact]
+    public async Task Given_RolePut_When_AnotherRoleWithSameNameExists_Then_RecordAlreadyExistsException()
+    {
+        //Arrange
+        var sameName = "New Role";
+        var newRole = new Role
+        {
+            Id = 1,
+            Name = sameName
+        };
+        var newAnotherRole = new Role
+        {
+            Id = 2,
+            Name = sameName
+        };
+        var mockRoleUpdateCommand = new UpdateRoleCommand(newRole.Id, newRole.Name);
+
+        var oldRole = new Role
+        {
+            Id = 1,
+            Name = "Old Role"
+        };
+
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(newRole.Id)).ReturnsAsync(oldRole);
+        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<Role, bool>>>()))
+            .ReturnsAsync(newAnotherRole);
+        _mockRoleRepository.Setup(s => s.UpdateAsync(It.IsAny<Role>())).ReturnsAsync(newRole);
+
+        Task Result()
+        {
+            return _roleHandler.Handle(mockRoleUpdateCommand, default);
+        }
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
+        Assert.Equal($"There is a role with the same name: '{newAnotherRole.Name}'", exception.Message);
+        _mockRoleRepository.Verify(s => s.UpdateAsync(It.IsAny<Role>()), Times.Never);
     }
 
     [Fact]

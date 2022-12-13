@@ -1,5 +1,6 @@
 using KeyManager.Application.Commands.Roles;
 using KeyManager.Domain.Entities;
+using KeyManager.Domain.Enums;
 
 namespace KeyManager.Application.Tests.Commands.Roles;
 
@@ -31,6 +32,31 @@ public class DeleteRoleCommandHandlerTests
 
         //Assert
         _mockRoleRepository.VerifyAll();
+    }
+
+    [Fact]
+    public async Task Given_RoleDelete_When_PredefinedRole_Then_ThrowRecordCannotBeDeletedException()
+    {
+        //Arrange
+        var mockRole = new Role
+        {
+            Id = 1,
+            Name = KnownRoles.OfficeManager.ToString()
+        };
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync(mockRole);
+        _mockRoleRepository.Setup(s => s.DeleteAsync(It.IsAny<Role>()));
+
+        //Act
+        Task Result()
+        {
+            return _roleHandler.Handle(new DeleteRoleCommand(mockRole.Id), default);
+        }
+
+        //Act-Assert
+        var exception = await Assert.ThrowsAsync<RecordCannotBeDeletedException>(Result);
+        Assert.Equal($"Predefined role cannot be deleted: Role name: '{mockRole.Name}'", exception.Message);
+        //verify mock role repository delete async not called
+        _mockRoleRepository.Verify(s => s.DeleteAsync(It.IsAny<Role>()), Times.Never);
     }
 
     [Fact]

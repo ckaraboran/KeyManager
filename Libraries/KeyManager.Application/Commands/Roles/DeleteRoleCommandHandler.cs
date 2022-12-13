@@ -1,3 +1,5 @@
+using KeyManager.Domain.Enums;
+
 namespace KeyManager.Application.Commands.Roles;
 
 public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
@@ -14,6 +16,9 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
         var role = await _roleRepository.GetByIdAsync(request.Id);
 
         if (role == null) throw new RecordNotFoundException($"Role not found while deleting. RoleId: '{request.Id}'");
+
+        if (Enum.IsDefined(typeof(KnownRoles), role.Name))
+            throw new RecordCannotBeDeletedException($"Predefined role cannot be deleted: Role name: '{role.Name}'");
 
         await _roleRepository.DeleteAsync(role);
         return Unit.Value;

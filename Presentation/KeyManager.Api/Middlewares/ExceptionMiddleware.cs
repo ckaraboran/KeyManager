@@ -48,7 +48,7 @@ public class ExceptionMiddleware
                     _logger.LogError(
                         "Record already exists exception occured. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
                         ex.Message, ex.StackTrace);
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response.StatusCode = (int)HttpStatusCode.Conflict;
 
                     break;
                 case UnauthorizedAccessException ex:
@@ -58,6 +58,13 @@ public class ExceptionMiddleware
                         ex.Message, ex.StackTrace);
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
+                    break;
+                case RecordCannotBeDeletedException ex:
+
+                    _logger.LogError(
+                        "Record cannot be deleted exception occured. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
+                        ex.Message, ex.StackTrace);
+                    response.StatusCode = (int)HttpStatusCode.Forbidden;
                     break;
                 default:
 
