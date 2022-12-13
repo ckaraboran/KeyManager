@@ -1,3 +1,4 @@
+using System.Threading;
 using KeyManager.Api.DTOs.Requests;
 using KeyManager.Api.DTOs.Responses.Users;
 using KeyManager.Application.Commands.Users;
@@ -7,17 +8,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace KeyManager.Api.Tests.Controllers;
 
-public class LoginControllerTests
+public class AccountControllerTests
 {
     private readonly Mock<IConfiguration> _mockConfiguration;
     private readonly Mock<ISender> _mockMediator;
-    private readonly LoginController _sut;
+    private readonly AccountController _sut;
 
-    public LoginControllerTests()
+    public AccountControllerTests()
     {
         _mockConfiguration = new Mock<IConfiguration>();
         _mockMediator = new Mock<ISender>();
-        _sut = new LoginController(_mockConfiguration.Object, _mockMediator.Object);
+        _sut = new AccountController(_mockConfiguration.Object, _mockMediator.Object);
     }
 
     [Fact]
@@ -69,5 +70,71 @@ public class LoginControllerTests
         //Act
         var result = await _sut.Login(new UserLoginRequest());
         Assert.IsType<NotFoundObjectResult>(result);
+    }
+    
+    [Fact]
+    public async Task Given_UpdatePasswordRequest_When_UserNotKnown_ThenShouldReturnUnAuthorized()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(Array.Empty<Claim>(), "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)));
+
+        //Act
+        var result = await _sut.UpdatePasswordAsync(new UpdateUserPasswordRequest("old", "new"));
+
+        //Assert
+        Assert.IsType<UnauthorizedResult>(result);
+        _mockMediator.Verify(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)), Times.Never);
+    }
+    
+    [Fact]
+    public async Task Given_UpdatePasswordRequest_When_KnownUser_ThenShouldCallMediator()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Name, "Test name")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+        _mockMediator.Setup(s => s.Send(It.IsAny<UpdateUserPasswordCommand>()
+            , It.Is<CancellationToken>(x => x == default)));
+
+        //Act
+        await _sut.UpdatePasswordAsync(new UpdateUserPasswordRequest("old", "new"));
+
+        //Assert
+        _mockMediator.VerifyAll();
+    }
+    
+    [Fact]
+    public void Given_AuthenticatedUser_When_AskRoles_Then_ShouldGetRoles()
+    {
+        //Arrange
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+        {
+            new Claim(ClaimTypes.Role, "Test name"),
+            new Claim(ClaimTypes.Role, "Admin1"),
+            new Claim(ClaimTypes.Role, "User1")
+        }, "mock"));
+        _sut.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+
+        //Act
+        var result = _sut.AdminEndPoint();
+
+        //Assert
+        var resultValue = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal("Hi. you have these roles: Test name, Admin1, User1", resultValue.Value);
     }
 }

@@ -23,23 +23,6 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    //For admin Only
-    [HttpGet]
-    [Route("Roles")]
-    [Authorize(Policy = nameof(KnownRolesRequirement))]
-    public IActionResult AdminEndPoint()
-    {
-        var roles = GetCurrentUserRoles();
-        return Ok($"Hi. you have these roles: {string.Join(", ", roles)}");
-    }
-
-    private List<string> GetCurrentUserRoles()
-    {
-        if (HttpContext.User.Identity is not ClaimsIdentity identity) return new List<string>();
-        var userClaims = identity.Claims.ToList();
-        return userClaims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value.ToString()).ToList();
-    }
-
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetUserResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(List<GetUserResponse>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
@@ -83,20 +66,6 @@ public class UserController : ControllerBase
     {
         var result = await _mediator.Send(updateDummyCommand);
         return Ok(_mapper.Map<UpdateUserResponse>(result));
-    }
-
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateUserResponse))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(UpdateUserResponse))]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(void))]
-    [HttpPut("password")]
-    public async Task<ActionResult>
-        UpdatePasswordAsync([FromBody] UpdateUserPasswordRequest updateUserPasswordRequest)
-    {
-        var username = User.FindFirst(ClaimTypes.Name)?.Value;
-        if (username == null) return Unauthorized();
-        await _mediator.Send(new UpdateUserPasswordCommand(username,
-            updateUserPasswordRequest.OldPassword, updateUserPasswordRequest.NewPassword));
-        return Ok();
     }
 
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
