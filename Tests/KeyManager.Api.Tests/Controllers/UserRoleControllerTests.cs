@@ -21,7 +21,7 @@ public class UserRoleControllerTests
     }
 
     [Fact]
-    public async Task UserRole_GetAsync_ShouldReturnAllUserRoles()
+    public async Task Given_UserRole_When_GetAsync_Then_ShouldReturnAllUserRoles()
     {
         //Arrange
         var mockUserRoleDto = new List<UserRoleWithNamesDto>
@@ -52,7 +52,7 @@ public class UserRoleControllerTests
     }
 
     [Fact]
-    public async Task UserRole_PostAsync_WithGivenUserRole_ShouldAddUserRole()
+    public async Task Given_UserRolePost_When_WithGivenUserRole_Then_ShouldAddUserRole()
     {
         //Arrange
         var mockUserRoleDto = new UserRoleDto
@@ -77,7 +77,7 @@ public class UserRoleControllerTests
 
 
     [Fact]
-    public async Task UserRole_DeleteAsync_WithGivenUserRole_ShouldDeleteUserRole()
+    public async Task Given_UserRoleDelete_When_WithGivenUserRole_Then_ShouldDeleteUserRole()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteUserRoleCommand>()

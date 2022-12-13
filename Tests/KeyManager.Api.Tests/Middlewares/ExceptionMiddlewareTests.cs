@@ -73,7 +73,7 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task ExceptionMiddleware_RandomException_ShouldReturnReturnInternalServerErrorStatusCode()
+    public async Task Given_RandomException_When_Thrown_Then_ShouldReturnReturnInternalServerErrorStatusCode()
     {
         //Arrange
         var mockException = new Exception("test");

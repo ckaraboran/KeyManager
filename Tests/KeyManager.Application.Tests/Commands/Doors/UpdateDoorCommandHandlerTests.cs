@@ -18,7 +18,7 @@ public class UpdateDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task Door_PutAsync_WithGivenUpdateDoorRequest_ShouldReturnCreateDoorDto()
+    public async Task Given_DoorPut_When_WithGivenUpdateDoorRequest_Then_ShouldReturnCreateDoorDto()
     {
         //Arrange
         var newDoor = new Door
@@ -47,8 +47,7 @@ public class UpdateDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task
-        Door_PutAsync_WithGivenUpdateDoorRequest_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
+    public async Task Given_DoorPut_When_RecordDoesNotExist_Then_ShouldThrowRecordNotFoundException_()
     {
         //Arrange
         var mockUpdateDoorCommand = new UpdateDoorCommand(1, "Test");

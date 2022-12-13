@@ -190,7 +190,7 @@ public class DoorControllerTests
     }
 
     [Fact]
-    public async Task Door_DeleteAsync_WithGivenDoor_ShouldDeleteDoor()
+    public async Task Given_DeleteDoorCommand_WhenWithGivenDoor_ThenShouldDeleteDoor()
     {
         //Arrange
         _mockMediator.Setup(s => s.Send(It.IsAny<DeleteDoorCommand>()

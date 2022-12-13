@@ -15,7 +15,7 @@ public class DeleteDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task Door_DeleteAsync_WithGivenId_ShouldBeVerified()
+    public async Task Given_DoorDelete_When_RecordExist_Then_ShouldBeVerified()
     {
         //Arrange
         var mockDoor = new Door
@@ -34,7 +34,7 @@ public class DeleteDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task Door_DeleteAsync_WithGivenId_ShouldThrowRecordNotFoundException_IfRecordDoesNotExist()
+    public async Task Given_DoorDelete_When_RecordDoesNotExist_Then_ShouldThrowRecordNotFoundException()
     {
         //Arrange
         _mockDoorRepository.Setup(s => s.GetByIdAsync(It.IsAny<long>())).ReturnsAsync((Door)null);

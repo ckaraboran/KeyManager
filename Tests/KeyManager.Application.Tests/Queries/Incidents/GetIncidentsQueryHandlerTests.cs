@@ -32,7 +32,7 @@ public class GetIncidentsQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Incident_GetAsync_ShouldReturnIncidentsDto()
+    public async Task Given_Incident_When_GetAsync_ShouldReturnIncidentsDto()
     {
         //Arrange
 

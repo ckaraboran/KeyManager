@@ -35,7 +35,7 @@ public class GetRolesQueryHandlerTests : IDisposable
     }
 
     [Fact]
-    public async Task Role_GetAsync_ShouldReturnRolesDto()
+    public async Task Given_Role_When_GetAsync_ShouldReturnRolesDto()
     {
         //Arrange
         var mockRoles = new List<Role>
