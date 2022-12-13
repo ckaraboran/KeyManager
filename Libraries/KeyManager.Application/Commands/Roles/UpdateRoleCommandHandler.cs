@@ -1,3 +1,5 @@
+using KeyManager.Domain.Enums;
+
 namespace KeyManager.Application.Commands.Roles;
 
 public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleDto>
@@ -17,6 +19,10 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleD
 
         if (existingRole == null)
             throw new RecordNotFoundException($"Role not found. RoleId: '{request.Id}'");
+
+        if (Enum.IsDefined(typeof(KnownRoles), existingRole.Name))
+            throw new RecordCannotBeChangedException(
+                $"Predefined role cannot be changed. Role name: '{existingRole.Name}'");
 
         var existingOtherRole = await _roleRepository.GetAsync(s => s.Name == request.Name && s.Id != request.Id);
 
