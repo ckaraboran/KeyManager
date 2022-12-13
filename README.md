@@ -56,7 +56,7 @@ First way;
  ```
 3. Run the project
 ```sh
- C:\Projects\Clay\KeyManager.Api>dotnet run 
+ dotnet run 
  ```
 
 Second way;
