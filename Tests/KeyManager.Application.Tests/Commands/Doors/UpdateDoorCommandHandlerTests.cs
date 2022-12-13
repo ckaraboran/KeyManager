@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using KeyManager.Application.Commands.Doors;
 using KeyManager.Domain.Entities;
 
@@ -47,7 +49,46 @@ public class UpdateDoorCommandHandlerTests
     }
 
     [Fact]
-    public async Task Given_DoorPut_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException_()
+    public async Task Given_DoorPut_When_AnotherDoorWithSameNameExists_Then_RecordAlreadyExistsException()
+    {
+        //Arrange
+        var sameName = "New Door";
+        var newDoor = new Door
+        {
+            Id = 1,
+            Name = sameName
+        };
+        var newAnotherDoor = new Door
+        {
+            Id = 2,
+            Name = sameName
+        };
+        var mockDoorUpdateCommand = new UpdateDoorCommand(newDoor.Id, newDoor.Name);
+
+        var oldDoor = new Door
+        {
+            Id = 1,
+            Name = "Old Door"
+        };
+
+        _mockDoorRepository.Setup(s => s.GetByIdAsync(newDoor.Id)).ReturnsAsync(oldDoor);
+        _mockDoorRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<Door, bool>>>()))
+            .ReturnsAsync(newAnotherDoor);
+        _mockDoorRepository.Setup(s => s.UpdateAsync(It.IsAny<Door>())).ReturnsAsync(newDoor);
+
+        Task Result()
+        {
+            return _doorHandler.Handle(mockDoorUpdateCommand, default);
+        }
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
+        Assert.Equal($"There is a door with the same name: '{newAnotherDoor.Name}'", exception.Message);
+        _mockDoorRepository.Verify(s => s.UpdateAsync(It.IsAny<Door>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task Given_DoorPut_When_RecordDoesNotExist_Then_ThrowRecordNotFoundException()
     {
         //Arrange
         var mockUpdateDoorCommand = new UpdateDoorCommand(1, "Test");

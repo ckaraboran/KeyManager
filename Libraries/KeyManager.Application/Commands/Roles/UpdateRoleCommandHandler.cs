@@ -18,6 +18,11 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, RoleD
         if (existingRole == null)
             throw new RecordNotFoundException($"Role not found. RoleId: '{request.Id}'");
 
+        var existingOtherRole = await _roleRepository.GetAsync(s => s.Name == request.Name && s.Id != request.Id);
+
+        if (existingOtherRole != null)
+            throw new RecordAlreadyExistsException($"There is a role with the same name: '{request.Name}'");
+
         existingRole = _mapper.Map<Role>(request);
         var updatedRole = await _roleRepository.UpdateAsync(existingRole);
 

@@ -59,6 +59,13 @@ public class ExceptionMiddleware
                     response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
                     break;
+                case RecordCannotBeDeletedException ex:
+
+                    _logger.LogError(
+                        "Record cannot be deleted exception occured. Error message: '{Message}' Exception stack trace: '{StackTrace}'",
+                        ex.Message, ex.StackTrace);
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
                 default:
 
                     _logger.LogError("An error occurred. Exception Message: '{Message}'", error.Message);
