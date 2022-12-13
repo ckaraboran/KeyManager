@@ -31,10 +31,31 @@ public class ExceptionMiddlewareTests
     }
 
     [Fact]
-    public async Task Given_RecordCannotBeDeletedException_When_Thrown_Then_ReturnNotFoundHttpCode()
+    public async Task Given_RecordCannotBeDeletedException_When_Thrown_Then_ReturnForbiddenHttpCode()
     {
         //Arrange
         var mockProductApiException = new RecordCannotBeDeletedException("test");
+
+        Task MockNextMiddleware(HttpContext _)
+        {
+            return Task.FromException(mockProductApiException);
+        }
+
+        var httpContext = new DefaultHttpContext();
+        var exceptionHandlingMiddleware = new ExceptionMiddleware(MockNextMiddleware, _mockLogger.Object);
+
+        //Act
+        await exceptionHandlingMiddleware.Invoke(httpContext);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Forbidden, (HttpStatusCode)httpContext.Response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Given_RecordCannotBeChangedException_When_Thrown_Then_ReturnForbiddenHttpCode()
+    {
+        //Arrange
+        var mockProductApiException = new RecordCannotBeChangedException("test");
 
         Task MockNextMiddleware(HttpContext _)
         {

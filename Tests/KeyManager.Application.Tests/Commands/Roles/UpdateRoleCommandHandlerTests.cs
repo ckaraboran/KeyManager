@@ -2,6 +2,7 @@ using System;
 using System.Linq.Expressions;
 using KeyManager.Application.Commands.Roles;
 using KeyManager.Domain.Entities;
+using KeyManager.Domain.Enums;
 
 namespace KeyManager.Application.Tests.Commands.Roles;
 
@@ -84,6 +85,45 @@ public class UpdateRoleCommandHandlerTests
         //Assert
         var exception = await Assert.ThrowsAsync<RecordAlreadyExistsException>(Result);
         Assert.Equal($"There is a role with the same name: '{newAnotherRole.Name}'", exception.Message);
+        _mockRoleRepository.Verify(s => s.UpdateAsync(It.IsAny<Role>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task Given_RolePut_When_RoleIsPredefined_Then_RecordACannotBeChangedException()
+    {
+        //Arrange
+        var sameName = "New Role";
+        var newRole = new Role
+        {
+            Id = 1,
+            Name = sameName
+        };
+        var newAnotherRole = new Role
+        {
+            Id = 2,
+            Name = sameName
+        };
+        var mockRoleUpdateCommand = new UpdateRoleCommand(newRole.Id, newRole.Name);
+
+        var oldRole = new Role
+        {
+            Id = 1,
+            Name = KnownRoles.OfficeManager.ToString()
+        };
+
+        _mockRoleRepository.Setup(s => s.GetByIdAsync(newRole.Id)).ReturnsAsync(oldRole);
+        _mockRoleRepository.Setup(s => s.GetAsync(It.IsAny<Expression<Func<Role, bool>>>()))
+            .ReturnsAsync(newAnotherRole);
+        _mockRoleRepository.Setup(s => s.UpdateAsync(It.IsAny<Role>())).ReturnsAsync(newRole);
+
+        Task Result()
+        {
+            return _roleHandler.Handle(mockRoleUpdateCommand, default);
+        }
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<RecordCannotBeChangedException>(Result);
+        Assert.Equal($"Predefined role cannot be changed. Role name: '{oldRole.Name}'", exception.Message);
         _mockRoleRepository.Verify(s => s.UpdateAsync(It.IsAny<Role>()), Times.Never);
     }
 
