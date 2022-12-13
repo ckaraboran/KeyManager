@@ -17,6 +17,11 @@ public class RoleController : ControllerBase
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor for RoleController
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="mapper"></param>
     public RoleController(ISender mediator, IMapper mapper)
     {
         _mapper = mapper;

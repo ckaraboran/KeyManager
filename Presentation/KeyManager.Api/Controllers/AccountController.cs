@@ -22,6 +22,11 @@ public class AccountController : ControllerBase
     private readonly IConfiguration _config;
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor for AccountController
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="mediator"></param>
     public AccountController(IConfiguration config, ISender mediator)
     {
         _config = config;

@@ -1,3 +1,5 @@
+using System.IO;
+using System.Reflection;
 using System.Text;
 using KeyManager.Api.Security.Handlers;
 using KeyManager.Api.Security.Requirements;
@@ -6,17 +8,30 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace KeyManager.Api;
 
+/// <summary>
+///     Application startup
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class Startup
 {
+    /// <summary>
+    ///     Constructor
+    /// </summary>
+    /// <param name="configuration"></param>
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
+    /// <summary>
+    ///     Configuration
+    /// </summary>
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
+    /// <summary>
+    ///     Configure services
+    /// </summary>
+    /// <param name="services"></param>
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddApplication();
@@ -50,6 +65,8 @@ public class Startup
             {
                 { jwtSecurityScheme, Array.Empty<string>() }
             });
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
 
         #region Authentication
@@ -90,6 +107,13 @@ public class Startup
         #endregion
     }
 
+    /// <summary>
+    ///     Configure application
+    /// </summary>
+    /// <param name="app"></param>
+    /// <param name="env"></param>
+    /// <param name="dataContext"></param>
+    /// <param name="autoMapperConfiguration"></param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext,
         IConfigurationProvider autoMapperConfiguration)
     {

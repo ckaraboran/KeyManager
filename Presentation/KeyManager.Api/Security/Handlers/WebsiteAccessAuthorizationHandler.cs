@@ -6,15 +6,27 @@ using MediatR;
 
 namespace KeyManager.Api.Security.Handlers;
 
+/// <summary>
+///     Authorization handler for the interface <see cref="IAccessRequirement" />.
+/// </summary>
 public class WebsiteAccessAuthorizationHandler : AuthorizationHandler<IAccessRequirement>
 {
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor.
+    /// </summary>
+    /// <param name="mediator"></param>
     public WebsiteAccessAuthorizationHandler(ISender mediator)
     {
         _mediator = mediator;
     }
 
+    /// <summary>
+    ///     Handles the authorization.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="requirement"></param>
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
         IAccessRequirement requirement)
     {

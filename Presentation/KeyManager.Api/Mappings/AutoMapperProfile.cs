@@ -7,8 +7,14 @@ using KeyManager.Api.DTOs.Responses.Users;
 
 namespace KeyManager.Api.Mappings;
 
+/// <summary>
+///     AutoMapper profile for mapping between DTOs and entities
+/// </summary>
 public class AutoMapperProfile : Profile
 {
+    /// <summary>
+    ///     Constructor for AutoMapperProfile
+    /// </summary>
     public AutoMapperProfile()
     {
         CreateMap<UserDto, CreateUserResponse>();

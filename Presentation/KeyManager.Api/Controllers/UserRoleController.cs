@@ -17,6 +17,11 @@ public class UserRoleController : ControllerBase
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor for the user role controller
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="mapper"></param>
     public UserRoleController(ISender mediator, IMapper mapper)
     {
         _mapper = mapper;

@@ -17,6 +17,11 @@ public class UserController : ControllerBase
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
+    /// <summary>
+    ///     Constructor for the user controller
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="mapper"></param>
     public UserController(ISender mediator, IMapper mapper)
     {
         _mapper = mapper;
