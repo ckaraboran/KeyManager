@@ -41,7 +41,8 @@ public class GetUserRolesQueryHandlerTests : IDisposable
             Id = 1001,
             Name = "Test User1",
             Surname = "Test Surname1",
-            Password = "Test Password1"
+            Password = "Test Password1",
+            Username = "Test Username"
         };
         var mockRole = new Role
         {
@@ -62,10 +63,14 @@ public class GetUserRolesQueryHandlerTests : IDisposable
 
         //Assert
         Assert.Equal(mockUserRoles[0].Id, result[0].Id);
-        Assert.Equal(mockUser.Name, result[0].UserName);
+        Assert.Equal(mockUser.Id, result[0].UserId);
+        Assert.Equal(mockUser.Username, result[0].UserName);
+        Assert.Equal(mockRole.Id, result[0].RoleId);
         Assert.Equal(mockRole.Name, result[0].RoleName);
         Assert.Equal(mockUserRoles[1].Id, result[1].Id);
-        Assert.Equal(mockUser.Name, result[1].UserName);
+        Assert.Equal(mockUser.Id, result[1].UserId);
+        Assert.Equal(mockUser.Username, result[1].UserName);
+        Assert.Equal(mockRole.Id, result[1].RoleId);
         Assert.Equal(mockRole.Name, result[1].RoleName);
     }
 }

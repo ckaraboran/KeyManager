@@ -23,7 +23,7 @@ public class GetUserRolesQueryHandler : IRequestHandler<GetUserRolesQuery, List<
                 RoleId = role.Id,
                 RoleName = role.Name,
                 UserId = user.Id,
-                UserName = user.Name
+                UserName = user.Username
             };
         return await query.AsNoTracking().ToListAsync(cancellationToken);
     }
